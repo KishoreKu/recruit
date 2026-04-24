@@ -1,0 +1,33 @@
+{
+  "extraKnownMarketplaces": {
+    "gstack-github": {
+      "source": {
+        "source": "github",
+        "repo": "garrytan/gstack"
+      },
+      "plugins": [
+        {
+          "name": "gstack",
+          "source": "./",
+          "description": "A plugin to interact with gstack"
+        }
+      ]
+    }
+  },
+  "enabledPlugins": {
+    "gstack@gstack-github": true
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Skill",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/check-gstack.sh\""
+          }
+        ]
+      }
+    ]
+  }
+}
