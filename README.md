@@ -116,6 +116,18 @@ Every push to the `main` branch automatically deploys to Firebase Hosting via Gi
 
 © 2026 Westley Resource. All rights reserved.
 
+## 🤖 gstack Skills
+
+This project uses [gstack](https://github.com/garrytan/gstack) for web browsing and automation tasks. When working on this project, use the `/browse` skill from gstack for all web browsing needs instead of other browser automation tools.
+
+### Available gstack Skills:
+- `/browse` - For web browsing and information gathering
+- `/qa` - Quality assurance testing
+- `/design-*` - Various design consultation and implementation skills
+- `/plan-*` - Planning and review skills
+- `/ship` / `/land-and-deploy` - Deployment and release skills
+- And many more - see CLAUDE.md for the complete list
+
 ## 🛠️ Technical Details
 
 - **HTML5**: Semantic markup
