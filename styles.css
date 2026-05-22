@@ -775,3 +775,441 @@ a:hover {
     padding: var(--spacing-xl) 0;
   }
 }
+
+/* ===================================
+   FDE Practice page
+   =================================== */
+
+.fde-section { padding-block: clamp(3rem, 6vw, 5rem); }
+
+.fde-section .section-heading {
+  font-family: var(--font-display);
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: var(--text-dark);
+}
+
+.fde-section .section-lead {
+  color: var(--text-muted);
+  max-width: 60ch;
+  margin-bottom: 2rem;
+}
+
+/* Generic grid + card primitives (used by What an FDE does, Engagement) */
+.fde-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.fde-card {
+  background: var(--light-surface);
+  border: 1px solid hsl(210, 15%, 90%);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px hsla(210, 15%, 90%, 0.4);
+}
+
+.fde-card h3 {
+  font-size: 1.1rem;
+  margin: 0.5rem 0 0.5rem;
+  color: var(--text-dark);
+}
+
+.fde-card p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.fde-card-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: var(--gradient-primary);
+}
+
+/* Partnerships strip */
+.fde-partners-strip {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.fde-partner-card {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 1.25rem;
+  background: var(--light-surface);
+  border: 1px solid hsl(210, 15%, 90%);
+  border-radius: 12px;
+}
+
+.fde-partner-card-pending {
+  border-style: dashed;
+  background: hsl(210, 20%, 98%);
+}
+
+.fde-partner-logo {
+  width: 80px;
+  height: 32px;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.fde-partner-body h3 {
+  margin: 0 0 0.25rem;
+  font-size: 1.05rem;
+  display: inline-block;
+  margin-right: 0.5rem;
+}
+
+.fde-partner-body p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.fde-partner-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  background: var(--primary-color);
+  color: white;
+  vertical-align: middle;
+}
+
+.fde-partner-badge-pending {
+  background: hsl(210, 8%, 80%);
+  color: var(--text-dark);
+}
+
+/* Certifications legend */
+.fde-cert-legend {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+.fde-cert-card {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 1.25rem;
+  background: var(--light-surface);
+  border: 1px solid hsl(210, 15%, 90%);
+  border-radius: 12px;
+}
+
+.fde-cert-badge {
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+}
+
+.fde-cert-card h3 {
+  margin: 0 0 0.25rem;
+  font-size: 1rem;
+  color: var(--text-dark);
+}
+
+.fde-cert-issuer {
+  margin: 0 0 0.5rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.fde-cert-blurb {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+/* Architect roster */
+.fde-roster {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.fde-architect-card {
+  background: var(--light-surface);
+  border: 1px solid hsl(210, 15%, 90%);
+  border-radius: 12px;
+  padding: 1.25rem;
+  text-align: center;
+}
+
+.fde-architect-photo {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 0.75rem;
+  display: block;
+}
+
+.fde-architect-body h3 {
+  margin: 0 0 0.25rem;
+  font-size: 1rem;
+  color: var(--text-dark);
+}
+
+.fde-architect-role {
+  margin: 0 0 0.5rem;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+}
+
+.fde-architect-badges {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-block: 0.75rem;
+}
+
+.fde-cert-mini {
+  width: 28px;
+  height: 28px;
+}
+
+.fde-cert-mini-muted {
+  opacity: 0.45;
+  filter: grayscale(0.8);
+}
+
+.fde-pill {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+}
+
+.fde-pill-training {
+  background: hsl(40, 90%, 92%);
+  color: hsl(30, 70%, 30%);
+}
+
+.fde-architect-linkedin {
+  display: inline-block;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.fde-architect-linkedin:hover {
+  text-decoration: underline;
+}
+
+/* FDE training tracks */
+.fde-tracks {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+.fde-track-card {
+  background: hsl(210, 20%, 98%);
+  border: 2px dashed hsl(210, 15%, 80%);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.fde-track-logo {
+  height: 48px;
+  width: auto;
+  margin-bottom: 0.75rem;
+}
+
+.fde-track-card h3 {
+  margin: 0 0 0.25rem;
+  color: var(--text-dark);
+}
+
+.fde-track-target {
+  margin: 0 0 0.75rem;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+.fde-track-blurb {
+  margin: 0 0 0.75rem;
+  font-size: 0.95rem;
+  color: var(--text-dark);
+}
+
+.fde-track-curriculum {
+  margin: 0 0 0.75rem;
+  padding-left: 1.25rem;
+  color: var(--text-muted);
+  font-size: 0.92rem;
+}
+
+.fde-track-curriculum li { margin-bottom: 0.25rem; }
+
+.fde-track-stats {
+  margin: 0 0 0.75rem;
+  font-size: 0.88rem;
+  color: var(--primary-dark);
+  font-weight: 500;
+}
+
+.fde-track-disclaimer {
+  margin: 0;
+  padding: 0.75rem;
+  background: hsl(40, 90%, 95%);
+  border-left: 3px solid hsl(30, 70%, 50%);
+  font-size: 0.85rem;
+  color: var(--text-dark);
+}
+
+/* Engagement model cards */
+.fde-engagement-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.fde-engagement-timeline {
+  margin: 0 0 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--primary-dark);
+}
+
+.fde-engagement-fit {
+  margin-top: auto;
+  padding-top: 0.75rem;
+  border-top: 1px solid hsl(210, 15%, 92%);
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* FAQ */
+.fde-faq {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 760px;
+  margin-inline: auto;
+}
+
+.fde-faq-item {
+  background: var(--light-surface);
+  border: 1px solid hsl(210, 15%, 90%);
+  border-radius: 8px;
+  padding: 0;
+}
+
+.fde-faq-item summary {
+  cursor: pointer;
+  padding: 1rem 1.25rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  list-style: none;
+}
+
+.fde-faq-item summary::-webkit-details-marker { display: none; }
+
+.fde-faq-item summary::after {
+  content: '+';
+  float: right;
+  font-weight: 400;
+  font-size: 1.25rem;
+  color: var(--text-muted);
+}
+
+.fde-faq-item[open] summary::after { content: '\2013'; }
+
+.fde-faq-item p {
+  margin: 0;
+  padding: 0 1.25rem 1.25rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.fde-faq-item summary:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: -2px;
+  border-radius: 8px;
+}
+
+/* Sticky in-page sub-nav */
+.fde-subnav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--light-surface);
+  border-bottom: 1px solid hsl(210, 15%, 90%);
+  box-shadow: 0 1px 3px hsla(210, 15%, 0%, 0.04);
+}
+
+.fde-subnav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0.75rem 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.fde-subnav ul::-webkit-scrollbar { display: none; }
+
+.fde-subnav a {
+  text-decoration: none;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap;
+  padding: 0.25rem 0;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.fde-subnav a:hover { color: var(--text-dark); }
+
+.fde-subnav a.fde-subnav-active {
+  color: var(--primary-color);
+  border-bottom-color: var(--primary-color);
+}
+
+@media (max-width: 640px) {
+  .fde-subnav ul { padding-block: 0.6rem; gap: 1.25rem; }
+}
+
+/* Final CTA */
+.fde-final-cta { background: hsl(210, 20%, 97%); }
+
+.fde-final-cta .container { max-width: 760px; }
+
+.fde-final-cta p {
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.fde-secondary-cta {
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.fde-secondary-cta a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.fde-secondary-cta a:hover { text-decoration: underline; }

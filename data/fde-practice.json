@@ -1,0 +1,117 @@
+{
+  "feature_flags": {
+    "partnerships_strip_visible": true,
+    "roster_visible": true,
+    "specializations_visible": true
+  },
+
+  "what_fde_does": [
+    { "icon": "embed",    "title": "Embed",    "body": "Our FDEs work inside your team's tools, repos, and standups. They're not consultants on a Zoom — they're shipping with your engineers from day one." },
+    { "icon": "build",    "title": "Build",    "body": "Production code, not slideware. FDEs leave behind running systems, tested, deployed, owned by your team." },
+    { "icon": "transfer", "title": "Transfer", "body": "Every engagement ends with knowledge transfer. We document, pair, and review until your team can extend the work without us." },
+    { "icon": "certify",  "title": "Certify",  "body": "Every FDE on our bench carries credentials from at least one major vendor ecosystem. You're hiring verifiable skill, not just a résumé." }
+  ],
+
+  "partnerships": [
+    {
+      "id": "anthropic",
+      "name": "Anthropic",
+      "logo": "assets/partners/anthropic.svg",
+      "blurb_announceable": "Claude Partner Network member. Our architects hold Claude Certified Architect Foundations (CCAF) and ship production Claude integrations.",
+      "blurb_pre_announce": "Our team is training through Anthropic Academy and is on the path to Claude Certified Architect Foundations (CCAF) certification.",
+      "announceable": false
+    },
+    {
+      "id": "microsoft",
+      "name": "Microsoft",
+      "logo": "assets/partners/microsoft.svg",
+      "blurb_announceable": "Microsoft partner with Azure-certified architects across AI Services, Fabric, and Solutions Architecture.",
+      "announceable": true
+    },
+    {
+      "id": "aws",
+      "name": "AWS",
+      "logo": "assets/partners/aws.svg",
+      "blurb_announceable": "AWS partner. Our bench includes Solutions Architect Professional and Machine Learning Specialty certified engineers.",
+      "announceable": true
+    },
+    {
+      "id": "google",
+      "name": "Google Cloud",
+      "logo": "assets/partners/google.svg",
+      "blurb_announceable": "Google Cloud partner with Professional Cloud Architect and Professional Machine Learning Engineer certified staff.",
+      "announceable": true
+    },
+    {
+      "id": "databricks",
+      "name": "Databricks",
+      "logo": "assets/partners/databricks.svg",
+      "blurb_announceable": "Databricks partner. Our engineers hold Data Engineer Professional and Machine Learning Professional certifications.",
+      "announceable": true
+    },
+    {
+      "id": "adobe",
+      "name": "Adobe",
+      "logo": "assets/partners/adobe.svg",
+      "blurb_announceable": "Adobe partner working across Experience Platform, AEM, and Real-Time CDP implementations.",
+      "announceable": true
+    }
+  ],
+
+  "training_tracks": [
+    {
+      "id": "palantir-fde",
+      "name": "Palantir Forward Deployed Engineer",
+      "target_employer": "Palantir",
+      "logo": "assets/tracks/palantir.svg",
+      "blurb": "We train candidates against the Palantir FDE archetype: ontology design, Foundry and AIP fluency, and customer-embedded delivery practices.",
+      "curriculum": [
+        "Ontology design fundamentals",
+        "Foundry and AIP hands-on labs",
+        "Customer-embedded delivery practices",
+        "Stakeholder communication and discovery"
+      ],
+      "candidates_training": 4,
+      "candidates_ready": 0,
+      "disclaimer": "Westley is not a Palantir partner. This track prepares candidates for the Palantir FDE role pattern."
+    }
+  ],
+
+  "certifications": [
+    { "id": "ccaf",          "name": "Claude Certified Architect Foundations", "issuer": "Anthropic", "badge": "assets/certs/ccaf.svg",          "blurb": "Anthropic's foundational architect certification covering Claude API design patterns, evaluation, safety, and enterprise integration." },
+    { "id": "aws-sa-pro",    "name": "AWS Solutions Architect Pro",            "issuer": "AWS",       "badge": "assets/certs/aws-sa-pro.svg",    "blurb": "Senior-level AWS architecture certification covering multi-account, multi-region, and cost-optimized design." },
+    { "id": "azure-sa",      "name": "Azure Solutions Architect Expert",       "issuer": "Microsoft", "badge": "assets/certs/azure-sa.svg",      "blurb": "Azure expert architect credential covering compute, networking, storage, and security at scale." },
+    { "id": "gcp-pca",       "name": "GCP Professional Cloud Architect",       "issuer": "Google",    "badge": "assets/certs/gcp-pca.svg",       "blurb": "Google Cloud's professional architect certification covering design, planning, and operations on GCP." },
+    { "id": "databricks-de", "name": "Databricks Data Engineer Professional",  "issuer": "Databricks","badge": "assets/certs/databricks-de.svg", "blurb": "Databricks' professional certification for production data engineering on the Lakehouse platform." }
+  ],
+
+  "architects": [
+    { "name": "Architect 1",  "role": "Senior FDE",    "photo": "assets/team/placeholder.svg", "cert_ids": ["ccaf", "aws-sa-pro"],    "linkedin": "https://www.linkedin.com/in/", "in_training": true },
+    { "name": "Architect 2",  "role": "Senior FDE",    "photo": "assets/team/placeholder.svg", "cert_ids": ["ccaf", "azure-sa"],      "linkedin": "https://www.linkedin.com/in/", "in_training": true },
+    { "name": "Architect 3",  "role": "Senior FDE",    "photo": "assets/team/placeholder.svg", "cert_ids": ["ccaf", "gcp-pca"],       "linkedin": "https://www.linkedin.com/in/", "in_training": true },
+    { "name": "Architect 4",  "role": "Senior FDE",    "photo": "assets/team/placeholder.svg", "cert_ids": ["ccaf", "databricks-de"], "linkedin": "https://www.linkedin.com/in/", "in_training": true },
+    { "name": "Architect 5",  "role": "Mid-level FDE", "photo": "assets/team/placeholder.svg", "cert_ids": ["ccaf"],                  "linkedin": "https://www.linkedin.com/in/", "in_training": true },
+    { "name": "Architect 6",  "role": "Mid-level FDE", "photo": "assets/team/placeholder.svg", "cert_ids": ["ccaf"],                  "linkedin": "https://www.linkedin.com/in/", "in_training": true },
+    { "name": "Architect 7",  "role": "Mid-level FDE", "photo": "assets/team/placeholder.svg", "cert_ids": ["ccaf"],                  "linkedin": "https://www.linkedin.com/in/", "in_training": true },
+    { "name": "Architect 8",  "role": "Mid-level FDE", "photo": "assets/team/placeholder.svg", "cert_ids": ["ccaf"],                  "linkedin": "https://www.linkedin.com/in/", "in_training": true },
+    { "name": "Architect 9",  "role": "Junior FDE",    "photo": "assets/team/placeholder.svg", "cert_ids": ["ccaf"],                  "linkedin": "https://www.linkedin.com/in/", "in_training": true },
+    { "name": "Architect 10", "role": "Junior FDE",    "photo": "assets/team/placeholder.svg", "cert_ids": ["ccaf"],                  "linkedin": "https://www.linkedin.com/in/", "in_training": true }
+  ],
+
+  "engagement_models": [
+    { "id": "staff-aug",   "title": "Staff augmentation",    "timeline": "1–6 months", "body": "An FDE joins your team full-time for the engagement, billed weekly. You direct the work; we handle the talent.", "fit": "Best when you have a clear roadmap but need senior capacity now." },
+    { "id": "fixed-scope", "title": "Fixed-scope project",   "timeline": "4–12 weeks", "body": "We scope a defined deliverable — a Claude integration, a data pipeline, an MLOps stack — and ship it on a fixed bid.", "fit": "Best when the outcome is clear but the path is uncertain." },
+    { "id": "direct-hire", "title": "Direct-hire placement", "timeline": "30–60 days", "body": "We source, vet, and present FDE candidates for your team. You employ them directly; we charge a placement fee.", "fit": "Best when you want long-term ownership and headcount." }
+  ],
+
+  "faq": [
+    { "q": "How quickly can you put an FDE on-site?",        "a": "For staff augmentation, typically two to three weeks from signed engagement to first day. Fixed-scope projects begin once scope is locked, usually inside a week. Direct-hire placement runs 30–60 days end to end." },
+    { "q": "How do you price engagements?",                  "a": "Staff augmentation: a weekly rate based on FDE seniority. Fixed-scope project: a fixed bid based on scope and risk. Direct-hire placement: a one-time fee based on first-year compensation. Specifics in the discovery call." },
+    { "q": "What about NDAs and IP?",                        "a": "All engagements operate under mutual NDA. IP for fixed-scope and staff-augmentation work transfers to the client on payment. Direct-hire candidates own their own IP, of course." },
+    { "q": "How are FDEs vetted?",                           "a": "Every FDE on our bench holds at least one major-vendor certification, has shipped production code, and has been interviewed by our delivery leads. We don't put generalists in front of clients." },
+    { "q": "What if there's a mismatch in the first weeks?", "a": "We replace the FDE inside 10 business days, at no additional cost. Mismatches are usually a signal we missed something in scoping; the replacement comes with a recalibrated brief." },
+    { "q": "What's your geographic coverage?",               "a": "Primarily US-based engineers, available for remote engagement worldwide and on-site work in North America. EMEA and APAC coverage growing through 2026." },
+    { "q": "Can we trial an FDE before a full engagement?",  "a": "Yes. We offer a two-week trial against a defined task; if you don't want to continue, you owe the two weeks and nothing more." },
+    { "q": "What happens at the end of an engagement?",      "a": "A documented handoff: code reviewed, systems documented, a transition session with your team, and 30 days of post-engagement availability for questions." }
+  ]
+}
