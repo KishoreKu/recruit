@@ -9,7 +9,13 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    
+    # Surface Dynatrace secrets as env vars so the step below can test for their
+    # presence. The `secrets` context is not available in a step-level `if:`,
+    # but `env` is.
+    env:
+      DT_URL: ${{ secrets.DT_URL }}
+      DT_TOKEN: ${{ secrets.DT_TOKEN }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -23,10 +29,14 @@ jobs:
           projectId: westleyresource-5131d
 
       - name: Send deployment event to Dynatrace
+        # Only run when Dynatrace secrets are configured. Without this guard the
+        # action fails with `Input "url" is required` and marks the whole deploy
+        # run red, even though the Firebase deploy above already succeeded.
+        if: ${{ env.DT_URL != '' && env.DT_TOKEN != '' }}
         uses: dynatrace-oss/dynatrace-github-action@v9
         with:
-          url: ${{ secrets.DT_URL }}
-          token: ${{ secrets.DT_TOKEN }}
+          url: ${{ env.DT_URL }}
+          token: ${{ env.DT_TOKEN }}
           events: |
             - type: CUSTOM_DEPLOYMENT
               properties:
