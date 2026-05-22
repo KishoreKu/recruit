@@ -1,7 +1,7 @@
 {
   "feature_flags": {
     "partnerships_strip_visible": true,
-    "roster_visible": true,
+    "roster_visible": false,
     "specializations_visible": true
   },
 
