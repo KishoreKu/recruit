@@ -174,8 +174,57 @@
                         </select>
                     </div>
 
-                    <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">Send Message</button>
+                    <button type="submit" id="contact-submit" class="btn btn-primary btn-lg" style="width: 100%;">Send Message</button>
+                    <div id="contact-feedback" style="display:none; margin-top: var(--spacing-md); padding: var(--spacing-md); border-radius: 8px; text-align: center;"></div>
                 </form>
+
+                <script>
+                document.querySelector('form').addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    const btn = document.getElementById('contact-submit');
+                    const feedback = document.getElementById('contact-feedback');
+
+                    btn.disabled = true;
+                    btn.textContent = 'Sending...';
+                    feedback.style.display = 'none';
+
+                    const payload = {
+                        type: document.getElementById('contact-type').value,
+                        name: document.getElementById('contact-name').value,
+                        company: document.getElementById('contact-company').value,
+                        email: document.getElementById('contact-email').value,
+                        phone: document.getElementById('contact-phone').value,
+                        subject: document.getElementById('contact-subject').value,
+                        message: document.getElementById('contact-message').value,
+                        hearAbout: document.getElementById('contact-hear').value,
+                    };
+
+                    try {
+                        const res = await fetch('/api/contact', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload),
+                        });
+                        const data = await res.json();
+                        if (res.ok) {
+                            feedback.style.background = '#d1fae5';
+                            feedback.style.color = '#065f46';
+                            feedback.textContent = 'Message sent! We\'ll be in touch within 24 hours.';
+                            e.target.reset();
+                        } else {
+                            throw new Error(data.error || 'Send failed');
+                        }
+                    } catch (err) {
+                        feedback.style.background = '#fee2e2';
+                        feedback.style.color = '#991b1b';
+                        feedback.textContent = 'Something went wrong. Please email us directly at support@westleyresource.com';
+                    } finally {
+                        btn.disabled = false;
+                        btn.textContent = 'Send Message';
+                        feedback.style.display = 'block';
+                    }
+                });
+                </script>
             </div>
         </div>
     </section>

@@ -25,6 +25,10 @@ yarn-error.log*
 .env.local
 .env.*.local
 
+# Dependencies
+node_modules/
+**/node_modules/
+
 # Temporary files
 *.tmp
 *.temp

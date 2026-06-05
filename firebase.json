@@ -1,4 +1,7 @@
 {
+  "functions": {
+    "source": "functions"
+  },
   "hosting": {
     "public": ".",
     "ignore": [
@@ -8,6 +11,10 @@
       "README.md"
     ],
     "rewrites": [
+      {
+        "source": "/api/contact",
+        "function": "contact"
+      },
       {
         "source": "**",
         "destination": "/index.html"
