@@ -65,7 +65,7 @@ exports.contact = onRequest(
                 <p style="white-space:pre-wrap;">${message}</p>
               `,
             },
-            toRecipients: [{ emailAddress: { address: MS_SENDER.value() } }],
+            toRecipients: [{ emailAddress: { address: sender } }],
             replyTo: [{ emailAddress: { address: email, name } }],
           },
         },
