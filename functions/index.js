@@ -46,6 +46,7 @@ exports.contact = onRequest(
       await axios.post(
         `https://graph.microsoft.com/v1.0/users/${sender}/sendMail`,
         {
+          saveToSentItems: false,
           message: {
             subject: `[Contact Form] ${subject}`,
             body: {
