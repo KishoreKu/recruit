@@ -113,7 +113,7 @@
             </div>
 
             <div style="max-width: 800px; margin: 0 auto;">
-                <form class="card" style="padding: var(--spacing-xl);">
+                <form id="contact-form" class="card" style="padding: var(--spacing-xl);">
                     <div class="form-group">
                         <label for="contact-type" class="form-label">I am a... *</label>
                         <select id="contact-type" class="form-select" required>
@@ -179,8 +179,10 @@
                 </form>
 
                 <script>
-                document.querySelector('form').addEventListener('submit', async function(e) {
+                document.getElementById('contact-form').addEventListener('submit', async function(e) {
                     e.preventDefault();
+                    e.stopImmediatePropagation(); // Prevent script.js from handling this form
+
                     const btn = document.getElementById('contact-submit');
                     const feedback = document.getElementById('contact-feedback');
 
@@ -205,19 +207,27 @@
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify(payload),
                         });
-                        const data = await res.json();
+                        
+                        let data;
+                        try {
+                            data = await res.json();
+                        } catch (parseErr) {
+                            throw new Error('Server returned an invalid response. Please try again later.');
+                        }
+
                         if (res.ok) {
                             feedback.style.background = '#d1fae5';
                             feedback.style.color = '#065f46';
                             feedback.textContent = 'Message sent! We\'ll be in touch within 24 hours.';
                             e.target.reset();
                         } else {
-                            throw new Error(data.error || 'Send failed');
+                            throw new Error(data.error || `Error ${res.status}: Failed to send message`);
                         }
                     } catch (err) {
                         feedback.style.background = '#fee2e2';
                         feedback.style.color = '#991b1b';
-                        feedback.textContent = 'Something went wrong. Please email us directly at support@westleyresource.com';
+                        feedback.textContent = err.message || 'Something went wrong. Please email us directly at support@westleyresource.com';
+                        console.error('Contact form error:', err);
                     } finally {
                         btn.disabled = false;
                         btn.textContent = 'Send Message';

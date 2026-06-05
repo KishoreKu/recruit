@@ -32,14 +32,19 @@ exports.contact = onRequest(
     }
 
     try {
-      const token = await getAccessToken(
-        MS_TENANT_ID.value(),
-        MS_CLIENT_ID.value(),
-        MS_CLIENT_SECRET.value()
-      );
+      const tenantId = MS_TENANT_ID.value();
+      const clientId = MS_CLIENT_ID.value();
+      const clientSecret = MS_CLIENT_SECRET.value();
+      const sender = MS_SENDER.value();
+
+      if (!tenantId || !clientId || !clientSecret || !sender) {
+        throw new Error('Backend configuration error: Missing secrets');
+      }
+
+      const token = await getAccessToken(tenantId, clientId, clientSecret);
 
       await axios.post(
-        `https://graph.microsoft.com/v1.0/users/${MS_SENDER.value()}/sendMail`,
+        `https://graph.microsoft.com/v1.0/users/${sender}/sendMail`,
         {
           message: {
             subject: `[Contact Form] ${subject}`,
@@ -69,8 +74,9 @@ exports.contact = onRequest(
 
       res.json({ success: true });
     } catch (err) {
+      const errorMessage = err.response?.data?.error?.message || err.message;
       console.error('Contact email error:', err.response?.data || err.message);
-      res.status(500).json({ error: 'Failed to send message' });
+      res.status(500).json({ error: `Failed to send message: ${errorMessage}` });
     }
   }
 );
