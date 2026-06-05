@@ -32,10 +32,10 @@ exports.contact = onRequest(
     }
 
     try {
-      const tenantId = MS_TENANT_ID.value().trim();
-      const clientId = MS_CLIENT_ID.value().trim();
-      const clientSecret = MS_CLIENT_SECRET.value().trim();
-      const sender = MS_SENDER.value().trim();
+      const tenantId = MS_TENANT_ID.value().replace(/\s+/g, '');
+      const clientId = MS_CLIENT_ID.value().replace(/\s+/g, '');
+      const clientSecret = MS_CLIENT_SECRET.value().replace(/\s+/g, '');
+      const sender = MS_SENDER.value().replace(/\s+/g, '');
 
       if (!tenantId || !clientId || !clientSecret || !sender) {
         throw new Error('Backend configuration error: Missing secrets');
