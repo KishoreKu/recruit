@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentic AI Architecture for Automated Candidate Placement</title>
+    <style>
+        :root {
+            --primary-color: hsl(210, 60%, 45%);
+            --secondary-color: hsl(200, 20%, 50%);
+            --bg-color: #f8f9fa;
+            --text-color: #333;
+            --card-bg: #fff;
+            --border-radius: 8px;
+        }
+        body {
+            font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 2rem;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        h1, h2, h3 {
+            color: var(--primary-color);
+            margin-top: 1.5em;
+        }
+        h1 {
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+        }
+        pre {
+            background-color: #f1f3f5;
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            overflow-x: auto;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #f1f3f5;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+        }
+        .mermaid {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 1rem;
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius);
+        }
+    </style>
+    <!-- Include Mermaid.js for the diagram -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Agentic AI Architecture for Automated Candidate Placement</h1>
+        
+        <p>This document outlines a fully automated, agent-driven architecture for a complete staffing lifecycle, spanning Candidate Intake (ATS), Job Requisition (VMS), and Automated Placement. The design utilizes the <strong>Model Context Protocol (MCP)</strong> to decouple reasoning agents from external tools and databases, and incorporates <strong>self-healing</strong> loops to ensure resilient operation.</p>
+
+        <h2>1. System Overview</h2>
+        <p>The architecture is built around a central <strong>Orchestrator Agent</strong> that delegates specialized tasks to a fleet of autonomous sub-agents. Each sub-agent communicates with external systems (Databases, Email, VMS portals) exclusively through standard <strong>MCP Servers</strong>.</p>
+
+        <div class="mermaid">
+        graph TD
+            A[Orchestrator Agent] --> B(Intake & ATS Agent)
+            A --> C(VMS & Requisition Agent)
+            A --> D(Matching & Outreach Agent)
+            A --> E(Submission Agent)
+            A --> F(Self-Healing Monitor Agent)
+            
+            B -.-> S1[ATS MCP Server]
+            C -.-> S2[VMS Integrations MCP Server]
+            D -.-> S3[Communication MCP Server]
+            D -.-> S1
+            D -.-> S2
+            E -.-> S2
+            F -.-> S1 & S2 & S3
+        </div>
+
+        <h2>2. Model Context Protocol (MCP) Server Ecosystem</h2>
+        <p>Instead of hardcoding API integrations into the agents, we expose capabilities via MCP servers. This allows seamless agent capability expansion.</p>
+        <ol>
+            <li><strong>ATS MCP Server</strong>:
+                <ul>
+                    <li><strong>Backend</strong>: Postgres/Supabase with <code>vector(768)</code>.</li>
+                    <li><strong>Tools Exposed</strong>: <code>add_candidate(resume_data)</code>, <code>update_candidate_status(id, status)</code>, <code>semantic_search_candidates(job_description)</code>.</li>
+                </ul>
+            </li>
+            <li><strong>VMS Integrations MCP Server</strong>:
+                <ul>
+                    <li><strong>Backend</strong>: Headless browser automation (Playwright/Puppeteer) and API clients.</li>
+                    <li><strong>Tools Exposed</strong>: <code>fetch_new_requisitions()</code>, <code>submit_candidate(job_id, candidate_profile)</code>, <code>check_submission_status(submission_id)</code>.</li>
+                </ul>
+            </li>
+            <li><strong>Communication MCP Server</strong>:
+                <ul>
+                    <li><strong>Backend</strong>: Microsoft Graph API, Twilio, WhatsApp.</li>
+                    <li><strong>Tools Exposed</strong>: <code>send_email(to, subject, body)</code>, <code>send_sms(to, message)</code>, <code>read_inbox()</code>.</li>
+                </ul>
+            </li>
+        </ol>
+
+        <h2>3. Specialized Agent Fleet</h2>
+        
+        <h3>3.1. Intake & ATS Agent (The Recruiter)</h3>
+        <ul>
+            <li><strong>Role</strong>: Automatically processes inbound candidate resumes.</li>
+            <li><strong>Workflow</strong>:
+                <ol>
+                    <li>Detects new resume via Communication MCP.</li>
+                    <li>Extracts skills, experience, and generates a 768-dimensional embedding.</li>
+                    <li>Uses the ATS MCP to create/update the candidate profile.</li>
+                </ol>
+            </li>
+        </ul>
+
+        <h3>3.2. VMS & Requisition Agent (The Account Manager)</h3>
+        <ul>
+            <li><strong>Role</strong>: Continuously polls VMS platforms for new job openings.</li>
+            <li><strong>Workflow</strong>:
+                <ol>
+                    <li>Uses VMS MCP to fetch new jobs.</li>
+                    <li>Parses job descriptions and stores them in the vector database.</li>
+                    <li>Alerts the Orchestrator that a new requisition is open.</li>
+                </ol>
+            </li>
+        </ul>
+
+        <h3>3.3. Matching & Outreach Agent (The Sourcer)</h3>
+        <ul>
+            <li><strong>Role</strong>: Finds the right candidate for the job and gains their consent.</li>
+            <li><strong>Workflow</strong>:
+                <ol>
+                    <li>Triggered by a new job requisition.</li>
+                    <li>Calls <code>semantic_search_candidates</code> on ATS MCP to find the top matches.</li>
+                    <li>Uses Communication MCP to send hyper-personalized emails/SMS asking for RTR.</li>
+                    <li>Waits for and parses reply. If "Yes", notifies Orchestrator.</li>
+                </ol>
+            </li>
+        </ul>
+
+        <h3>3.4. Submission Agent (The Coordinator)</h3>
+        <ul>
+            <li><strong>Role</strong>: Formats candidate data and officially submits them to the VMS.</li>
+            <li><strong>Workflow</strong>:
+                <ol>
+                    <li>Retrieves candidate data and explicit consent.</li>
+                    <li>Uses VMS MCP <code>submit_candidate</code> tool.</li>
+                    <li>Logs the submission ID in the ATS.</li>
+                </ol>
+            </li>
+        </ul>
+
+        <h2>4. Self-Healing & Resilience Mechanisms</h2>
+        <p>To ensure "all agents run successfully" without human intervention, a dedicated <strong>Self-Healing Loop</strong> is essential.</p>
+        <ol>
+            <li><strong>VMS Schema Drift Detection</strong>:
+                <ul>
+                    <li><em>Failure</em>: VMS Agent fails to submit because the VMS added a new required field (e.g., "Visa Status").</li>
+                    <li><em>Healing</em>: The Submission Agent catches the error, spawns a temporary Outreach Agent to email the candidate: "We need your Visa Status". Once replied, the Submission Agent retries.</li>
+                </ul>
+            </li>
+            <li><strong>Communication Failures</strong>:
+                <ul>
+                    <li><em>Failure</em>: Email bounces or API token expires.</li>
+                    <li><em>Healing</em>: The Monitor Agent triggers a token refresh sequence and instructs the Outreach Agent to fallback to SMS.</li>
+                </ul>
+            </li>
+            <li><strong>Infinite Loop Prevention (Circuit Breakers)</strong>:
+                <ul>
+                    <li>Agents maintain a state token. After 3 failed attempts, the Orchestrator places the task in a "Human Review Queue".</li>
+                </ul>
+            </li>
+        </ol>
+
+        <h2>5. Fully Automated Lifecycle Example</h2>
+        <ol>
+            <li><strong>Event</strong>: VMS Agent detects a "Senior Cloud Architect" role.</li>
+            <li><strong>Matching</strong>: Matching Agent queries ATS, finds Candidate A (95% match).</li>
+            <li><strong>Outreach</strong>: Matching Agent emails Candidate A.</li>
+            <li><strong>Response</strong>: Candidate A replies "I'm interested. Please submit me."</li>
+            <li><strong>Submission</strong>: Orchestrator triggers Submission Agent.</li>
+            <li><strong>Self-Healing Trigger</strong>: Profile is missing the required "Expected Bill Rate".</li>
+            <li><strong>Correction</strong>: Outreach Agent texts Candidate A asking for their rate. Candidate replies "85/hr".</li>
+            <li><strong>Finalization</strong>: ATS is updated, Submission Agent successfully submits to VMS. Orchestrator logs success.</li>
+        </ol>
+    </div>
+</body>
+</html>

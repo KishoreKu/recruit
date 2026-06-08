@@ -342,7 +342,7 @@
             </div>
 
             <div style="max-width: 700px; margin: 0 auto;">
-                <form class="card" style="padding: var(--spacing-xl);">
+                <form id="resume-form" class="card" style="padding: var(--spacing-xl);">
                     <div class="grid grid-2">
                         <div class="form-group">
                             <label for="candidate-name" class="form-label">Full Name *</label>
@@ -410,14 +410,84 @@
 
                     <div class="form-group">
                         <label class="form-label">Resume/CV *</label>
-                        <input type="file" class="form-input" accept=".pdf,.doc,.docx" required>
+                        <input type="file" id="candidate-resume" class="form-input" accept=".pdf,.doc,.docx" required>
                         <p style="color: var(--text-muted); font-size: 0.875rem; margin-top: var(--spacing-xs);">
                             Accepted formats: PDF, DOC, DOCX (Max 5MB)</p>
                     </div>
 
-                    <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">Submit
-                        Application</button>
+                    <div id="submit-feedback" style="display: none; padding: 1rem; border-radius: var(--radius-sm); margin-top: var(--spacing-md); margin-bottom: var(--spacing-md); font-weight: 500; font-size: 0.9375rem;"></div>
+
+                    <button type="submit" id="resume-submit" class="btn btn-primary btn-lg" style="width: 100%;">Submit Application</button>
                 </form>
+
+                <script>
+                document.getElementById('resume-form').addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+                    
+                    const feedback = document.getElementById('submit-feedback');
+                    const form = document.getElementById('resume-form');
+                    const btn = document.getElementById('resume-submit');
+                    
+                    btn.disabled = true;
+                    btn.textContent = 'Uploading & Analyzing...';
+                    feedback.style.display = 'none';
+                    feedback.textContent = '';
+                    
+                    const formData = new FormData();
+                    formData.append('file', document.getElementById('candidate-resume').files[0]);
+                    formData.append('name', document.getElementById('candidate-name').value);
+                    formData.append('email', document.getElementById('candidate-email').value);
+                    formData.append('phone', document.getElementById('candidate-phone').value);
+                    formData.append('location', document.getElementById('candidate-location').value);
+                    formData.append('role', document.getElementById('candidate-role').value);
+                    formData.append('skills', document.getElementById('candidate-skills').value);
+                    formData.append('experience', document.getElementById('candidate-experience').value);
+                    formData.append('linkedin', document.getElementById('candidate-linkedin').value);
+                    formData.append('github', document.getElementById('candidate-github').value);
+                    formData.append('message', document.getElementById('candidate-message').value);
+                    
+                    try {
+                        const res = await fetch('https://westley-agents.kindtree-748f04e0.centralus.azurecontainerapps.io/ingest-resume-file', {
+                            method: 'POST',
+                            body: formData
+                        });
+                        
+                        let data;
+                        try {
+                            data = await res.json();
+                        } catch (parseErr) {
+                            throw new Error('Server returned an invalid response. Please try again later.');
+                        }
+                        
+                        if (res.ok) {
+                            feedback.style.background = '#d1fae5';
+                            feedback.style.color = '#065f46';
+                            feedback.textContent = 'Application submitted successfully! Our AI agents are parsing your resume and will match you against open roles immediately.';
+                            form.reset();
+                        } else {
+                            let errMsg = `Error ${res.status}: `;
+                            if (Array.isArray(data.detail)) {
+                                errMsg += data.detail.map(err => `${err.loc.join('.')}: ${err.msg}`).join(', ');
+                            } else if (typeof data.detail === 'string') {
+                                errMsg += data.detail;
+                            } else {
+                                errMsg += 'Failed to submit resume';
+                            }
+                            throw new Error(errMsg);
+                        }
+                    } catch (err) {
+                        feedback.style.background = '#fee2e2';
+                        feedback.style.color = '#991b1b';
+                        feedback.textContent = err.message || 'Something went wrong. Please try again or email us directly at support@westleyresource.com';
+                        console.error('Resume submission error:', err);
+                    } finally {
+                        btn.disabled = false;
+                        btn.textContent = 'Submit Application';
+                        feedback.style.display = 'block';
+                    }
+                });
+                </script>
             </div>
         </div>
     </section>

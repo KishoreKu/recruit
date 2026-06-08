@@ -1,0 +1,5957 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {
+    "hyperedges": [
+      {
+        "id": "contact_form_infrastructure",
+        "label": "Contact Form Infrastructure",
+        "nodes": [
+          "westleyresource_gemini_contact_form",
+          "westleyresource_gemini_microsoft_graph_api",
+          "westleyresource_gemini_firebase_secret_manager",
+          "westleyresource_script_form_validation"
+        ],
+        "relation": "participate_in",
+        "confidence": "INFERRED",
+        "confidence_score": 0.85,
+        "source_file": "GEMINI.md"
+      },
+      {
+        "id": "vms_job_aggregator_frontend",
+        "label": "VMS Job Aggregator React Frontend",
+        "nodes": [
+          "src_app_router",
+          "pages_admindashboard_component",
+          "pages_jobdetail_component",
+          "pages_joblist_component"
+        ],
+        "relation": "form",
+        "confidence": "INFERRED",
+        "confidence_score": 0.95,
+        "source_file": "client/src/App.jsx"
+      },
+      {
+        "id": "career_coach_backend",
+        "label": "Career Coach Backend Services",
+        "nodes": [
+          "carrercoach_server_stripe_integration",
+          "carrercoach_server_auth_routes",
+          "carrercoach_server_payment_routes",
+          "carrercoach_server_ai_routes",
+          "carrercoach_server_authmiddleware"
+        ],
+        "relation": "form",
+        "confidence": "INFERRED",
+        "confidence_score": 0.95,
+        "source_file": "carrercoach/server.js"
+      },
+      {
+        "id": "fde_practice_page_system",
+        "label": "FDE Practice Page Content System",
+        "nodes": [
+          "data_fde_practice_content",
+          "data_fde_practice_schema_doc",
+          "plans_2026_05_18_fde_practice_page_plan",
+          "plans_2026_05_18_fde_practice_page_fde_practice"
+        ],
+        "relation": "participate_in",
+        "confidence": "INFERRED",
+        "confidence_score": 0.85,
+        "source_file": "docs/superpowers/plans/2026-05-18-fde-practice-page.md"
+      },
+      {
+        "id": "db_connections",
+        "label": "Database Connections",
+        "nodes": [
+          "config_db_connectmongo",
+          "config_db_connectpostgres",
+          "config_db_pool"
+        ],
+        "relation": "form",
+        "confidence": "EXTRACTED",
+        "confidence_score": 1.0,
+        "source_file": "server/config/db.js"
+      },
+      {
+        "id": "controllers_group",
+        "label": "API Controllers",
+        "nodes": [
+          "controllers_admincontroller_getrawmessages",
+          "controllers_admincontroller_approverawmessage",
+          "controllers_admincontroller_finalizejob",
+          "controllers_contactcontroller_submitcontact",
+          "controllers_jobcontroller_getjobs",
+          "controllers_jobcontroller_getjobbyid",
+          "controllers_jobcontroller_processrawjob"
+        ],
+        "relation": "form",
+        "confidence": "INFERRED",
+        "confidence_score": 0.85,
+        "source_file": "server/controllers/adminController.js"
+      }
+    ]
+  },
+  "nodes": [
+    {
+      "label": "check-gstack.sh",
+      "file_type": "code",
+      "source_file": ".claude/hooks/check-gstack.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "file"
+      },
+      "id": "hooks_check_gstack",
+      "community": 18,
+      "norm_label": "check-gstack.sh"
+    },
+    {
+      "label": "check-gstack.sh script",
+      "file_type": "code",
+      "source_file": ".claude/hooks/check-gstack.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_entrypoint"
+      },
+      "id": "users_kishorekumar_cascadeprojects_westleyresource_claude_hooks_check_gstack_sh__entry",
+      "community": 18,
+      "norm_label": "check-gstack.sh script"
+    },
+    {
+      "label": "settings.json",
+      "file_type": "code",
+      "source_file": ".claude/settings.json",
+      "source_location": "L1",
+      "id": "claude_settings",
+      "community": 10,
+      "norm_label": "settings.json"
+    },
+    {
+      "label": "extraKnownMarketplaces",
+      "file_type": "code",
+      "source_file": ".claude/settings.json",
+      "source_location": "L2",
+      "id": "claude_settings_extraknownmarketplaces",
+      "community": 10,
+      "norm_label": "extraknownmarketplaces"
+    },
+    {
+      "label": "gstack-github",
+      "file_type": "code",
+      "source_file": ".claude/settings.json",
+      "source_location": "L3",
+      "id": "claude_settings_extraknownmarketplaces_gstack_github",
+      "community": 10,
+      "norm_label": "gstack-github"
+    },
+    {
+      "label": "source",
+      "file_type": "code",
+      "source_file": ".claude/settings.json",
+      "source_location": "L4",
+      "id": "claude_settings_gstack_github_source",
+      "community": 10,
+      "norm_label": "source"
+    },
+    {
+      "label": "source",
+      "file_type": "code",
+      "source_file": ".claude/settings.json",
+      "source_location": "L5",
+      "id": "claude_settings_source_source",
+      "community": 10,
+      "norm_label": "source"
+    },
+    {
+      "label": "repo",
+      "file_type": "code",
+      "source_file": ".claude/settings.json",
+      "source_location": "L6",
+      "id": "claude_settings_source_repo",
+      "community": 10,
+      "norm_label": "repo"
+    },
+    {
+      "label": "plugins",
+      "file_type": "code",
+      "source_file": ".claude/settings.json",
+      "source_location": "L8",
+      "id": "claude_settings_gstack_github_plugins",
+      "community": 10,
+      "norm_label": "plugins"
+    },
+    {
+      "label": "enabledPlugins",
+      "file_type": "code",
+      "source_file": ".claude/settings.json",
+      "source_location": "L17",
+      "id": "claude_settings_enabledplugins",
+      "community": 10,
+      "norm_label": "enabledplugins"
+    },
+    {
+      "label": "gstack@gstack-github",
+      "file_type": "code",
+      "source_file": ".claude/settings.json",
+      "source_location": "L18",
+      "id": "claude_settings_enabledplugins_gstack_gstack_github",
+      "community": 10,
+      "norm_label": "gstack@gstack-github"
+    },
+    {
+      "label": "hooks",
+      "file_type": "code",
+      "source_file": ".claude/settings.json",
+      "source_location": "L20",
+      "id": "claude_settings_hooks",
+      "community": 10,
+      "norm_label": "hooks"
+    },
+    {
+      "label": "PreToolUse",
+      "file_type": "code",
+      "source_file": ".claude/settings.json",
+      "source_location": "L21",
+      "id": "claude_settings_hooks_pretooluse",
+      "community": 10,
+      "norm_label": "pretooluse"
+    },
+    {
+      "label": "settings.local.json",
+      "file_type": "code",
+      "source_file": ".claude/settings.local.json",
+      "source_location": "L1",
+      "id": "claude_settings_local",
+      "community": 19,
+      "norm_label": "settings.local.json"
+    },
+    {
+      "label": "permissions",
+      "file_type": "code",
+      "source_file": ".claude/settings.local.json",
+      "source_location": "L2",
+      "id": "claude_settings_local_permissions",
+      "community": 19,
+      "norm_label": "permissions"
+    },
+    {
+      "label": "allow",
+      "file_type": "code",
+      "source_file": ".claude/settings.local.json",
+      "source_location": "L3",
+      "id": "claude_settings_local_permissions_allow",
+      "community": 19,
+      "norm_label": "allow"
+    },
+    {
+      "label": "package.json",
+      "file_type": "code",
+      "source_file": "carrercoach/package.json",
+      "source_location": "L1",
+      "id": "carrercoach_package",
+      "community": 4,
+      "norm_label": "package.json"
+    },
+    {
+      "label": "name",
+      "file_type": "code",
+      "source_file": "carrercoach/package.json",
+      "source_location": "L2",
+      "id": "carrercoach_package_name",
+      "community": 4,
+      "norm_label": "name"
+    },
+    {
+      "label": "version",
+      "file_type": "code",
+      "source_file": "carrercoach/package.json",
+      "source_location": "L3",
+      "id": "carrercoach_package_version",
+      "community": 4,
+      "norm_label": "version"
+    },
+    {
+      "label": "description",
+      "file_type": "code",
+      "source_file": "carrercoach/package.json",
+      "source_location": "L4",
+      "id": "carrercoach_package_description",
+      "community": 4,
+      "norm_label": "description"
+    },
+    {
+      "label": "main",
+      "file_type": "code",
+      "source_file": "carrercoach/package.json",
+      "source_location": "L5",
+      "id": "carrercoach_package_main",
+      "community": 4,
+      "norm_label": "main"
+    },
+    {
+      "label": "scripts",
+      "file_type": "code",
+      "source_file": "carrercoach/package.json",
+      "source_location": "L6",
+      "id": "carrercoach_package_scripts",
+      "community": 4,
+      "norm_label": "scripts"
+    },
+    {
+      "label": "start",
+      "file_type": "code",
+      "source_file": "carrercoach/package.json",
+      "source_location": "L7",
+      "id": "carrercoach_package_scripts_start",
+      "community": 4,
+      "norm_label": "start"
+    },
+    {
+      "label": "dev",
+      "file_type": "code",
+      "source_file": "carrercoach/package.json",
+      "source_location": "L8",
+      "id": "carrercoach_package_scripts_dev",
+      "community": 4,
+      "norm_label": "dev"
+    },
+    {
+      "label": "dependencies",
+      "file_type": "code",
+      "source_file": "carrercoach/package.json",
+      "source_location": "L10",
+      "id": "carrercoach_package_dependencies",
+      "community": 4,
+      "norm_label": "dependencies"
+    },
+    {
+      "label": "bcryptjs",
+      "file_type": "code",
+      "source_file": "carrercoach/package.json",
+      "source_location": "L11",
+      "id": "carrercoach_package_dependencies_bcryptjs",
+      "community": 4,
+      "norm_label": "bcryptjs"
+    },
+    {
+      "label": "cors",
+      "file_type": "code",
+      "source_file": "carrercoach/package.json",
+      "source_location": "L12",
+      "id": "carrercoach_package_dependencies_cors",
+      "community": 4,
+      "norm_label": "cors"
+    },
+    {
+      "label": "dotenv",
+      "file_type": "code",
+      "source_file": "carrercoach/package.json",
+      "source_location": "L13",
+      "id": "carrercoach_package_dependencies_dotenv",
+      "community": 4,
+      "norm_label": "dotenv"
+    },
+    {
+      "label": "express",
+      "file_type": "code",
+      "source_file": "carrercoach/package.json",
+      "source_location": "L14",
+      "id": "carrercoach_package_dependencies_express",
+      "community": 4,
+      "norm_label": "express"
+    },
+    {
+      "label": "jsonwebtoken",
+      "file_type": "code",
+      "source_file": "carrercoach/package.json",
+      "source_location": "L15",
+      "id": "carrercoach_package_dependencies_jsonwebtoken",
+      "community": 4,
+      "norm_label": "jsonwebtoken"
+    },
+    {
+      "label": "stripe",
+      "file_type": "code",
+      "source_file": "carrercoach/package.json",
+      "source_location": "L16",
+      "id": "carrercoach_package_dependencies_stripe",
+      "community": 4,
+      "norm_label": "stripe"
+    },
+    {
+      "label": "devDependencies",
+      "file_type": "code",
+      "source_file": "carrercoach/package.json",
+      "source_location": "L18",
+      "id": "carrercoach_package_devdependencies",
+      "community": 4,
+      "norm_label": "devdependencies"
+    },
+    {
+      "label": "nodemon",
+      "file_type": "code",
+      "source_file": "carrercoach/package.json",
+      "source_location": "L19",
+      "id": "carrercoach_package_devdependencies_nodemon",
+      "community": 4,
+      "norm_label": "nodemon"
+    },
+    {
+      "label": "res.json",
+      "file_type": "code",
+      "source_file": "carrercoach/res.json",
+      "source_location": "L1",
+      "id": "carrercoach_res",
+      "community": 35,
+      "norm_label": "res.json"
+    },
+    {
+      "label": "res3.json",
+      "file_type": "code",
+      "source_file": "carrercoach/res3.json",
+      "source_location": "L1",
+      "id": "carrercoach_res3",
+      "community": 36,
+      "norm_label": "res3.json"
+    },
+    {
+      "label": "server.js",
+      "file_type": "code",
+      "source_file": "carrercoach/server.js",
+      "source_location": "L1",
+      "id": "carrercoach_server",
+      "community": 5,
+      "norm_label": "server.js"
+    },
+    {
+      "label": "express",
+      "file_type": "code",
+      "source_file": "carrercoach/server.js",
+      "source_location": "L10",
+      "id": "carrercoach_server_express",
+      "community": 5,
+      "norm_label": "express"
+    },
+    {
+      "label": "stripe",
+      "file_type": "code",
+      "source_file": "carrercoach/server.js",
+      "source_location": "L11",
+      "id": "carrercoach_server_stripe",
+      "community": 5,
+      "norm_label": "stripe"
+    },
+    {
+      "label": "cors",
+      "file_type": "code",
+      "source_file": "carrercoach/server.js",
+      "source_location": "L12",
+      "id": "carrercoach_server_cors",
+      "community": 5,
+      "norm_label": "cors"
+    },
+    {
+      "label": "jwt",
+      "file_type": "code",
+      "source_file": "carrercoach/server.js",
+      "source_location": "L13",
+      "id": "carrercoach_server_jwt",
+      "community": 5,
+      "norm_label": "jwt"
+    },
+    {
+      "label": "bcrypt",
+      "file_type": "code",
+      "source_file": "carrercoach/server.js",
+      "source_location": "L14",
+      "id": "carrercoach_server_bcrypt",
+      "community": 5,
+      "norm_label": "bcrypt"
+    },
+    {
+      "label": "app",
+      "file_type": "code",
+      "source_file": "carrercoach/server.js",
+      "source_location": "L16",
+      "id": "carrercoach_server_app",
+      "community": 5,
+      "norm_label": "app"
+    },
+    {
+      "label": "users",
+      "file_type": "code",
+      "source_file": "carrercoach/server.js",
+      "source_location": "L27",
+      "id": "carrercoach_server_users",
+      "community": 5,
+      "norm_label": "users"
+    },
+    {
+      "label": "sessions",
+      "file_type": "code",
+      "source_file": "carrercoach/server.js",
+      "source_location": "L28",
+      "id": "carrercoach_server_sessions",
+      "community": 5,
+      "norm_label": "sessions"
+    },
+    {
+      "label": "PLANS",
+      "file_type": "code",
+      "source_file": "carrercoach/server.js",
+      "source_location": "L31",
+      "id": "carrercoach_server_plans",
+      "community": 5,
+      "norm_label": "plans"
+    },
+    {
+      "label": "generateToken()",
+      "file_type": "code",
+      "source_file": "carrercoach/server.js",
+      "source_location": "L38",
+      "id": "carrercoach_server_generatetoken",
+      "community": 5,
+      "norm_label": "generatetoken()"
+    },
+    {
+      "label": "authMiddleware()",
+      "file_type": "code",
+      "source_file": "carrercoach/server.js",
+      "source_location": "L46",
+      "id": "carrercoach_server_authmiddleware",
+      "community": 5,
+      "norm_label": "authmiddleware()"
+    },
+    {
+      "label": "PLAN_LIMITS",
+      "file_type": "code",
+      "source_file": "carrercoach/server.js",
+      "source_location": "L300",
+      "id": "carrercoach_server_plan_limits",
+      "community": 5,
+      "norm_label": "plan_limits"
+    },
+    {
+      "label": "test-crash.js",
+      "file_type": "code",
+      "source_file": "carrercoach/test-crash.js",
+      "source_location": "L1",
+      "id": "carrercoach_test_crash",
+      "community": 13,
+      "norm_label": "test-crash.js"
+    },
+    {
+      "label": "express",
+      "file_type": "code",
+      "source_file": "carrercoach/test-crash.js",
+      "source_location": "L1",
+      "id": "carrercoach_test_crash_express",
+      "community": 13,
+      "norm_label": "express"
+    },
+    {
+      "label": "stripe",
+      "file_type": "code",
+      "source_file": "carrercoach/test-crash.js",
+      "source_location": "L2",
+      "id": "carrercoach_test_crash_stripe",
+      "community": 13,
+      "norm_label": "stripe"
+    },
+    {
+      "label": "app",
+      "file_type": "code",
+      "source_file": "carrercoach/test-crash.js",
+      "source_location": "L3",
+      "id": "carrercoach_test_crash_app",
+      "community": 13,
+      "norm_label": "app"
+    },
+    {
+      "label": "check-dns.sh",
+      "file_type": "code",
+      "source_file": "check-dns.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "file"
+      },
+      "id": "check_dns",
+      "community": 29,
+      "norm_label": "check-dns.sh"
+    },
+    {
+      "label": "check-dns.sh script",
+      "file_type": "code",
+      "source_file": "check-dns.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_entrypoint"
+      },
+      "id": "users_kishorekumar_cascadeprojects_westleyresource_check_dns_sh__entry",
+      "community": 29,
+      "norm_label": "check-dns.sh script"
+    },
+    {
+      "label": "package.json",
+      "file_type": "code",
+      "source_file": "client/package.json",
+      "source_location": "L1",
+      "id": "client_package",
+      "community": 3,
+      "norm_label": "package.json"
+    },
+    {
+      "label": "name",
+      "file_type": "code",
+      "source_file": "client/package.json",
+      "source_location": "L2",
+      "id": "client_package_name",
+      "community": 3,
+      "norm_label": "name"
+    },
+    {
+      "label": "private",
+      "file_type": "code",
+      "source_file": "client/package.json",
+      "source_location": "L3",
+      "id": "client_package_private",
+      "community": 3,
+      "norm_label": "private"
+    },
+    {
+      "label": "version",
+      "file_type": "code",
+      "source_file": "client/package.json",
+      "source_location": "L4",
+      "id": "client_package_version",
+      "community": 3,
+      "norm_label": "version"
+    },
+    {
+      "label": "type",
+      "file_type": "code",
+      "source_file": "client/package.json",
+      "source_location": "L5",
+      "id": "client_package_type",
+      "community": 3,
+      "norm_label": "type"
+    },
+    {
+      "label": "scripts",
+      "file_type": "code",
+      "source_file": "client/package.json",
+      "source_location": "L6",
+      "id": "client_package_scripts",
+      "community": 3,
+      "norm_label": "scripts"
+    },
+    {
+      "label": "dev",
+      "file_type": "code",
+      "source_file": "client/package.json",
+      "source_location": "L7",
+      "id": "client_package_scripts_dev",
+      "community": 3,
+      "norm_label": "dev"
+    },
+    {
+      "label": "build",
+      "file_type": "code",
+      "source_file": "client/package.json",
+      "source_location": "L8",
+      "id": "client_package_scripts_build",
+      "community": 3,
+      "norm_label": "build"
+    },
+    {
+      "label": "preview",
+      "file_type": "code",
+      "source_file": "client/package.json",
+      "source_location": "L9",
+      "id": "client_package_scripts_preview",
+      "community": 3,
+      "norm_label": "preview"
+    },
+    {
+      "label": "dependencies",
+      "file_type": "code",
+      "source_file": "client/package.json",
+      "source_location": "L11",
+      "id": "client_package_dependencies",
+      "community": 3,
+      "norm_label": "dependencies"
+    },
+    {
+      "label": "axios",
+      "file_type": "code",
+      "source_file": "client/package.json",
+      "source_location": "L12",
+      "id": "client_package_dependencies_axios",
+      "community": 3,
+      "norm_label": "axios"
+    },
+    {
+      "label": "lucide-react",
+      "file_type": "code",
+      "source_file": "client/package.json",
+      "source_location": "L13",
+      "id": "client_package_dependencies_lucide_react",
+      "community": 3,
+      "norm_label": "lucide-react"
+    },
+    {
+      "label": "react",
+      "file_type": "code",
+      "source_file": "client/package.json",
+      "source_location": "L14",
+      "id": "client_package_dependencies_react",
+      "community": 3,
+      "norm_label": "react"
+    },
+    {
+      "label": "react-dom",
+      "file_type": "code",
+      "source_file": "client/package.json",
+      "source_location": "L15",
+      "id": "client_package_dependencies_react_dom",
+      "community": 3,
+      "norm_label": "react-dom"
+    },
+    {
+      "label": "react-router-dom",
+      "file_type": "code",
+      "source_file": "client/package.json",
+      "source_location": "L16",
+      "id": "client_package_dependencies_react_router_dom",
+      "community": 3,
+      "norm_label": "react-router-dom"
+    },
+    {
+      "label": "devDependencies",
+      "file_type": "code",
+      "source_file": "client/package.json",
+      "source_location": "L18",
+      "id": "client_package_devdependencies",
+      "community": 3,
+      "norm_label": "devdependencies"
+    },
+    {
+      "label": "@vitejs/plugin-react",
+      "file_type": "code",
+      "source_file": "client/package.json",
+      "source_location": "L19",
+      "id": "client_package_devdependencies_vitejs_plugin_react",
+      "community": 3,
+      "norm_label": "@vitejs/plugin-react"
+    },
+    {
+      "label": "vite",
+      "file_type": "code",
+      "source_file": "client/package.json",
+      "source_location": "L20",
+      "id": "client_package_devdependencies_vite",
+      "community": 3,
+      "norm_label": "vite"
+    },
+    {
+      "label": "App.jsx",
+      "file_type": "code",
+      "source_file": "client/src/App.jsx",
+      "source_location": "L1",
+      "id": "src_app",
+      "community": 11,
+      "norm_label": "app.jsx"
+    },
+    {
+      "label": "App()",
+      "file_type": "code",
+      "source_file": "client/src/App.jsx",
+      "source_location": "L8",
+      "id": "src_app_app",
+      "community": 11,
+      "norm_label": "app()"
+    },
+    {
+      "label": "main.jsx",
+      "file_type": "code",
+      "source_file": "client/src/main.jsx",
+      "source_location": "L1",
+      "id": "src_main",
+      "community": 11,
+      "norm_label": "main.jsx"
+    },
+    {
+      "label": "AdminDashboard.jsx",
+      "file_type": "code",
+      "source_file": "client/src/pages/AdminDashboard.jsx",
+      "source_location": "L1",
+      "id": "pages_admindashboard",
+      "community": 11,
+      "norm_label": "admindashboard.jsx"
+    },
+    {
+      "label": "AdminDashboard()",
+      "file_type": "code",
+      "source_file": "client/src/pages/AdminDashboard.jsx",
+      "source_location": "L5",
+      "id": "pages_admindashboard_admindashboard",
+      "community": 11,
+      "norm_label": "admindashboard()"
+    },
+    {
+      "label": "JobDetail.jsx",
+      "file_type": "code",
+      "source_file": "client/src/pages/JobDetail.jsx",
+      "source_location": "L1",
+      "id": "pages_jobdetail",
+      "community": 11,
+      "norm_label": "jobdetail.jsx"
+    },
+    {
+      "label": "JobDetail()",
+      "file_type": "code",
+      "source_file": "client/src/pages/JobDetail.jsx",
+      "source_location": "L6",
+      "id": "pages_jobdetail_jobdetail",
+      "community": 11,
+      "norm_label": "jobdetail()"
+    },
+    {
+      "label": "JobList.jsx",
+      "file_type": "code",
+      "source_file": "client/src/pages/JobList.jsx",
+      "source_location": "L1",
+      "id": "pages_joblist",
+      "community": 11,
+      "norm_label": "joblist.jsx"
+    },
+    {
+      "label": "JobList()",
+      "file_type": "code",
+      "source_file": "client/src/pages/JobList.jsx",
+      "source_location": "L6",
+      "id": "pages_joblist_joblist",
+      "community": 11,
+      "norm_label": "joblist()"
+    },
+    {
+      "label": "vite.config.js",
+      "file_type": "code",
+      "source_file": "client/vite.config.js",
+      "source_location": "L1",
+      "id": "client_vite_config",
+      "community": 39,
+      "norm_label": "vite.config.js"
+    },
+    {
+      "label": "fde-practice.json",
+      "file_type": "code",
+      "source_file": "data/fde-practice.json",
+      "source_location": "L1",
+      "id": "data_fde_practice",
+      "community": 8,
+      "norm_label": "fde-practice.json"
+    },
+    {
+      "label": "feature_flags",
+      "file_type": "code",
+      "source_file": "data/fde-practice.json",
+      "source_location": "L2",
+      "id": "data_fde_practice_feature_flags",
+      "community": 8,
+      "norm_label": "feature_flags"
+    },
+    {
+      "label": "partnerships_strip_visible",
+      "file_type": "code",
+      "source_file": "data/fde-practice.json",
+      "source_location": "L3",
+      "id": "data_fde_practice_feature_flags_partnerships_strip_visible",
+      "community": 8,
+      "norm_label": "partnerships_strip_visible"
+    },
+    {
+      "label": "roster_visible",
+      "file_type": "code",
+      "source_file": "data/fde-practice.json",
+      "source_location": "L4",
+      "id": "data_fde_practice_feature_flags_roster_visible",
+      "community": 8,
+      "norm_label": "roster_visible"
+    },
+    {
+      "label": "specializations_visible",
+      "file_type": "code",
+      "source_file": "data/fde-practice.json",
+      "source_location": "L5",
+      "id": "data_fde_practice_feature_flags_specializations_visible",
+      "community": 8,
+      "norm_label": "specializations_visible"
+    },
+    {
+      "label": "what_fde_does",
+      "file_type": "code",
+      "source_file": "data/fde-practice.json",
+      "source_location": "L8",
+      "id": "data_fde_practice_what_fde_does",
+      "community": 8,
+      "norm_label": "what_fde_does"
+    },
+    {
+      "label": "partnerships",
+      "file_type": "code",
+      "source_file": "data/fde-practice.json",
+      "source_location": "L15",
+      "id": "data_fde_practice_partnerships",
+      "community": 8,
+      "norm_label": "partnerships"
+    },
+    {
+      "label": "training_tracks",
+      "file_type": "code",
+      "source_file": "data/fde-practice.json",
+      "source_location": "L61",
+      "id": "data_fde_practice_training_tracks",
+      "community": 8,
+      "norm_label": "training_tracks"
+    },
+    {
+      "label": "certifications",
+      "file_type": "code",
+      "source_file": "data/fde-practice.json",
+      "source_location": "L80",
+      "id": "data_fde_practice_certifications",
+      "community": 8,
+      "norm_label": "certifications"
+    },
+    {
+      "label": "architects",
+      "file_type": "code",
+      "source_file": "data/fde-practice.json",
+      "source_location": "L88",
+      "id": "data_fde_practice_architects",
+      "community": 8,
+      "norm_label": "architects"
+    },
+    {
+      "label": "engagement_models",
+      "file_type": "code",
+      "source_file": "data/fde-practice.json",
+      "source_location": "L101",
+      "id": "data_fde_practice_engagement_models",
+      "community": 8,
+      "norm_label": "engagement_models"
+    },
+    {
+      "label": "faq",
+      "file_type": "code",
+      "source_file": "data/fde-practice.json",
+      "source_location": "L107",
+      "id": "data_fde_practice_faq",
+      "community": 8,
+      "norm_label": "faq"
+    },
+    {
+      "label": "firebase.json",
+      "file_type": "code",
+      "source_file": "firebase.json",
+      "source_location": "L1",
+      "id": "firebase",
+      "community": 6,
+      "norm_label": "firebase.json"
+    },
+    {
+      "label": "functions",
+      "file_type": "code",
+      "source_file": "firebase.json",
+      "source_location": "L2",
+      "id": "firebase_functions",
+      "community": 6,
+      "norm_label": "functions"
+    },
+    {
+      "label": "source",
+      "file_type": "code",
+      "source_file": "firebase.json",
+      "source_location": "L3",
+      "id": "firebase_functions_source",
+      "community": 6,
+      "norm_label": "source"
+    },
+    {
+      "label": "hosting",
+      "file_type": "code",
+      "source_file": "firebase.json",
+      "source_location": "L5",
+      "id": "firebase_hosting",
+      "community": 6,
+      "norm_label": "hosting"
+    },
+    {
+      "label": "public",
+      "file_type": "code",
+      "source_file": "firebase.json",
+      "source_location": "L6",
+      "id": "firebase_hosting_public",
+      "community": 6,
+      "norm_label": "public"
+    },
+    {
+      "label": "ignore",
+      "file_type": "code",
+      "source_file": "firebase.json",
+      "source_location": "L7",
+      "id": "firebase_hosting_ignore",
+      "community": 6,
+      "norm_label": "ignore"
+    },
+    {
+      "label": "rewrites",
+      "file_type": "code",
+      "source_file": "firebase.json",
+      "source_location": "L13",
+      "id": "firebase_hosting_rewrites",
+      "community": 6,
+      "norm_label": "rewrites"
+    },
+    {
+      "label": "headers",
+      "file_type": "code",
+      "source_file": "firebase.json",
+      "source_location": "L23",
+      "id": "firebase_hosting_headers",
+      "community": 6,
+      "norm_label": "headers"
+    },
+    {
+      "label": "cleanUrls",
+      "file_type": "code",
+      "source_file": "firebase.json",
+      "source_location": "L52",
+      "id": "firebase_hosting_cleanurls",
+      "community": 6,
+      "norm_label": "cleanurls"
+    },
+    {
+      "label": "trailingSlash",
+      "file_type": "code",
+      "source_file": "firebase.json",
+      "source_location": "L53",
+      "id": "firebase_hosting_trailingslash",
+      "community": 6,
+      "norm_label": "trailingslash"
+    },
+    {
+      "label": "index.js",
+      "file_type": "code",
+      "source_file": "functions/index.js",
+      "source_location": "L1",
+      "id": "functions_index",
+      "community": 2,
+      "norm_label": "index.js"
+    },
+    {
+      "label": "{ onRequest }",
+      "file_type": "code",
+      "source_file": "functions/index.js",
+      "source_location": "L1",
+      "id": "functions_index_onrequest",
+      "community": 2,
+      "norm_label": "{ onrequest }"
+    },
+    {
+      "label": "{ defineSecret }",
+      "file_type": "code",
+      "source_file": "functions/index.js",
+      "source_location": "L2",
+      "id": "functions_index_definesecret",
+      "community": 2,
+      "norm_label": "{ definesecret }"
+    },
+    {
+      "label": "axios",
+      "file_type": "code",
+      "source_file": "functions/index.js",
+      "source_location": "L3",
+      "id": "functions_index_axios",
+      "community": 2,
+      "norm_label": "axios"
+    },
+    {
+      "label": "MS_TENANT_ID",
+      "file_type": "code",
+      "source_file": "functions/index.js",
+      "source_location": "L5",
+      "id": "functions_index_ms_tenant_id",
+      "community": 2,
+      "norm_label": "ms_tenant_id"
+    },
+    {
+      "label": "MS_CLIENT_ID",
+      "file_type": "code",
+      "source_file": "functions/index.js",
+      "source_location": "L6",
+      "id": "functions_index_ms_client_id",
+      "community": 2,
+      "norm_label": "ms_client_id"
+    },
+    {
+      "label": "MS_CLIENT_SECRET",
+      "file_type": "code",
+      "source_file": "functions/index.js",
+      "source_location": "L7",
+      "id": "functions_index_ms_client_secret",
+      "community": 2,
+      "norm_label": "ms_client_secret"
+    },
+    {
+      "label": "MS_SENDER",
+      "file_type": "code",
+      "source_file": "functions/index.js",
+      "source_location": "L8",
+      "id": "functions_index_ms_sender",
+      "community": 2,
+      "norm_label": "ms_sender"
+    },
+    {
+      "label": "getAccessToken()",
+      "file_type": "code",
+      "source_file": "functions/index.js",
+      "source_location": "L10",
+      "id": "functions_index_getaccesstoken",
+      "community": 2,
+      "norm_label": "getaccesstoken()"
+    },
+    {
+      "label": "package.json",
+      "file_type": "code",
+      "source_file": "functions/package.json",
+      "source_location": "L1",
+      "id": "functions_package",
+      "community": 9,
+      "norm_label": "package.json"
+    },
+    {
+      "label": "name",
+      "file_type": "code",
+      "source_file": "functions/package.json",
+      "source_location": "L2",
+      "id": "functions_package_name",
+      "community": 9,
+      "norm_label": "name"
+    },
+    {
+      "label": "version",
+      "file_type": "code",
+      "source_file": "functions/package.json",
+      "source_location": "L3",
+      "id": "functions_package_version",
+      "community": 9,
+      "norm_label": "version"
+    },
+    {
+      "label": "main",
+      "file_type": "code",
+      "source_file": "functions/package.json",
+      "source_location": "L4",
+      "id": "functions_package_main",
+      "community": 9,
+      "norm_label": "main"
+    },
+    {
+      "label": "engines",
+      "file_type": "code",
+      "source_file": "functions/package.json",
+      "source_location": "L5",
+      "id": "functions_package_engines",
+      "community": 9,
+      "norm_label": "engines"
+    },
+    {
+      "label": "node",
+      "file_type": "code",
+      "source_file": "functions/package.json",
+      "source_location": "L5",
+      "id": "functions_package_engines_node",
+      "community": 9,
+      "norm_label": "node"
+    },
+    {
+      "label": "scripts",
+      "file_type": "code",
+      "source_file": "functions/package.json",
+      "source_location": "L6",
+      "id": "functions_package_scripts",
+      "community": 9,
+      "norm_label": "scripts"
+    },
+    {
+      "label": "test",
+      "file_type": "code",
+      "source_file": "functions/package.json",
+      "source_location": "L7",
+      "id": "functions_package_scripts_test",
+      "community": 9,
+      "norm_label": "test"
+    },
+    {
+      "label": "keywords",
+      "file_type": "code",
+      "source_file": "functions/package.json",
+      "source_location": "L9",
+      "id": "functions_package_keywords",
+      "community": 9,
+      "norm_label": "keywords"
+    },
+    {
+      "label": "author",
+      "file_type": "code",
+      "source_file": "functions/package.json",
+      "source_location": "L10",
+      "id": "functions_package_author",
+      "community": 9,
+      "norm_label": "author"
+    },
+    {
+      "label": "license",
+      "file_type": "code",
+      "source_file": "functions/package.json",
+      "source_location": "L11",
+      "id": "functions_package_license",
+      "community": 9,
+      "norm_label": "license"
+    },
+    {
+      "label": "description",
+      "file_type": "code",
+      "source_file": "functions/package.json",
+      "source_location": "L12",
+      "id": "functions_package_description",
+      "community": 9,
+      "norm_label": "description"
+    },
+    {
+      "label": "dependencies",
+      "file_type": "code",
+      "source_file": "functions/package.json",
+      "source_location": "L13",
+      "id": "functions_package_dependencies",
+      "community": 6,
+      "norm_label": "dependencies"
+    },
+    {
+      "label": "axios",
+      "file_type": "code",
+      "source_file": "functions/package.json",
+      "source_location": "L14",
+      "id": "functions_package_dependencies_axios",
+      "community": 6,
+      "norm_label": "axios"
+    },
+    {
+      "label": "dotenv",
+      "file_type": "code",
+      "source_file": "functions/package.json",
+      "source_location": "L15",
+      "id": "functions_package_dependencies_dotenv",
+      "community": 6,
+      "norm_label": "dotenv"
+    },
+    {
+      "label": "firebase-admin",
+      "file_type": "code",
+      "source_file": "functions/package.json",
+      "source_location": "L16",
+      "id": "functions_package_dependencies_firebase_admin",
+      "community": 6,
+      "norm_label": "firebase-admin"
+    },
+    {
+      "label": "firebase-functions",
+      "file_type": "code",
+      "source_file": "functions/package.json",
+      "source_location": "L17",
+      "id": "functions_package_dependencies_firebase_functions",
+      "community": 6,
+      "norm_label": "firebase-functions"
+    },
+    {
+      "label": "fde-practice.js",
+      "file_type": "code",
+      "source_file": "js/fde-practice.js",
+      "source_location": "L1",
+      "id": "js_fde_practice",
+      "community": 7,
+      "norm_label": "fde-practice.js"
+    },
+    {
+      "label": "initFdePractice()",
+      "file_type": "code",
+      "source_file": "js/fde-practice.js",
+      "source_location": "L12",
+      "id": "js_fde_practice_initfdepractice",
+      "community": 7,
+      "norm_label": "initfdepractice()"
+    },
+    {
+      "label": "dispatch()",
+      "file_type": "code",
+      "source_file": "js/fde-practice.js",
+      "source_location": "L40",
+      "id": "js_fde_practice_dispatch",
+      "community": 7,
+      "norm_label": "dispatch()"
+    },
+    {
+      "label": "renderWhatFdeDoes()",
+      "file_type": "code",
+      "source_file": "js/fde-practice.js",
+      "source_location": "L61",
+      "id": "js_fde_practice_renderwhatfdedoes",
+      "community": 7,
+      "norm_label": "renderwhatfdedoes()"
+    },
+    {
+      "label": "renderPartnerships()",
+      "file_type": "code",
+      "source_file": "js/fde-practice.js",
+      "source_location": "L75",
+      "id": "js_fde_practice_renderpartnerships",
+      "community": 7,
+      "norm_label": "renderpartnerships()"
+    },
+    {
+      "label": "renderCertifications()",
+      "file_type": "code",
+      "source_file": "js/fde-practice.js",
+      "source_location": "L113",
+      "id": "js_fde_practice_rendercertifications",
+      "community": 7,
+      "norm_label": "rendercertifications()"
+    },
+    {
+      "label": "renderArchitects()",
+      "file_type": "code",
+      "source_file": "js/fde-practice.js",
+      "source_location": "L130",
+      "id": "js_fde_practice_renderarchitects",
+      "community": 7,
+      "norm_label": "renderarchitects()"
+    },
+    {
+      "label": "renderTrainingTracks()",
+      "file_type": "code",
+      "source_file": "js/fde-practice.js",
+      "source_location": "L175",
+      "id": "js_fde_practice_rendertrainingtracks",
+      "community": 7,
+      "norm_label": "rendertrainingtracks()"
+    },
+    {
+      "label": "renderEngagementModels()",
+      "file_type": "code",
+      "source_file": "js/fde-practice.js",
+      "source_location": "L208",
+      "id": "js_fde_practice_renderengagementmodels",
+      "community": 7,
+      "norm_label": "renderengagementmodels()"
+    },
+    {
+      "label": "renderFaq()",
+      "file_type": "code",
+      "source_file": "js/fde-practice.js",
+      "source_location": "L223",
+      "id": "js_fde_practice_renderfaq",
+      "community": 7,
+      "norm_label": "renderfaq()"
+    },
+    {
+      "label": "initSubnavObserver()",
+      "file_type": "code",
+      "source_file": "js/fde-practice.js",
+      "source_location": "L243",
+      "id": "js_fde_practice_initsubnavobserver",
+      "community": 7,
+      "norm_label": "initsubnavobserver()"
+    },
+    {
+      "label": "escapeHtml()",
+      "file_type": "code",
+      "source_file": "js/fde-practice.js",
+      "source_location": "L280",
+      "id": "js_fde_practice_escapehtml",
+      "community": 7,
+      "norm_label": "escapehtml()"
+    },
+    {
+      "label": "hasFields()",
+      "file_type": "code",
+      "source_file": "js/fde-practice.js",
+      "source_location": "L294",
+      "id": "js_fde_practice_hasfields",
+      "community": 7,
+      "norm_label": "hasfields()"
+    },
+    {
+      "label": "script.js",
+      "file_type": "code",
+      "source_file": "script.js",
+      "source_location": "L1",
+      "id": "script",
+      "community": 23,
+      "norm_label": "script.js"
+    },
+    {
+      "label": "showNotification()",
+      "file_type": "code",
+      "source_file": "script.js",
+      "source_location": "L120",
+      "id": "script_shownotification",
+      "community": 23,
+      "norm_label": "shownotification()"
+    },
+    {
+      "label": "style",
+      "file_type": "code",
+      "source_file": "script.js",
+      "source_location": "L191",
+      "id": "script_style",
+      "community": 23,
+      "norm_label": "style"
+    },
+    {
+      "label": "linkedin_apply.py",
+      "file_type": "code",
+      "source_file": "scripts/linkedin_apply.py",
+      "source_location": "L1",
+      "id": "scripts_linkedin_apply",
+      "community": 12,
+      "norm_label": "linkedin_apply.py"
+    },
+    {
+      "label": "login()",
+      "file_type": "code",
+      "source_file": "scripts/linkedin_apply.py",
+      "source_location": "L27",
+      "id": "scripts_linkedin_apply_login",
+      "community": 12,
+      "norm_label": "login()"
+    },
+    {
+      "label": "search_jobs()",
+      "file_type": "code",
+      "source_file": "scripts/linkedin_apply.py",
+      "source_location": "L35",
+      "id": "scripts_linkedin_apply_search_jobs",
+      "community": 12,
+      "norm_label": "search_jobs()"
+    },
+    {
+      "label": "apply_to_visible_jobs()",
+      "file_type": "code",
+      "source_file": "scripts/linkedin_apply.py",
+      "source_location": "L43",
+      "id": "scripts_linkedin_apply_apply_to_visible_jobs",
+      "community": 12,
+      "norm_label": "apply_to_visible_jobs()"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "scripts/linkedin_apply.py",
+      "source_location": "L83",
+      "id": "scripts_linkedin_apply_main",
+      "community": 12,
+      "norm_label": "main()"
+    },
+    {
+      "label": "db.js",
+      "file_type": "code",
+      "source_file": "server/config/db.js",
+      "source_location": "L1",
+      "id": "config_db",
+      "community": 0,
+      "norm_label": "db.js"
+    },
+    {
+      "label": "mongoose",
+      "file_type": "code",
+      "source_file": "server/config/db.js",
+      "source_location": "L1",
+      "id": "config_db_mongoose",
+      "community": 0,
+      "norm_label": "mongoose"
+    },
+    {
+      "label": "{ Pool }",
+      "file_type": "code",
+      "source_file": "server/config/db.js",
+      "source_location": "L2",
+      "id": "config_db_pool",
+      "community": 0,
+      "norm_label": "{ pool }"
+    },
+    {
+      "label": "connectMongo()",
+      "file_type": "code",
+      "source_file": "server/config/db.js",
+      "source_location": "L6",
+      "id": "config_db_connectmongo",
+      "community": 0,
+      "norm_label": "connectmongo()"
+    },
+    {
+      "label": "connectPostgres()",
+      "file_type": "code",
+      "source_file": "server/config/db.js",
+      "source_location": "L25",
+      "id": "config_db_connectpostgres",
+      "community": 0,
+      "norm_label": "connectpostgres()"
+    },
+    {
+      "label": "adminController.js",
+      "file_type": "code",
+      "source_file": "server/controllers/adminController.js",
+      "source_location": "L1",
+      "id": "controllers_admincontroller",
+      "community": 0,
+      "norm_label": "admincontroller.js"
+    },
+    {
+      "label": "RawMessage",
+      "file_type": "code",
+      "source_file": "server/controllers/adminController.js",
+      "source_location": "L1",
+      "id": "controllers_admincontroller_rawmessage",
+      "community": 0,
+      "norm_label": "rawmessage"
+    },
+    {
+      "label": "{ pool }",
+      "file_type": "code",
+      "source_file": "server/controllers/adminController.js",
+      "source_location": "L2",
+      "id": "controllers_admincontroller_pool",
+      "community": 0,
+      "norm_label": "{ pool }"
+    },
+    {
+      "label": "{ processRawJob }",
+      "file_type": "code",
+      "source_file": "server/controllers/adminController.js",
+      "source_location": "L3",
+      "id": "controllers_admincontroller_processrawjob",
+      "community": 0,
+      "norm_label": "{ processrawjob }"
+    },
+    {
+      "label": "getRawMessages()",
+      "file_type": "code",
+      "source_file": "server/controllers/adminController.js",
+      "source_location": "L8",
+      "id": "controllers_admincontroller_getrawmessages",
+      "community": 0,
+      "norm_label": "getrawmessages()"
+    },
+    {
+      "label": "approveRawMessage()",
+      "file_type": "code",
+      "source_file": "server/controllers/adminController.js",
+      "source_location": "L20",
+      "id": "controllers_admincontroller_approverawmessage",
+      "community": 0,
+      "norm_label": "approverawmessage()"
+    },
+    {
+      "label": "finalizeJob()",
+      "file_type": "code",
+      "source_file": "server/controllers/adminController.js",
+      "source_location": "L33",
+      "id": "controllers_admincontroller_finalizejob",
+      "community": 0,
+      "norm_label": "finalizejob()"
+    },
+    {
+      "label": "contactController.js",
+      "file_type": "code",
+      "source_file": "server/controllers/contactController.js",
+      "source_location": "L1",
+      "id": "controllers_contactcontroller",
+      "community": 2,
+      "norm_label": "contactcontroller.js"
+    },
+    {
+      "label": "{ sendContactEmail }",
+      "file_type": "code",
+      "source_file": "server/controllers/contactController.js",
+      "source_location": "L1",
+      "id": "controllers_contactcontroller_sendcontactemail",
+      "community": 2,
+      "norm_label": "{ sendcontactemail }"
+    },
+    {
+      "label": "submitContact()",
+      "file_type": "code",
+      "source_file": "server/controllers/contactController.js",
+      "source_location": "L3",
+      "id": "controllers_contactcontroller_submitcontact",
+      "community": 2,
+      "norm_label": "submitcontact()"
+    },
+    {
+      "label": "jobController.js",
+      "file_type": "code",
+      "source_file": "server/controllers/jobController.js",
+      "source_location": "L1",
+      "id": "controllers_jobcontroller",
+      "community": 0,
+      "norm_label": "jobcontroller.js"
+    },
+    {
+      "label": "{ pool }",
+      "file_type": "code",
+      "source_file": "server/controllers/jobController.js",
+      "source_location": "L1",
+      "id": "controllers_jobcontroller_pool",
+      "community": 0,
+      "norm_label": "{ pool }"
+    },
+    {
+      "label": "RawMessage",
+      "file_type": "code",
+      "source_file": "server/controllers/jobController.js",
+      "source_location": "L2",
+      "id": "controllers_jobcontroller_rawmessage",
+      "community": 0,
+      "norm_label": "rawmessage"
+    },
+    {
+      "label": "{ parseJobMessage }",
+      "file_type": "code",
+      "source_file": "server/controllers/jobController.js",
+      "source_location": "L3",
+      "id": "controllers_jobcontroller_parsejobmessage",
+      "community": 0,
+      "norm_label": "{ parsejobmessage }"
+    },
+    {
+      "label": "getJobs()",
+      "file_type": "code",
+      "source_file": "server/controllers/jobController.js",
+      "source_location": "L8",
+      "id": "controllers_jobcontroller_getjobs",
+      "community": 0,
+      "norm_label": "getjobs()"
+    },
+    {
+      "label": "getJobById()",
+      "file_type": "code",
+      "source_file": "server/controllers/jobController.js",
+      "source_location": "L50",
+      "id": "controllers_jobcontroller_getjobbyid",
+      "community": 0,
+      "norm_label": "getjobbyid()"
+    },
+    {
+      "label": "processRawJob()",
+      "file_type": "code",
+      "source_file": "server/controllers/jobController.js",
+      "source_location": "L65",
+      "id": "controllers_jobcontroller_processrawjob",
+      "community": 0,
+      "norm_label": "processrawjob()"
+    },
+    {
+      "label": "index.js",
+      "file_type": "code",
+      "source_file": "server/index.js",
+      "source_location": "L1",
+      "id": "server_index",
+      "community": 0,
+      "norm_label": "index.js"
+    },
+    {
+      "label": "express",
+      "file_type": "code",
+      "source_file": "server/index.js",
+      "source_location": "L1",
+      "id": "server_index_express",
+      "community": 0,
+      "norm_label": "express"
+    },
+    {
+      "label": "cors",
+      "file_type": "code",
+      "source_file": "server/index.js",
+      "source_location": "L2",
+      "id": "server_index_cors",
+      "community": 0,
+      "norm_label": "cors"
+    },
+    {
+      "label": "{ connectMongo, connectPostgres }",
+      "file_type": "code",
+      "source_file": "server/index.js",
+      "source_location": "L4",
+      "id": "server_index_connectmongo_connectpostgres",
+      "community": 0,
+      "norm_label": "{ connectmongo, connectpostgres }"
+    },
+    {
+      "label": "{ initBot }",
+      "file_type": "code",
+      "source_file": "server/index.js",
+      "source_location": "L5",
+      "id": "server_index_initbot",
+      "community": 0,
+      "norm_label": "{ initbot }"
+    },
+    {
+      "label": "app",
+      "file_type": "code",
+      "source_file": "server/index.js",
+      "source_location": "L7",
+      "id": "server_index_app",
+      "community": 0,
+      "norm_label": "app"
+    },
+    {
+      "label": "jobRoutes",
+      "file_type": "code",
+      "source_file": "server/index.js",
+      "source_location": "L22",
+      "id": "server_index_jobroutes",
+      "community": 0,
+      "norm_label": "jobroutes"
+    },
+    {
+      "label": "adminRoutes",
+      "file_type": "code",
+      "source_file": "server/index.js",
+      "source_location": "L23",
+      "id": "server_index_adminroutes",
+      "community": 0,
+      "norm_label": "adminroutes"
+    },
+    {
+      "label": "contactRoutes",
+      "file_type": "code",
+      "source_file": "server/index.js",
+      "source_location": "L24",
+      "id": "server_index_contactroutes",
+      "community": 0,
+      "norm_label": "contactroutes"
+    },
+    {
+      "label": "RawMessage.js",
+      "file_type": "code",
+      "source_file": "server/models/RawMessage.js",
+      "source_location": "L1",
+      "id": "models_rawmessage",
+      "community": 0,
+      "norm_label": "rawmessage.js"
+    },
+    {
+      "label": "mongoose",
+      "file_type": "code",
+      "source_file": "server/models/RawMessage.js",
+      "source_location": "L1",
+      "id": "models_rawmessage_mongoose",
+      "community": 0,
+      "norm_label": "mongoose"
+    },
+    {
+      "label": "RawMessageSchema",
+      "file_type": "code",
+      "source_file": "server/models/RawMessage.js",
+      "source_location": "L3",
+      "id": "models_rawmessage_rawmessageschema",
+      "community": 0,
+      "norm_label": "rawmessageschema"
+    },
+    {
+      "label": "package.json",
+      "file_type": "code",
+      "source_file": "server/package.json",
+      "source_location": "L1",
+      "id": "server_package",
+      "community": 1,
+      "norm_label": "package.json"
+    },
+    {
+      "label": "name",
+      "file_type": "code",
+      "source_file": "server/package.json",
+      "source_location": "L2",
+      "id": "server_package_name",
+      "community": 1,
+      "norm_label": "name"
+    },
+    {
+      "label": "version",
+      "file_type": "code",
+      "source_file": "server/package.json",
+      "source_location": "L3",
+      "id": "server_package_version",
+      "community": 1,
+      "norm_label": "version"
+    },
+    {
+      "label": "description",
+      "file_type": "code",
+      "source_file": "server/package.json",
+      "source_location": "L4",
+      "id": "server_package_description",
+      "community": 1,
+      "norm_label": "description"
+    },
+    {
+      "label": "main",
+      "file_type": "code",
+      "source_file": "server/package.json",
+      "source_location": "L5",
+      "id": "server_package_main",
+      "community": 1,
+      "norm_label": "main"
+    },
+    {
+      "label": "scripts",
+      "file_type": "code",
+      "source_file": "server/package.json",
+      "source_location": "L6",
+      "id": "server_package_scripts",
+      "community": 1,
+      "norm_label": "scripts"
+    },
+    {
+      "label": "test",
+      "file_type": "code",
+      "source_file": "server/package.json",
+      "source_location": "L7",
+      "id": "server_package_scripts_test",
+      "community": 1,
+      "norm_label": "test"
+    },
+    {
+      "label": "keywords",
+      "file_type": "code",
+      "source_file": "server/package.json",
+      "source_location": "L9",
+      "id": "server_package_keywords",
+      "community": 1,
+      "norm_label": "keywords"
+    },
+    {
+      "label": "author",
+      "file_type": "code",
+      "source_file": "server/package.json",
+      "source_location": "L10",
+      "id": "server_package_author",
+      "community": 1,
+      "norm_label": "author"
+    },
+    {
+      "label": "license",
+      "file_type": "code",
+      "source_file": "server/package.json",
+      "source_location": "L11",
+      "id": "server_package_license",
+      "community": 1,
+      "norm_label": "license"
+    },
+    {
+      "label": "type",
+      "file_type": "code",
+      "source_file": "server/package.json",
+      "source_location": "L12",
+      "id": "server_package_type",
+      "community": 1,
+      "norm_label": "type"
+    },
+    {
+      "label": "dependencies",
+      "file_type": "code",
+      "source_file": "server/package.json",
+      "source_location": "L13",
+      "id": "server_package_dependencies",
+      "community": 1,
+      "norm_label": "dependencies"
+    },
+    {
+      "label": "axios",
+      "file_type": "code",
+      "source_file": "server/package.json",
+      "source_location": "L14",
+      "id": "server_package_dependencies_axios",
+      "community": 1,
+      "norm_label": "axios"
+    },
+    {
+      "label": "body-parser",
+      "file_type": "code",
+      "source_file": "server/package.json",
+      "source_location": "L15",
+      "id": "server_package_dependencies_body_parser",
+      "community": 1,
+      "norm_label": "body-parser"
+    },
+    {
+      "label": "cors",
+      "file_type": "code",
+      "source_file": "server/package.json",
+      "source_location": "L16",
+      "id": "server_package_dependencies_cors",
+      "community": 1,
+      "norm_label": "cors"
+    },
+    {
+      "label": "dotenv",
+      "file_type": "code",
+      "source_file": "server/package.json",
+      "source_location": "L17",
+      "id": "server_package_dependencies_dotenv",
+      "community": 1,
+      "norm_label": "dotenv"
+    },
+    {
+      "label": "express",
+      "file_type": "code",
+      "source_file": "server/package.json",
+      "source_location": "L18",
+      "id": "server_package_dependencies_express",
+      "community": 1,
+      "norm_label": "express"
+    },
+    {
+      "label": "mongoose",
+      "file_type": "code",
+      "source_file": "server/package.json",
+      "source_location": "L19",
+      "id": "server_package_dependencies_mongoose",
+      "community": 1,
+      "norm_label": "mongoose"
+    },
+    {
+      "label": "nodemailer",
+      "file_type": "code",
+      "source_file": "server/package.json",
+      "source_location": "L20",
+      "id": "server_package_dependencies_nodemailer",
+      "community": 1,
+      "norm_label": "nodemailer"
+    },
+    {
+      "label": "openai",
+      "file_type": "code",
+      "source_file": "server/package.json",
+      "source_location": "L21",
+      "id": "server_package_dependencies_openai",
+      "community": 1,
+      "norm_label": "openai"
+    },
+    {
+      "label": "pg",
+      "file_type": "code",
+      "source_file": "server/package.json",
+      "source_location": "L22",
+      "id": "server_package_dependencies_pg",
+      "community": 1,
+      "norm_label": "pg"
+    },
+    {
+      "label": "telegraf",
+      "file_type": "code",
+      "source_file": "server/package.json",
+      "source_location": "L23",
+      "id": "server_package_dependencies_telegraf",
+      "community": 1,
+      "norm_label": "telegraf"
+    },
+    {
+      "label": "devDependencies",
+      "file_type": "code",
+      "source_file": "server/package.json",
+      "source_location": "L25",
+      "id": "server_package_devdependencies",
+      "community": 1,
+      "norm_label": "devdependencies"
+    },
+    {
+      "label": "nodemon",
+      "file_type": "code",
+      "source_file": "server/package.json",
+      "source_location": "L26",
+      "id": "server_package_devdependencies_nodemon",
+      "community": 1,
+      "norm_label": "nodemon"
+    },
+    {
+      "label": "adminRoutes.js",
+      "file_type": "code",
+      "source_file": "server/routes/adminRoutes.js",
+      "source_location": "L1",
+      "id": "routes_adminroutes",
+      "community": 0,
+      "norm_label": "adminroutes.js"
+    },
+    {
+      "label": "express",
+      "file_type": "code",
+      "source_file": "server/routes/adminRoutes.js",
+      "source_location": "L1",
+      "id": "routes_adminroutes_express",
+      "community": 0,
+      "norm_label": "express"
+    },
+    {
+      "label": "router",
+      "file_type": "code",
+      "source_file": "server/routes/adminRoutes.js",
+      "source_location": "L2",
+      "id": "routes_adminroutes_router",
+      "community": 0,
+      "norm_label": "router"
+    },
+    {
+      "label": "{ getRawMessages, approveRawMessage, finalizeJob }",
+      "file_type": "code",
+      "source_file": "server/routes/adminRoutes.js",
+      "source_location": "L3",
+      "id": "routes_adminroutes_getrawmessages_approverawmessage_finalizejob",
+      "community": 0,
+      "norm_label": "{ getrawmessages, approverawmessage, finalizejob }"
+    },
+    {
+      "label": "contactRoutes.js",
+      "file_type": "code",
+      "source_file": "server/routes/contactRoutes.js",
+      "source_location": "L1",
+      "id": "routes_contactroutes",
+      "community": 2,
+      "norm_label": "contactroutes.js"
+    },
+    {
+      "label": "express",
+      "file_type": "code",
+      "source_file": "server/routes/contactRoutes.js",
+      "source_location": "L1",
+      "id": "routes_contactroutes_express",
+      "community": 2,
+      "norm_label": "express"
+    },
+    {
+      "label": "router",
+      "file_type": "code",
+      "source_file": "server/routes/contactRoutes.js",
+      "source_location": "L2",
+      "id": "routes_contactroutes_router",
+      "community": 2,
+      "norm_label": "router"
+    },
+    {
+      "label": "{ submitContact }",
+      "file_type": "code",
+      "source_file": "server/routes/contactRoutes.js",
+      "source_location": "L3",
+      "id": "routes_contactroutes_submitcontact",
+      "community": 2,
+      "norm_label": "{ submitcontact }"
+    },
+    {
+      "label": "jobRoutes.js",
+      "file_type": "code",
+      "source_file": "server/routes/jobRoutes.js",
+      "source_location": "L1",
+      "id": "routes_jobroutes",
+      "community": 0,
+      "norm_label": "jobroutes.js"
+    },
+    {
+      "label": "express",
+      "file_type": "code",
+      "source_file": "server/routes/jobRoutes.js",
+      "source_location": "L1",
+      "id": "routes_jobroutes_express",
+      "community": 0,
+      "norm_label": "express"
+    },
+    {
+      "label": "router",
+      "file_type": "code",
+      "source_file": "server/routes/jobRoutes.js",
+      "source_location": "L2",
+      "id": "routes_jobroutes_router",
+      "community": 0,
+      "norm_label": "router"
+    },
+    {
+      "label": "{ getJobs, getJobById }",
+      "file_type": "code",
+      "source_file": "server/routes/jobRoutes.js",
+      "source_location": "L3",
+      "id": "routes_jobroutes_getjobs_getjobbyid",
+      "community": 0,
+      "norm_label": "{ getjobs, getjobbyid }"
+    },
+    {
+      "label": "aiParser.js",
+      "file_type": "code",
+      "source_file": "server/services/aiParser.js",
+      "source_location": "L1",
+      "id": "services_aiparser",
+      "community": 0,
+      "norm_label": "aiparser.js"
+    },
+    {
+      "label": "OpenAI",
+      "file_type": "code",
+      "source_file": "server/services/aiParser.js",
+      "source_location": "L1",
+      "id": "services_aiparser_openai",
+      "community": 0,
+      "norm_label": "openai"
+    },
+    {
+      "label": "parseJobMessage()",
+      "file_type": "code",
+      "source_file": "server/services/aiParser.js",
+      "source_location": "L13",
+      "id": "services_aiparser_parsejobmessage",
+      "community": 0,
+      "norm_label": "parsejobmessage()"
+    },
+    {
+      "label": "mailer.js",
+      "file_type": "code",
+      "source_file": "server/services/mailer.js",
+      "source_location": "L1",
+      "id": "services_mailer",
+      "community": 2,
+      "norm_label": "mailer.js"
+    },
+    {
+      "label": "axios",
+      "file_type": "code",
+      "source_file": "server/services/mailer.js",
+      "source_location": "L1",
+      "id": "services_mailer_axios",
+      "community": 2,
+      "norm_label": "axios"
+    },
+    {
+      "label": "getAccessToken()",
+      "file_type": "code",
+      "source_file": "server/services/mailer.js",
+      "source_location": "L3",
+      "id": "services_mailer_getaccesstoken",
+      "community": 2,
+      "norm_label": "getaccesstoken()"
+    },
+    {
+      "label": "sendContactEmail()",
+      "file_type": "code",
+      "source_file": "server/services/mailer.js",
+      "source_location": "L17",
+      "id": "services_mailer_sendcontactemail",
+      "community": 2,
+      "norm_label": "sendcontactemail()"
+    },
+    {
+      "label": "telegramBot.js",
+      "file_type": "code",
+      "source_file": "server/services/telegramBot.js",
+      "source_location": "L1",
+      "id": "services_telegrambot",
+      "community": 0,
+      "norm_label": "telegrambot.js"
+    },
+    {
+      "label": "{ Telegraf }",
+      "file_type": "code",
+      "source_file": "server/services/telegramBot.js",
+      "source_location": "L1",
+      "id": "services_telegrambot_telegraf",
+      "community": 0,
+      "norm_label": "{ telegraf }"
+    },
+    {
+      "label": "RawMessage",
+      "file_type": "code",
+      "source_file": "server/services/telegramBot.js",
+      "source_location": "L2",
+      "id": "services_telegrambot_rawmessage",
+      "community": 0,
+      "norm_label": "rawmessage"
+    },
+    {
+      "label": "initBot()",
+      "file_type": "code",
+      "source_file": "server/services/telegramBot.js",
+      "source_location": "L10",
+      "id": "services_telegrambot_initbot",
+      "community": 0,
+      "norm_label": "initbot()"
+    },
+    {
+      "label": "AWS Solutions Architect Pro badge placeholder",
+      "file_type": "image",
+      "source_file": "assets/certs/aws-sa-pro.svg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "certs_aws_sa_pro_badge",
+      "community": 25,
+      "norm_label": "aws solutions architect pro badge placeholder"
+    },
+    {
+      "label": "AWS Solutions Architect Professional",
+      "file_type": "concept",
+      "source_file": "assets/certs/aws-sa-pro.svg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "certs_aws_sa_pro_aws_sap",
+      "community": 25,
+      "norm_label": "aws solutions architect professional"
+    },
+    {
+      "label": "Azure Solutions Architect Badge Placeholder",
+      "file_type": "image",
+      "source_file": "assets/certs/azure-sa.svg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "certs_azure_sa_badge",
+      "community": 26,
+      "norm_label": "azure solutions architect badge placeholder"
+    },
+    {
+      "label": "Azure Solutions Architect",
+      "file_type": "concept",
+      "source_file": "assets/certs/azure-sa.svg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "certs_azure_sa_azure_solutions_architect",
+      "community": 26,
+      "norm_label": "azure solutions architect"
+    },
+    {
+      "label": "CCAF Badge Placeholder",
+      "file_type": "image",
+      "source_file": "assets/certs/ccaf.svg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "certs_ccaf_badge",
+      "community": 27,
+      "norm_label": "ccaf badge placeholder"
+    },
+    {
+      "label": "Claude Certified Architect Foundations",
+      "file_type": "concept",
+      "source_file": "assets/certs/ccaf.svg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "certs_ccaf_claude_certified_architect_foundations",
+      "community": 27,
+      "norm_label": "claude certified architect foundations"
+    },
+    {
+      "label": "Databricks Data Engineer Badge Placeholder",
+      "file_type": "image",
+      "source_file": "assets/certs/databricks-de.svg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "certs_databricks_de_badge",
+      "community": 28,
+      "norm_label": "databricks data engineer badge placeholder"
+    },
+    {
+      "label": "Databricks Data Engineer Certification",
+      "file_type": "concept",
+      "source_file": "assets/certs/databricks-de.svg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "certs_databricks_de_certification",
+      "community": 28,
+      "norm_label": "databricks data engineer certification"
+    },
+    {
+      "label": "GCP Professional Cloud Architect Badge",
+      "file_type": "image",
+      "source_file": "assets/certs/gcp-pca.svg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "certs_gcp_pca_badge",
+      "community": 38,
+      "norm_label": "gcp professional cloud architect badge"
+    },
+    {
+      "label": "Brain AI Circuit Icon",
+      "file_type": "image",
+      "source_file": "assets/images/brain-icon-new.png",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "images_brain_icon_new",
+      "community": 20,
+      "norm_label": "brain ai circuit icon"
+    },
+    {
+      "label": "Artificial Intelligence",
+      "file_type": "concept",
+      "source_file": "assets/images/brain-icon-new.png",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "images_brain_icon_new_artificial_intelligence",
+      "community": 20,
+      "norm_label": "artificial intelligence"
+    },
+    {
+      "label": "Cybernetics",
+      "file_type": "concept",
+      "source_file": "assets/images/brain-icon-new.png",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "images_brain_icon_new_cybernetics",
+      "community": 20,
+      "norm_label": "cybernetics"
+    },
+    {
+      "label": "Westley Resource Full Logo",
+      "file_type": "image",
+      "source_file": "assets/images/logo-full-new.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "images_logo_full_new_logo",
+      "community": 15,
+      "norm_label": "westley resource full logo"
+    },
+    {
+      "label": "westleyresource",
+      "file_type": "concept",
+      "source_file": "assets/images/logo-full-new.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "images_logo_full_new_brand_name",
+      "community": 15,
+      "norm_label": "westleyresource"
+    },
+    {
+      "label": "CONNECTING TECH TALENT WITH TOMORROW",
+      "file_type": "concept",
+      "source_file": "assets/images/logo-full-new.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "images_logo_full_new_tagline",
+      "community": 15,
+      "norm_label": "connecting tech talent with tomorrow"
+    },
+    {
+      "label": "Circuit Brain Motif",
+      "file_type": "concept",
+      "source_file": "assets/images/logo-full-new.jpg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "images_logo_full_new_tech_motif",
+      "community": 15,
+      "norm_label": "circuit brain motif"
+    },
+    {
+      "label": "Westley Resource Logo",
+      "file_type": "image",
+      "source_file": "assets/images/logo-full.png",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "images_logo_full_logo",
+      "community": 21,
+      "norm_label": "westley resource logo"
+    },
+    {
+      "label": "Westley Resource",
+      "file_type": "concept",
+      "source_file": "assets/images/logo-full.png",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "images_logo_full_westleyresource",
+      "community": 21,
+      "norm_label": "westley resource"
+    },
+    {
+      "label": "Connecting Tech Talent With Tomorrow",
+      "file_type": "concept",
+      "source_file": "assets/images/logo-full.png",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "images_logo_full_tagline",
+      "community": 21,
+      "norm_label": "connecting tech talent with tomorrow"
+    },
+    {
+      "label": "Westley Resource Logo Symbol",
+      "file_type": "image",
+      "source_file": "assets/images/logo-symbol.png",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "images_logo_symbol",
+      "community": 22,
+      "norm_label": "westley resource logo symbol"
+    },
+    {
+      "label": "Stylized Letter W",
+      "file_type": "concept",
+      "source_file": "assets/images/logo-symbol.png",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "images_logo_symbol_w",
+      "community": 22,
+      "norm_label": "stylized letter w"
+    },
+    {
+      "label": "Hexagon Gradient Background",
+      "file_type": "concept",
+      "source_file": "assets/images/logo-symbol.png",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "images_logo_symbol_hexagon",
+      "community": 22,
+      "norm_label": "hexagon gradient background"
+    },
+    {
+      "label": "Adobe Logo Placeholder",
+      "file_type": "image",
+      "source_file": "assets/partners/adobe.svg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "partners_adobe_logo",
+      "community": 30,
+      "norm_label": "adobe logo placeholder"
+    },
+    {
+      "label": "Adobe",
+      "file_type": "concept",
+      "source_file": "assets/partners/adobe.svg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "partners_adobe_brand",
+      "community": 30,
+      "norm_label": "adobe"
+    },
+    {
+      "label": "Anthropic Logo Placeholder",
+      "file_type": "image",
+      "source_file": "assets/partners/anthropic.svg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "partners_anthropic_logo",
+      "community": 41,
+      "norm_label": "anthropic logo placeholder"
+    },
+    {
+      "label": "AWS Logo Placeholder",
+      "file_type": "image",
+      "source_file": "assets/partners/aws.svg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "partners_aws",
+      "community": 42,
+      "norm_label": "aws logo placeholder"
+    },
+    {
+      "label": "Databricks Logo Placeholder",
+      "file_type": "image",
+      "source_file": "assets/partners/databricks.svg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "partners_databricks_logo",
+      "community": 31,
+      "norm_label": "databricks logo placeholder"
+    },
+    {
+      "label": "Databricks",
+      "file_type": "concept",
+      "source_file": "assets/partners/databricks.svg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "partners_databricks_databricks",
+      "community": 31,
+      "norm_label": "databricks"
+    },
+    {
+      "label": "Google Cloud Logo Placeholder",
+      "file_type": "image",
+      "source_file": "assets/partners/google.svg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "partners_google_google_cloud",
+      "community": 43,
+      "norm_label": "google cloud logo placeholder"
+    },
+    {
+      "label": "Microsoft Logo Placeholder",
+      "file_type": "image",
+      "source_file": "assets/partners/microsoft.svg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "partners_microsoft_logo",
+      "community": 32,
+      "norm_label": "microsoft logo placeholder"
+    },
+    {
+      "label": "Microsoft",
+      "file_type": "concept",
+      "source_file": "assets/partners/microsoft.svg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "partners_microsoft_company",
+      "community": 32,
+      "norm_label": "microsoft"
+    },
+    {
+      "label": "Team Placeholder Image",
+      "file_type": "image",
+      "source_file": "assets/team/placeholder.svg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "team_placeholder_image",
+      "community": 50,
+      "norm_label": "team placeholder image"
+    },
+    {
+      "label": "Palantir FDE Training Track Card",
+      "file_type": "image",
+      "source_file": "assets/tracks/palantir.svg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "tracks_palantir_image",
+      "community": 33,
+      "norm_label": "palantir fde training track card"
+    },
+    {
+      "label": "Palantir FDE Training Track",
+      "file_type": "concept",
+      "source_file": "assets/tracks/palantir.svg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "tracks_palantir_fde_track",
+      "community": 33,
+      "norm_label": "palantir fde training track"
+    },
+    {
+      "label": "Design System",
+      "file_type": "concept",
+      "source_file": "AGENTS.md",
+      "id": "westleyresource_agents_design_system",
+      "community": 51,
+      "norm_label": "design system"
+    },
+    {
+      "label": "Deployment Workflow",
+      "file_type": "concept",
+      "source_file": "AGENTS.md",
+      "id": "westleyresource_agents_deployment_workflow",
+      "community": 24,
+      "norm_label": "deployment workflow"
+    },
+    {
+      "label": "Architecture & Infrastructure",
+      "file_type": "concept",
+      "source_file": "GEMINI.md",
+      "id": "westleyresource_gemini_architecture",
+      "community": 24,
+      "norm_label": "architecture & infrastructure"
+    },
+    {
+      "label": "Contact Form Implementation",
+      "file_type": "concept",
+      "source_file": "GEMINI.md",
+      "id": "westleyresource_gemini_contact_form",
+      "community": 17,
+      "norm_label": "contact form implementation"
+    },
+    {
+      "label": "Microsoft Graph API",
+      "file_type": "concept",
+      "source_file": "GEMINI.md",
+      "id": "westleyresource_gemini_microsoft_graph_api",
+      "community": 17,
+      "norm_label": "microsoft graph api"
+    },
+    {
+      "label": "Firebase Secret Manager",
+      "file_type": "concept",
+      "source_file": "GEMINI.md",
+      "id": "westleyresource_gemini_firebase_secret_manager",
+      "community": 17,
+      "norm_label": "firebase secret manager"
+    },
+    {
+      "label": "gstack",
+      "file_type": "concept",
+      "source_file": "CLAUDE.md",
+      "id": "westleyresource_claude_gstack",
+      "community": 52,
+      "norm_label": "gstack"
+    },
+    {
+      "label": "Firebase Hosting",
+      "file_type": "concept",
+      "source_file": "README.md",
+      "id": "westleyresource_readme_firebase_hosting",
+      "community": 24,
+      "norm_label": "firebase hosting"
+    },
+    {
+      "label": "Form Validation Logic",
+      "file_type": "concept",
+      "source_file": "script.js",
+      "id": "westleyresource_script_form_validation",
+      "community": 17,
+      "norm_label": "form validation logic"
+    },
+    {
+      "label": "Gstack Plugin Configuration",
+      "file_type": "concept",
+      "source_file": ".claude/settings.json",
+      "id": "_claude_settings_gstack",
+      "community": 34,
+      "norm_label": "gstack plugin configuration"
+    },
+    {
+      "label": "PreToolUse Hook Config",
+      "file_type": "concept",
+      "source_file": ".claude/settings.json",
+      "id": "_claude_settings_pretooluse",
+      "community": 18,
+      "norm_label": "pretooluse hook config"
+    },
+    {
+      "label": "Firebase Hosting Deploy",
+      "file_type": "concept",
+      "source_file": ".github/workflows/deploy.yml",
+      "id": "workflows_deploy_firebase_hosting",
+      "community": 54,
+      "norm_label": "firebase hosting deploy"
+    },
+    {
+      "label": "Dynatrace Deployment Event",
+      "file_type": "concept",
+      "source_file": ".github/workflows/deploy.yml",
+      "id": "workflows_deploy_dynatrace",
+      "community": 53,
+      "norm_label": "dynatrace deployment event"
+    },
+    {
+      "label": "Stripe Integration",
+      "file_type": "concept",
+      "source_file": "carrercoach/server.js",
+      "id": "carrercoach_server_stripe_integration",
+      "community": 5,
+      "norm_label": "stripe integration"
+    },
+    {
+      "label": "Career Coach Auth Routes",
+      "file_type": "code",
+      "source_file": "carrercoach/server.js",
+      "id": "carrercoach_server_auth_routes",
+      "community": 5,
+      "norm_label": "career coach auth routes"
+    },
+    {
+      "label": "Career Coach Payment Routes",
+      "file_type": "code",
+      "source_file": "carrercoach/server.js",
+      "id": "carrercoach_server_payment_routes",
+      "community": 5,
+      "norm_label": "career coach payment routes"
+    },
+    {
+      "label": "Career Coach AI Routes",
+      "file_type": "code",
+      "source_file": "carrercoach/server.js",
+      "id": "carrercoach_server_ai_routes",
+      "community": 5,
+      "norm_label": "career coach ai routes"
+    },
+    {
+      "label": "Test Crash Script",
+      "file_type": "code",
+      "source_file": "carrercoach/test-crash.js",
+      "id": "carrercoach_test_crash_script",
+      "community": 37,
+      "norm_label": "test crash script"
+    },
+    {
+      "label": "Vite API Proxy",
+      "file_type": "concept",
+      "source_file": "client/vite.config.js",
+      "id": "client_vite_config_proxy",
+      "community": 40,
+      "norm_label": "vite api proxy"
+    },
+    {
+      "label": "VMS Job Aggregator Router",
+      "file_type": "code",
+      "source_file": "client/src/App.jsx",
+      "id": "src_app_router",
+      "community": 16,
+      "norm_label": "vms job aggregator router"
+    },
+    {
+      "label": "Admin Dashboard",
+      "file_type": "code",
+      "source_file": "client/src/pages/AdminDashboard.jsx",
+      "id": "pages_admindashboard_component",
+      "community": 16,
+      "norm_label": "admin dashboard"
+    },
+    {
+      "label": "Job Detail",
+      "file_type": "code",
+      "source_file": "client/src/pages/JobDetail.jsx",
+      "id": "pages_jobdetail_component",
+      "community": 16,
+      "norm_label": "job detail"
+    },
+    {
+      "label": "Job List",
+      "file_type": "code",
+      "source_file": "client/src/pages/JobList.jsx",
+      "id": "pages_joblist_component",
+      "community": 16,
+      "norm_label": "job list"
+    },
+    {
+      "label": "FDE Practice Content Data",
+      "file_type": "document",
+      "source_file": "data/fde-practice.json",
+      "id": "data_fde_practice_content",
+      "community": 14,
+      "norm_label": "fde practice content data"
+    },
+    {
+      "label": "FDE Practice Schema Doc",
+      "file_type": "document",
+      "source_file": "data/fde-practice.schema.md",
+      "id": "data_fde_practice_schema_doc",
+      "community": 14,
+      "norm_label": "fde practice schema doc"
+    },
+    {
+      "label": "FDE Practice Page Implementation Plan",
+      "file_type": "document",
+      "source_file": "docs/superpowers/plans/2026-05-18-fde-practice-page.md",
+      "id": "plans_2026_05_18_fde_practice_page_plan",
+      "community": 14,
+      "norm_label": "fde practice page implementation plan"
+    },
+    {
+      "label": "Forward Deployed Engineers Practice",
+      "file_type": "concept",
+      "source_file": "docs/superpowers/plans/2026-05-18-fde-practice-page.md",
+      "id": "plans_2026_05_18_fde_practice_page_fde_practice",
+      "community": 14,
+      "norm_label": "forward deployed engineers practice"
+    },
+    {
+      "label": "FDE Practice",
+      "file_type": "concept",
+      "source_file": "docs/superpowers/specs/2026-05-18-fde-practice-page-design.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "specs_2026_05_18_fde_practice_page_design_fde_practice",
+      "community": 49,
+      "norm_label": "fde practice"
+    },
+    {
+      "label": "Claude Partner Network",
+      "file_type": "concept",
+      "source_file": "docs/superpowers/specs/2026-05-18-fde-practice-page-design.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "specs_2026_05_18_fde_practice_page_design_claude_partner_network",
+      "community": 48,
+      "norm_label": "claude partner network"
+    },
+    {
+      "label": "contact",
+      "file_type": "code",
+      "source_file": "functions/index.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "functions_index_contact",
+      "community": 2,
+      "norm_label": "contact"
+    },
+    {
+      "label": "jobs",
+      "file_type": "code",
+      "source_file": "server/schema.sql",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "server_schema_jobs",
+      "community": 44,
+      "norm_label": "jobs"
+    },
+    {
+      "label": "users",
+      "file_type": "code",
+      "source_file": "server/schema.sql",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "server_schema_users",
+      "community": 47,
+      "norm_label": "users"
+    },
+    {
+      "label": "saved_jobs",
+      "file_type": "code",
+      "source_file": "server/schema.sql",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "server_schema_saved_jobs",
+      "community": 46,
+      "norm_label": "saved_jobs"
+    },
+    {
+      "label": "raw_messages_log",
+      "file_type": "code",
+      "source_file": "server/schema.sql",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "server_schema_raw_messages_log",
+      "community": 45,
+      "norm_label": "raw_messages_log"
+    },
+    {
+      "label": "RawMessage",
+      "file_type": "code",
+      "source_file": "server/models/RawMessage.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "models_rawmessage_rawmessage",
+      "community": 0,
+      "norm_label": "rawmessage"
+    }
+  ],
+  "links": [
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": ".claude/settings.json",
+      "source": "_claude_settings_pretooluse",
+      "target": "hooks_check_gstack"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".claude/hooks/check-gstack.sh",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "hooks_check_gstack",
+      "target": "users_kishorekumar_cascadeprojects_westleyresource_claude_hooks_check_gstack_sh__entry",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".claude/settings.json",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "claude_settings",
+      "target": "claude_settings_enabledplugins",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".claude/settings.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "claude_settings",
+      "target": "claude_settings_extraknownmarketplaces",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".claude/settings.json",
+      "source_location": "L20",
+      "weight": 1.0,
+      "source": "claude_settings",
+      "target": "claude_settings_hooks",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".claude/settings.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "claude_settings_extraknownmarketplaces",
+      "target": "claude_settings_extraknownmarketplaces_gstack_github",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".claude/settings.json",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "claude_settings_extraknownmarketplaces_gstack_github",
+      "target": "claude_settings_gstack_github_plugins",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".claude/settings.json",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "claude_settings_extraknownmarketplaces_gstack_github",
+      "target": "claude_settings_gstack_github_source",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".claude/settings.json",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "claude_settings_gstack_github_source",
+      "target": "claude_settings_source_repo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".claude/settings.json",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "claude_settings_gstack_github_source",
+      "target": "claude_settings_source_source",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".claude/settings.json",
+      "source_location": "L18",
+      "weight": 1.0,
+      "source": "claude_settings_enabledplugins",
+      "target": "claude_settings_enabledplugins_gstack_gstack_github",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".claude/settings.json",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "claude_settings_hooks",
+      "target": "claude_settings_hooks_pretooluse",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".claude/settings.local.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "claude_settings_local",
+      "target": "claude_settings_local_permissions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".claude/settings.local.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "claude_settings_local_permissions",
+      "target": "claude_settings_local_permissions_allow",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "carrercoach/package.json",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "carrercoach_package",
+      "target": "carrercoach_package_dependencies",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "carrercoach/package.json",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "carrercoach_package",
+      "target": "carrercoach_package_description",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "carrercoach/package.json",
+      "source_location": "L18",
+      "weight": 1.0,
+      "source": "carrercoach_package",
+      "target": "carrercoach_package_devdependencies",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "carrercoach/package.json",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "carrercoach_package",
+      "target": "carrercoach_package_main",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "carrercoach/package.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "carrercoach_package",
+      "target": "carrercoach_package_name",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "carrercoach/package.json",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "carrercoach_package",
+      "target": "carrercoach_package_scripts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "carrercoach/package.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "carrercoach_package",
+      "target": "carrercoach_package_version",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "carrercoach/package.json",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "carrercoach_package_scripts",
+      "target": "carrercoach_package_scripts_dev",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "carrercoach/package.json",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "carrercoach_package_scripts",
+      "target": "carrercoach_package_scripts_start",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "carrercoach/package.json",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "carrercoach_package_dependencies",
+      "target": "carrercoach_package_dependencies_bcryptjs",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "carrercoach/package.json",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "carrercoach_package_dependencies",
+      "target": "carrercoach_package_dependencies_cors",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "carrercoach/package.json",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "carrercoach_package_dependencies",
+      "target": "carrercoach_package_dependencies_dotenv",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "carrercoach/package.json",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "carrercoach_package_dependencies",
+      "target": "carrercoach_package_dependencies_express",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "carrercoach/package.json",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "carrercoach_package_dependencies",
+      "target": "carrercoach_package_dependencies_jsonwebtoken",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "carrercoach/package.json",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "carrercoach_package_dependencies",
+      "target": "carrercoach_package_dependencies_stripe",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "carrercoach/package.json",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "carrercoach_package_devdependencies",
+      "target": "carrercoach_package_devdependencies_nodemon",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "carrercoach/server.js",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "carrercoach_server",
+      "target": "carrercoach_server_app",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "carrercoach/server.js",
+      "source_location": "L46",
+      "weight": 1.0,
+      "source": "carrercoach_server",
+      "target": "carrercoach_server_authmiddleware",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "carrercoach/server.js",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "carrercoach_server",
+      "target": "carrercoach_server_bcrypt",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "carrercoach/server.js",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "carrercoach_server",
+      "target": "carrercoach_server_cors",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "carrercoach/server.js",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "carrercoach_server",
+      "target": "carrercoach_server_express",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "carrercoach/server.js",
+      "source_location": "L38",
+      "weight": 1.0,
+      "source": "carrercoach_server",
+      "target": "carrercoach_server_generatetoken",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "carrercoach/server.js",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "carrercoach_server",
+      "target": "carrercoach_server_jwt",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "carrercoach/server.js",
+      "source_location": "L300",
+      "weight": 1.0,
+      "source": "carrercoach_server",
+      "target": "carrercoach_server_plan_limits",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "carrercoach/server.js",
+      "source_location": "L31",
+      "weight": 1.0,
+      "source": "carrercoach_server",
+      "target": "carrercoach_server_plans",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "carrercoach/server.js",
+      "source_location": "L28",
+      "weight": 1.0,
+      "source": "carrercoach_server",
+      "target": "carrercoach_server_sessions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "carrercoach/server.js",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "carrercoach_server",
+      "target": "carrercoach_server_stripe",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "carrercoach/server.js",
+      "source_location": "L27",
+      "weight": 1.0,
+      "source": "carrercoach_server",
+      "target": "carrercoach_server_users",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "carrercoach/server.js",
+      "source": "carrercoach_server_ai_routes",
+      "target": "carrercoach_server_authmiddleware"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "carrercoach/server.js",
+      "source": "carrercoach_server_auth_routes",
+      "target": "carrercoach_server_authmiddleware"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "carrercoach/server.js",
+      "source": "carrercoach_server_payment_routes",
+      "target": "carrercoach_server_authmiddleware"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "carrercoach/test-crash.js",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "carrercoach_test_crash",
+      "target": "carrercoach_test_crash_app",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "carrercoach/test-crash.js",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "carrercoach_test_crash",
+      "target": "carrercoach_test_crash_express",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "carrercoach/test-crash.js",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "carrercoach_test_crash",
+      "target": "carrercoach_test_crash_stripe",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "check-dns.sh",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "check_dns",
+      "target": "users_kishorekumar_cascadeprojects_westleyresource_check_dns_sh__entry",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "client/package.json",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "client_package",
+      "target": "client_package_dependencies",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "client/package.json",
+      "source_location": "L18",
+      "weight": 1.0,
+      "source": "client_package",
+      "target": "client_package_devdependencies",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "client/package.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "client_package",
+      "target": "client_package_name",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "client/package.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "client_package",
+      "target": "client_package_private",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "client/package.json",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "client_package",
+      "target": "client_package_scripts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "client/package.json",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "client_package",
+      "target": "client_package_type",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "client/package.json",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "client_package",
+      "target": "client_package_version",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "client/package.json",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "client_package_scripts",
+      "target": "client_package_scripts_build",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "client/package.json",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "client_package_scripts",
+      "target": "client_package_scripts_dev",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "client/package.json",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "client_package_scripts",
+      "target": "client_package_scripts_preview",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "client/package.json",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "client_package_dependencies",
+      "target": "client_package_dependencies_axios",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "client/package.json",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "client_package_dependencies",
+      "target": "client_package_dependencies_lucide_react",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "client/package.json",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "client_package_dependencies",
+      "target": "client_package_dependencies_react",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "client/package.json",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "client_package_dependencies",
+      "target": "client_package_dependencies_react_dom",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "client/package.json",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "client_package_dependencies",
+      "target": "client_package_dependencies_react_router_dom",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "client/package.json",
+      "source_location": "L20",
+      "weight": 1.0,
+      "source": "client_package_devdependencies",
+      "target": "client_package_devdependencies_vite",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "client/package.json",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "client_package_devdependencies",
+      "target": "client_package_devdependencies_vitejs_plugin_react",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "client/src/App.jsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "src_app",
+      "target": "pages_admindashboard",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "client/src/App.jsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "src_app",
+      "target": "pages_jobdetail",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "client/src/App.jsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "src_app",
+      "target": "pages_joblist",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "client/src/App.jsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "src_app",
+      "target": "src_app_app",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "client/src/main.jsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "src_main",
+      "target": "src_app",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "client/src/pages/AdminDashboard.jsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "pages_admindashboard",
+      "target": "pages_admindashboard_admindashboard",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "client/src/pages/JobDetail.jsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "pages_jobdetail",
+      "target": "pages_jobdetail_jobdetail",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "client/src/pages/JobList.jsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "pages_joblist",
+      "target": "pages_joblist_joblist",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "data/fde-practice.json",
+      "source_location": "L88",
+      "weight": 1.0,
+      "source": "data_fde_practice",
+      "target": "data_fde_practice_architects",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "data/fde-practice.json",
+      "source_location": "L80",
+      "weight": 1.0,
+      "source": "data_fde_practice",
+      "target": "data_fde_practice_certifications",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "data/fde-practice.json",
+      "source_location": "L101",
+      "weight": 1.0,
+      "source": "data_fde_practice",
+      "target": "data_fde_practice_engagement_models",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "data/fde-practice.json",
+      "source_location": "L107",
+      "weight": 1.0,
+      "source": "data_fde_practice",
+      "target": "data_fde_practice_faq",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "data/fde-practice.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "data_fde_practice",
+      "target": "data_fde_practice_feature_flags",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "data/fde-practice.json",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "data_fde_practice",
+      "target": "data_fde_practice_partnerships",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "data/fde-practice.json",
+      "source_location": "L61",
+      "weight": 1.0,
+      "source": "data_fde_practice",
+      "target": "data_fde_practice_training_tracks",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "data/fde-practice.json",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "data_fde_practice",
+      "target": "data_fde_practice_what_fde_does",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "data/fde-practice.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "data_fde_practice_feature_flags",
+      "target": "data_fde_practice_feature_flags_partnerships_strip_visible",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "data/fde-practice.json",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "data_fde_practice_feature_flags",
+      "target": "data_fde_practice_feature_flags_roster_visible",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "data/fde-practice.json",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "data_fde_practice_feature_flags",
+      "target": "data_fde_practice_feature_flags_specializations_visible",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "firebase.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "firebase",
+      "target": "firebase_functions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "firebase.json",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "firebase",
+      "target": "firebase_hosting",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "firebase.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "firebase_functions",
+      "target": "firebase_functions_source",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "functions/package.json",
+      "source_location": "L17",
+      "weight": 1.0,
+      "context": "import",
+      "source": "functions_package_dependencies_firebase_functions",
+      "target": "firebase_functions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "firebase.json",
+      "source_location": "L52",
+      "weight": 1.0,
+      "source": "firebase_hosting",
+      "target": "firebase_hosting_cleanurls",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "firebase.json",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "firebase_hosting",
+      "target": "firebase_hosting_headers",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "firebase.json",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "firebase_hosting",
+      "target": "firebase_hosting_ignore",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "firebase.json",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "firebase_hosting",
+      "target": "firebase_hosting_public",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "firebase.json",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "firebase_hosting",
+      "target": "firebase_hosting_rewrites",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "firebase.json",
+      "source_location": "L53",
+      "weight": 1.0,
+      "source": "firebase_hosting",
+      "target": "firebase_hosting_trailingslash",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "functions/index.js",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "functions_index",
+      "target": "functions_index_axios",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "functions/index.js",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "functions_index",
+      "target": "functions_index_definesecret",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "functions/index.js",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "functions_index",
+      "target": "functions_index_getaccesstoken",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "functions/index.js",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "functions_index",
+      "target": "functions_index_ms_client_id",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "functions/index.js",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "functions_index",
+      "target": "functions_index_ms_client_secret",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "functions/index.js",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "functions_index",
+      "target": "functions_index_ms_sender",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "functions/index.js",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "functions_index",
+      "target": "functions_index_ms_tenant_id",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "functions/index.js",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "functions_index",
+      "target": "functions_index_onrequest",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "functions/index.js",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "functions_index_contact",
+      "target": "functions_index_getaccesstoken"
+    },
+    {
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "functions/index.js",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "functions_index_getaccesstoken",
+      "target": "services_mailer_getaccesstoken"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "functions/package.json",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "functions_package",
+      "target": "functions_package_author",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "functions/package.json",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "functions_package",
+      "target": "functions_package_dependencies",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "functions/package.json",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "functions_package",
+      "target": "functions_package_description",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "functions/package.json",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "functions_package",
+      "target": "functions_package_engines",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "functions/package.json",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "functions_package",
+      "target": "functions_package_keywords",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "functions/package.json",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "functions_package",
+      "target": "functions_package_license",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "functions/package.json",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "functions_package",
+      "target": "functions_package_main",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "functions/package.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "functions_package",
+      "target": "functions_package_name",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "functions/package.json",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "functions_package",
+      "target": "functions_package_scripts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "functions/package.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "functions_package",
+      "target": "functions_package_version",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "functions/package.json",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "functions_package_engines",
+      "target": "functions_package_engines_node",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "functions/package.json",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "functions_package_scripts",
+      "target": "functions_package_scripts_test",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "functions/package.json",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "functions_package_dependencies",
+      "target": "functions_package_dependencies_axios",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "functions/package.json",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "functions_package_dependencies",
+      "target": "functions_package_dependencies_dotenv",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "functions/package.json",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "functions_package_dependencies",
+      "target": "functions_package_dependencies_firebase_admin",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "functions/package.json",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "functions_package_dependencies",
+      "target": "functions_package_dependencies_firebase_functions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js/fde-practice.js",
+      "source_location": "L40",
+      "weight": 1.0,
+      "source": "js_fde_practice",
+      "target": "js_fde_practice_dispatch",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js/fde-practice.js",
+      "source_location": "L280",
+      "weight": 1.0,
+      "source": "js_fde_practice",
+      "target": "js_fde_practice_escapehtml",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js/fde-practice.js",
+      "source_location": "L294",
+      "weight": 1.0,
+      "source": "js_fde_practice",
+      "target": "js_fde_practice_hasfields",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js/fde-practice.js",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "js_fde_practice",
+      "target": "js_fde_practice_initfdepractice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js/fde-practice.js",
+      "source_location": "L243",
+      "weight": 1.0,
+      "source": "js_fde_practice",
+      "target": "js_fde_practice_initsubnavobserver",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js/fde-practice.js",
+      "source_location": "L130",
+      "weight": 1.0,
+      "source": "js_fde_practice",
+      "target": "js_fde_practice_renderarchitects",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js/fde-practice.js",
+      "source_location": "L113",
+      "weight": 1.0,
+      "source": "js_fde_practice",
+      "target": "js_fde_practice_rendercertifications",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js/fde-practice.js",
+      "source_location": "L208",
+      "weight": 1.0,
+      "source": "js_fde_practice",
+      "target": "js_fde_practice_renderengagementmodels",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js/fde-practice.js",
+      "source_location": "L223",
+      "weight": 1.0,
+      "source": "js_fde_practice",
+      "target": "js_fde_practice_renderfaq",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js/fde-practice.js",
+      "source_location": "L75",
+      "weight": 1.0,
+      "source": "js_fde_practice",
+      "target": "js_fde_practice_renderpartnerships",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js/fde-practice.js",
+      "source_location": "L175",
+      "weight": 1.0,
+      "source": "js_fde_practice",
+      "target": "js_fde_practice_rendertrainingtracks",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js/fde-practice.js",
+      "source_location": "L61",
+      "weight": 1.0,
+      "source": "js_fde_practice",
+      "target": "js_fde_practice_renderwhatfdedoes",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "js/fde-practice.js",
+      "source_location": "L25",
+      "weight": 1.0,
+      "source": "js_fde_practice_initfdepractice",
+      "target": "js_fde_practice_dispatch",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "js/fde-practice.js",
+      "source_location": "L33",
+      "weight": 1.0,
+      "source": "js_fde_practice_initfdepractice",
+      "target": "js_fde_practice_initsubnavobserver",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/fde-practice.js",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "js_fde_practice_rendertrainingtracks",
+      "target": "js_fde_practice_escapehtml"
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/fde-practice.js",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "js_fde_practice_rendertrainingtracks",
+      "target": "js_fde_practice_hasfields"
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/fde-practice.js",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "js_fde_practice_renderengagementmodels",
+      "target": "js_fde_practice_escapehtml"
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/fde-practice.js",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "js_fde_practice_renderengagementmodels",
+      "target": "js_fde_practice_hasfields"
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/fde-practice.js",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "js_fde_practice_renderfaq",
+      "target": "js_fde_practice_escapehtml"
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/fde-practice.js",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "js_fde_practice_renderfaq",
+      "target": "js_fde_practice_hasfields"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "script.js",
+      "source_location": "L120",
+      "weight": 1.0,
+      "source": "script",
+      "target": "script_shownotification",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "script.js",
+      "source_location": "L191",
+      "weight": 1.0,
+      "source": "script",
+      "target": "script_style",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/linkedin_apply.py",
+      "source_location": "L43",
+      "weight": 1.0,
+      "source": "scripts_linkedin_apply",
+      "target": "scripts_linkedin_apply_apply_to_visible_jobs",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/linkedin_apply.py",
+      "source_location": "L27",
+      "weight": 1.0,
+      "source": "scripts_linkedin_apply",
+      "target": "scripts_linkedin_apply_login",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/linkedin_apply.py",
+      "source_location": "L83",
+      "weight": 1.0,
+      "source": "scripts_linkedin_apply",
+      "target": "scripts_linkedin_apply_main",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/linkedin_apply.py",
+      "source_location": "L35",
+      "weight": 1.0,
+      "source": "scripts_linkedin_apply",
+      "target": "scripts_linkedin_apply_search_jobs",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/linkedin_apply.py",
+      "source_location": null,
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_linkedin_apply_main",
+      "target": "scripts_linkedin_apply_login"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/linkedin_apply.py",
+      "source_location": null,
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_linkedin_apply_main",
+      "target": "scripts_linkedin_apply_search_jobs"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/linkedin_apply.py",
+      "source_location": null,
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_linkedin_apply_main",
+      "target": "scripts_linkedin_apply_apply_to_visible_jobs"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/config/db.js",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "config_db",
+      "target": "config_db_connectmongo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/config/db.js",
+      "source_location": "L25",
+      "weight": 1.0,
+      "source": "config_db",
+      "target": "config_db_connectpostgres",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/config/db.js",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "config_db",
+      "target": "config_db_mongoose",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/config/db.js",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "config_db",
+      "target": "config_db_pool",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server/controllers/adminController.js",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "controllers_admincontroller",
+      "target": "config_db",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server/controllers/jobController.js",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "controllers_jobcontroller",
+      "target": "config_db",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server/index.js",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "server_index",
+      "target": "config_db",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server/controllers/adminController.js",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "controllers_admincontroller",
+      "target": "config_db_pool",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server/controllers/jobController.js",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "controllers_jobcontroller",
+      "target": "config_db_pool",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server/index.js",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "server_index",
+      "target": "config_db_connectmongo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "server/index.js",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "server_index_app",
+      "target": "config_db_connectmongo"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server/index.js",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "server_index",
+      "target": "config_db_connectpostgres",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "server/index.js",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "server_index_app",
+      "target": "config_db_connectpostgres"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/controllers/adminController.js",
+      "source_location": "L20",
+      "weight": 1.0,
+      "source": "controllers_admincontroller",
+      "target": "controllers_admincontroller_approverawmessage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/controllers/adminController.js",
+      "source_location": "L33",
+      "weight": 1.0,
+      "source": "controllers_admincontroller",
+      "target": "controllers_admincontroller_finalizejob",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/controllers/adminController.js",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "controllers_admincontroller",
+      "target": "controllers_admincontroller_getrawmessages",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/controllers/adminController.js",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "controllers_admincontroller",
+      "target": "controllers_admincontroller_pool",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/controllers/adminController.js",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "controllers_admincontroller",
+      "target": "controllers_admincontroller_processrawjob",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/controllers/adminController.js",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "controllers_admincontroller",
+      "target": "controllers_admincontroller_rawmessage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server/controllers/adminController.js",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "controllers_admincontroller",
+      "target": "controllers_jobcontroller",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server/controllers/adminController.js",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "controllers_admincontroller",
+      "target": "controllers_jobcontroller_processrawjob",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server/controllers/adminController.js",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "controllers_admincontroller",
+      "target": "models_rawmessage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server/routes/adminRoutes.js",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "routes_adminroutes",
+      "target": "controllers_admincontroller",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "server/controllers/adminController.js",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "controllers_admincontroller_getrawmessages",
+      "target": "models_rawmessage_rawmessage"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server/routes/adminRoutes.js",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "routes_adminroutes",
+      "target": "controllers_admincontroller_getrawmessages",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "server/controllers/adminController.js",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "controllers_admincontroller_approverawmessage",
+      "target": "controllers_jobcontroller_processrawjob"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server/routes/adminRoutes.js",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "routes_adminroutes",
+      "target": "controllers_admincontroller_approverawmessage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server/routes/adminRoutes.js",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "routes_adminroutes",
+      "target": "controllers_admincontroller_finalizejob",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/controllers/contactController.js",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "controllers_contactcontroller",
+      "target": "controllers_contactcontroller_sendcontactemail",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/controllers/contactController.js",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "controllers_contactcontroller",
+      "target": "controllers_contactcontroller_submitcontact",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server/controllers/contactController.js",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "controllers_contactcontroller",
+      "target": "services_mailer",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server/controllers/contactController.js",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "controllers_contactcontroller",
+      "target": "services_mailer_sendcontactemail",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server/routes/contactRoutes.js",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "routes_contactroutes",
+      "target": "controllers_contactcontroller",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "server/controllers/contactController.js",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "controllers_contactcontroller_submitcontact",
+      "target": "services_mailer_sendcontactemail"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server/routes/contactRoutes.js",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "routes_contactroutes",
+      "target": "controllers_contactcontroller_submitcontact",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/controllers/jobController.js",
+      "source_location": "L50",
+      "weight": 1.0,
+      "source": "controllers_jobcontroller",
+      "target": "controllers_jobcontroller_getjobbyid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/controllers/jobController.js",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "controllers_jobcontroller",
+      "target": "controllers_jobcontroller_getjobs",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/controllers/jobController.js",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "controllers_jobcontroller",
+      "target": "controllers_jobcontroller_parsejobmessage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/controllers/jobController.js",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "controllers_jobcontroller",
+      "target": "controllers_jobcontroller_pool",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/controllers/jobController.js",
+      "source_location": "L65",
+      "weight": 1.0,
+      "source": "controllers_jobcontroller",
+      "target": "controllers_jobcontroller_processrawjob",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/controllers/jobController.js",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "controllers_jobcontroller",
+      "target": "controllers_jobcontroller_rawmessage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server/controllers/jobController.js",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "controllers_jobcontroller",
+      "target": "models_rawmessage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server/controllers/jobController.js",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "controllers_jobcontroller",
+      "target": "services_aiparser",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server/controllers/jobController.js",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "controllers_jobcontroller",
+      "target": "services_aiparser_parsejobmessage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server/routes/jobRoutes.js",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "routes_jobroutes",
+      "target": "controllers_jobcontroller",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server/routes/jobRoutes.js",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "routes_jobroutes",
+      "target": "controllers_jobcontroller_getjobs",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server/routes/jobRoutes.js",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "routes_jobroutes",
+      "target": "controllers_jobcontroller_getjobbyid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "server/controllers/jobController.js",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "controllers_jobcontroller_processrawjob",
+      "target": "models_rawmessage_rawmessage"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "server/controllers/jobController.js",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "controllers_jobcontroller_processrawjob",
+      "target": "services_aiparser_parsejobmessage"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server/index.js",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "server_index",
+      "target": "routes_adminroutes",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server/index.js",
+      "source_location": "L24",
+      "weight": 1.0,
+      "source": "server_index",
+      "target": "routes_contactroutes",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server/index.js",
+      "source_location": "L22",
+      "weight": 1.0,
+      "source": "server_index",
+      "target": "routes_jobroutes",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/index.js",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "server_index",
+      "target": "server_index_adminroutes",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/index.js",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "server_index",
+      "target": "server_index_app",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/index.js",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "server_index",
+      "target": "server_index_connectmongo_connectpostgres",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/index.js",
+      "source_location": "L24",
+      "weight": 1.0,
+      "source": "server_index",
+      "target": "server_index_contactroutes",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/index.js",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "server_index",
+      "target": "server_index_cors",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/index.js",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "server_index",
+      "target": "server_index_express",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/index.js",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "server_index",
+      "target": "server_index_initbot",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/index.js",
+      "source_location": "L22",
+      "weight": 1.0,
+      "source": "server_index",
+      "target": "server_index_jobroutes",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server/index.js",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "server_index",
+      "target": "services_telegrambot",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server/index.js",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "server_index",
+      "target": "services_telegrambot_initbot",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "server/index.js",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "server_index_app",
+      "target": "services_telegrambot_initbot"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/models/RawMessage.js",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "models_rawmessage",
+      "target": "models_rawmessage_mongoose",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/models/RawMessage.js",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "models_rawmessage",
+      "target": "models_rawmessage_rawmessageschema",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server/services/telegramBot.js",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "services_telegrambot",
+      "target": "models_rawmessage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/package.json",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "server_package",
+      "target": "server_package_author",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/package.json",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "server_package",
+      "target": "server_package_dependencies",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/package.json",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "server_package",
+      "target": "server_package_description",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/package.json",
+      "source_location": "L25",
+      "weight": 1.0,
+      "source": "server_package",
+      "target": "server_package_devdependencies",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/package.json",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "server_package",
+      "target": "server_package_keywords",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/package.json",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "server_package",
+      "target": "server_package_license",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/package.json",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "server_package",
+      "target": "server_package_main",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/package.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "server_package",
+      "target": "server_package_name",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/package.json",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "server_package",
+      "target": "server_package_scripts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/package.json",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "server_package",
+      "target": "server_package_type",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/package.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "server_package",
+      "target": "server_package_version",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/package.json",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "server_package_scripts",
+      "target": "server_package_scripts_test",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/package.json",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "server_package_dependencies",
+      "target": "server_package_dependencies_axios",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/package.json",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "server_package_dependencies",
+      "target": "server_package_dependencies_body_parser",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/package.json",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "server_package_dependencies",
+      "target": "server_package_dependencies_cors",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/package.json",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "server_package_dependencies",
+      "target": "server_package_dependencies_dotenv",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/package.json",
+      "source_location": "L18",
+      "weight": 1.0,
+      "source": "server_package_dependencies",
+      "target": "server_package_dependencies_express",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/package.json",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "server_package_dependencies",
+      "target": "server_package_dependencies_mongoose",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/package.json",
+      "source_location": "L20",
+      "weight": 1.0,
+      "source": "server_package_dependencies",
+      "target": "server_package_dependencies_nodemailer",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/package.json",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "server_package_dependencies",
+      "target": "server_package_dependencies_openai",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/package.json",
+      "source_location": "L22",
+      "weight": 1.0,
+      "source": "server_package_dependencies",
+      "target": "server_package_dependencies_pg",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/package.json",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "server_package_dependencies",
+      "target": "server_package_dependencies_telegraf",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/package.json",
+      "source_location": "L26",
+      "weight": 1.0,
+      "source": "server_package_devdependencies",
+      "target": "server_package_devdependencies_nodemon",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/routes/adminRoutes.js",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "routes_adminroutes",
+      "target": "routes_adminroutes_express",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/routes/adminRoutes.js",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "routes_adminroutes",
+      "target": "routes_adminroutes_getrawmessages_approverawmessage_finalizejob",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/routes/adminRoutes.js",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "routes_adminroutes",
+      "target": "routes_adminroutes_router",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/routes/contactRoutes.js",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "routes_contactroutes",
+      "target": "routes_contactroutes_express",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/routes/contactRoutes.js",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "routes_contactroutes",
+      "target": "routes_contactroutes_router",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/routes/contactRoutes.js",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "routes_contactroutes",
+      "target": "routes_contactroutes_submitcontact",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/routes/jobRoutes.js",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "routes_jobroutes",
+      "target": "routes_jobroutes_express",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/routes/jobRoutes.js",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "routes_jobroutes",
+      "target": "routes_jobroutes_getjobs_getjobbyid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/routes/jobRoutes.js",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "routes_jobroutes",
+      "target": "routes_jobroutes_router",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/services/aiParser.js",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "services_aiparser",
+      "target": "services_aiparser_openai",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/services/aiParser.js",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "services_aiparser",
+      "target": "services_aiparser_parsejobmessage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/services/mailer.js",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "services_mailer",
+      "target": "services_mailer_axios",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/services/mailer.js",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "services_mailer",
+      "target": "services_mailer_getaccesstoken",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/services/mailer.js",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "services_mailer",
+      "target": "services_mailer_sendcontactemail",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "server/services/mailer.js",
+      "source_location": null,
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_mailer_sendcontactemail",
+      "target": "services_mailer_getaccesstoken"
+    },
+    {
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "functions/index.js",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "functions_index_contact",
+      "target": "services_mailer_sendcontactemail"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/services/telegramBot.js",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "services_telegrambot",
+      "target": "services_telegrambot_initbot",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/services/telegramBot.js",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "services_telegrambot",
+      "target": "services_telegrambot_rawmessage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/services/telegramBot.js",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "services_telegrambot",
+      "target": "services_telegrambot_telegraf",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "server/services/telegramBot.js",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "services_telegrambot_initbot",
+      "target": "models_rawmessage_rawmessage"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "assets/certs/aws-sa-pro.svg",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "certs_aws_sa_pro_badge",
+      "target": "certs_aws_sa_pro_aws_sap"
+    },
+    {
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "assets/certs/azure-sa.svg",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "certs_azure_sa_badge",
+      "target": "certs_azure_sa_azure_solutions_architect"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "assets/certs/ccaf.svg",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "certs_ccaf_badge",
+      "target": "certs_ccaf_claude_certified_architect_foundations"
+    },
+    {
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "assets/certs/databricks-de.svg",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "certs_databricks_de_badge",
+      "target": "certs_databricks_de_certification"
+    },
+    {
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "assets/images/brain-icon-new.png",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "images_brain_icon_new",
+      "target": "images_brain_icon_new_artificial_intelligence"
+    },
+    {
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "assets/images/brain-icon-new.png",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "images_brain_icon_new",
+      "target": "images_brain_icon_new_cybernetics"
+    },
+    {
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "assets/images/logo-full-new.jpg",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "images_logo_full_new_logo",
+      "target": "images_logo_full_new_brand_name"
+    },
+    {
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "assets/images/logo-full-new.jpg",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "images_logo_full_new_logo",
+      "target": "images_logo_full_new_tagline"
+    },
+    {
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "assets/images/logo-full-new.jpg",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "images_logo_full_new_logo",
+      "target": "images_logo_full_new_tech_motif"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "assets/images/logo-full.png",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "images_logo_full_logo",
+      "target": "images_logo_full_tagline"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "assets/images/logo-full.png",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "images_logo_full_logo",
+      "target": "images_logo_full_westleyresource"
+    },
+    {
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "assets/images/logo-full.png",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "images_logo_full_westleyresource",
+      "target": "images_logo_full_tagline"
+    },
+    {
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "assets/images/logo-symbol.png",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "images_logo_symbol",
+      "target": "images_logo_symbol_hexagon"
+    },
+    {
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "assets/images/logo-symbol.png",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "images_logo_symbol",
+      "target": "images_logo_symbol_w"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "assets/partners/adobe.svg",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "partners_adobe_logo",
+      "target": "partners_adobe_brand"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "assets/partners/databricks.svg",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "partners_databricks_logo",
+      "target": "partners_databricks_databricks"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "assets/partners/microsoft.svg",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "partners_microsoft_logo",
+      "target": "partners_microsoft_company"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "assets/tracks/palantir.svg",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "tracks_palantir_image",
+      "target": "tracks_palantir_fde_track"
+    },
+    {
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "AGENTS.md",
+      "source": "westleyresource_agents_deployment_workflow",
+      "target": "westleyresource_readme_firebase_hosting"
+    },
+    {
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "GEMINI.md",
+      "source": "westleyresource_gemini_architecture",
+      "target": "westleyresource_readme_firebase_hosting"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "GEMINI.md",
+      "source": "westleyresource_gemini_contact_form",
+      "target": "westleyresource_gemini_firebase_secret_manager"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "GEMINI.md",
+      "source": "westleyresource_gemini_contact_form",
+      "target": "westleyresource_gemini_microsoft_graph_api"
+    },
+    {
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "GEMINI.md",
+      "source": "westleyresource_gemini_contact_form",
+      "target": "westleyresource_script_form_validation"
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "carrercoach/server.js",
+      "source": "carrercoach_server_payment_routes",
+      "target": "carrercoach_server_stripe_integration"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "client/src/App.jsx",
+      "source": "src_app_router",
+      "target": "pages_admindashboard_component"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "client/src/App.jsx",
+      "source": "src_app_router",
+      "target": "pages_jobdetail_component"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "client/src/App.jsx",
+      "source": "src_app_router",
+      "target": "pages_joblist_component"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "data/fde-practice.schema.md",
+      "source": "data_fde_practice_schema_doc",
+      "target": "data_fde_practice_content"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/superpowers/plans/2026-05-18-fde-practice-page.md",
+      "source": "plans_2026_05_18_fde_practice_page_plan",
+      "target": "data_fde_practice_content"
+    },
+    {
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/superpowers/plans/2026-05-18-fde-practice-page.md",
+      "source": "plans_2026_05_18_fde_practice_page_plan",
+      "target": "plans_2026_05_18_fde_practice_page_fde_practice"
+    }
+  ],
+  "hyperedges": [
+    {
+      "id": "contact_form_infrastructure",
+      "label": "Contact Form Infrastructure",
+      "nodes": [
+        "westleyresource_gemini_contact_form",
+        "westleyresource_gemini_microsoft_graph_api",
+        "westleyresource_gemini_firebase_secret_manager",
+        "westleyresource_script_form_validation"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "GEMINI.md"
+    },
+    {
+      "id": "vms_job_aggregator_frontend",
+      "label": "VMS Job Aggregator React Frontend",
+      "nodes": [
+        "src_app_router",
+        "pages_admindashboard_component",
+        "pages_jobdetail_component",
+        "pages_joblist_component"
+      ],
+      "relation": "form",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "client/src/App.jsx"
+    },
+    {
+      "id": "career_coach_backend",
+      "label": "Career Coach Backend Services",
+      "nodes": [
+        "carrercoach_server_stripe_integration",
+        "carrercoach_server_auth_routes",
+        "carrercoach_server_payment_routes",
+        "carrercoach_server_ai_routes",
+        "carrercoach_server_authmiddleware"
+      ],
+      "relation": "form",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "carrercoach/server.js"
+    },
+    {
+      "id": "fde_practice_page_system",
+      "label": "FDE Practice Page Content System",
+      "nodes": [
+        "data_fde_practice_content",
+        "data_fde_practice_schema_doc",
+        "plans_2026_05_18_fde_practice_page_plan",
+        "plans_2026_05_18_fde_practice_page_fde_practice"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "docs/superpowers/plans/2026-05-18-fde-practice-page.md"
+    },
+    {
+      "id": "db_connections",
+      "label": "Database Connections",
+      "nodes": [
+        "config_db_connectmongo",
+        "config_db_connectpostgres",
+        "config_db_pool"
+      ],
+      "relation": "form",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "server/config/db.js"
+    },
+    {
+      "id": "controllers_group",
+      "label": "API Controllers",
+      "nodes": [
+        "controllers_admincontroller_getrawmessages",
+        "controllers_admincontroller_approverawmessage",
+        "controllers_admincontroller_finalizejob",
+        "controllers_contactcontroller_submitcontact",
+        "controllers_jobcontroller_getjobs",
+        "controllers_jobcontroller_getjobbyid",
+        "controllers_jobcontroller_processrawjob"
+      ],
+      "relation": "form",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "server/controllers/adminController.js"
+    }
+  ],
+  "built_at_commit": "122a01ef4645b52c3f02c4792a23bc949d9fa7c9"
+}

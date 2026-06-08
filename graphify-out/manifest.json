@@ -1,0 +1,387 @@
+{
+  "/Users/kishorekumar/CascadeProjects/westleyresource/.claude/hooks/check-gstack.sh": {
+    "mtime": 1777052584.8659327,
+    "ast_hash": "ecffd1f09dd13b81571f237fe2cd2244",
+    "semantic_hash": "ecffd1f09dd13b81571f237fe2cd2244"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/.claude/settings.json": {
+    "mtime": 1777052584.9719505,
+    "ast_hash": "8afb68e8a07fa344529f717dfeedbce1",
+    "semantic_hash": "8afb68e8a07fa344529f717dfeedbce1"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/.claude/settings.local.json": {
+    "mtime": 1780685564.807896,
+    "ast_hash": "c46d246ca8dda902e22f939090b9af5d",
+    "semantic_hash": "c46d246ca8dda902e22f939090b9af5d"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/carrercoach/package.json": {
+    "mtime": 1777595624.0,
+    "ast_hash": "8e8efd7e3a941c868a88654ba479ba29",
+    "semantic_hash": "8e8efd7e3a941c868a88654ba479ba29"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/carrercoach/res.json": {
+    "mtime": 1777637462.9506729,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/carrercoach/res3.json": {
+    "mtime": 1777637490.0506458,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/carrercoach/server.js": {
+    "mtime": 1777637437.6507075,
+    "ast_hash": "277e5b13765806d5bba916eda68a33dd",
+    "semantic_hash": "277e5b13765806d5bba916eda68a33dd"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/carrercoach/test-crash.js": {
+    "mtime": 1777637528.3393471,
+    "ast_hash": "717420714e8bf2db13b05486bc9c8f1a",
+    "semantic_hash": "717420714e8bf2db13b05486bc9c8f1a"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/check-dns.sh": {
+    "mtime": 1769310878.9998016,
+    "ast_hash": "396ad45ca2cd8b72b3d86973c2e198b7",
+    "semantic_hash": "396ad45ca2cd8b72b3d86973c2e198b7"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/client/package.json": {
+    "mtime": 1775325845.0445924,
+    "ast_hash": "0a4b415b5fb62d822a86ef82a4439b57",
+    "semantic_hash": "0a4b415b5fb62d822a86ef82a4439b57"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/client/src/App.jsx": {
+    "mtime": 1775325894.7048573,
+    "ast_hash": "f81de2ef3856f474791c121517029903",
+    "semantic_hash": "f81de2ef3856f474791c121517029903"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/client/src/main.jsx": {
+    "mtime": 1775325869.8629324,
+    "ast_hash": "54a301507dcdfccf4e5565754374b5dc",
+    "semantic_hash": "54a301507dcdfccf4e5565754374b5dc"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/client/src/pages/AdminDashboard.jsx": {
+    "mtime": 1775325918.4168022,
+    "ast_hash": "3030a1676f57c3183f84680293ffe814",
+    "semantic_hash": "3030a1676f57c3183f84680293ffe814"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/client/src/pages/JobDetail.jsx": {
+    "mtime": 1775325912.213546,
+    "ast_hash": "dec377138f74ce991484f2351e92e229",
+    "semantic_hash": "dec377138f74ce991484f2351e92e229"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/client/src/pages/JobList.jsx": {
+    "mtime": 1775325906.614982,
+    "ast_hash": "c38606b67062bf6c64ede499568b0533",
+    "semantic_hash": "c38606b67062bf6c64ede499568b0533"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/client/vite.config.js": {
+    "mtime": 1775325848.7148418,
+    "ast_hash": "66ea7f5d0a307179fc40372c88af7acd",
+    "semantic_hash": "66ea7f5d0a307179fc40372c88af7acd"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/data/fde-practice.json": {
+    "mtime": 1779420004.567282,
+    "ast_hash": "74df04425c03a66ff8ad88aeeaf7d39f",
+    "semantic_hash": "74df04425c03a66ff8ad88aeeaf7d39f"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/firebase.json": {
+    "mtime": 1780684126.1995955,
+    "ast_hash": "686cf9db32ba92494de021f3bbdd88d0",
+    "semantic_hash": "686cf9db32ba92494de021f3bbdd88d0"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/functions/index.js": {
+    "mtime": 1780688473.1775312,
+    "ast_hash": "de4142f2147ab61ff4ee4dc7ed7317a4",
+    "semantic_hash": "de4142f2147ab61ff4ee4dc7ed7317a4"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/functions/package.json": {
+    "mtime": 1780684871.1124094,
+    "ast_hash": "7a9c1c746cb31e117ff0061cca89395f",
+    "semantic_hash": "7a9c1c746cb31e117ff0061cca89395f"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/js/fde-practice.js": {
+    "mtime": 1779414398.0194025,
+    "ast_hash": "696edbeffabae45d3827257021dc5dd5",
+    "semantic_hash": "696edbeffabae45d3827257021dc5dd5"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/script.js": {
+    "mtime": 1767405408.454639,
+    "ast_hash": "14bbbd1045d0a32e4e53791db537c2ad",
+    "semantic_hash": "14bbbd1045d0a32e4e53791db537c2ad"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/scripts/linkedin_apply.py": {
+    "mtime": 1776447328.3285444,
+    "ast_hash": "e8e7b57d8e5fdc899ff639345a4ad22e",
+    "semantic_hash": "e8e7b57d8e5fdc899ff639345a4ad22e"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/server/config/db.js": {
+    "mtime": 1775322263.9641802,
+    "ast_hash": "7d11bb9df5898380a68dac38147f0d47",
+    "semantic_hash": "7d11bb9df5898380a68dac38147f0d47"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/server/controllers/adminController.js": {
+    "mtime": 1775322279.5169485,
+    "ast_hash": "36f46490fa56733d1eaff3b122033ff9",
+    "semantic_hash": "36f46490fa56733d1eaff3b122033ff9"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/server/controllers/contactController.js": {
+    "mtime": 1780676570.4801211,
+    "ast_hash": "748ab98c388ec72d45c7424185339ae0",
+    "semantic_hash": "748ab98c388ec72d45c7424185339ae0"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/server/controllers/jobController.js": {
+    "mtime": 1775322273.9553874,
+    "ast_hash": "0acbf0a9398c2954976cba37d9f65c8b",
+    "semantic_hash": "0acbf0a9398c2954976cba37d9f65c8b"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/server/index.js": {
+    "mtime": 1780676575.0958095,
+    "ast_hash": "de207542a76487bc3c23a208e709b8e0",
+    "semantic_hash": "de207542a76487bc3c23a208e709b8e0"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/server/models/RawMessage.js": {
+    "mtime": 1775322216.3946595,
+    "ast_hash": "087785f7df3450f7ff83917251cfafc2",
+    "semantic_hash": "087785f7df3450f7ff83917251cfafc2"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/server/package.json": {
+    "mtime": 1780676541.4833562,
+    "ast_hash": "dbcc9f229338286bbebf9280315a7a4f",
+    "semantic_hash": "dbcc9f229338286bbebf9280315a7a4f"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/server/routes/adminRoutes.js": {
+    "mtime": 1775322286.8892508,
+    "ast_hash": "442d808b8bde6e9892d5a1cdd78c5b0a",
+    "semantic_hash": "442d808b8bde6e9892d5a1cdd78c5b0a"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/server/routes/contactRoutes.js": {
+    "mtime": 1780676570.496792,
+    "ast_hash": "e5dfec96cb5edb46572d1c5be61fb497",
+    "semantic_hash": "e5dfec96cb5edb46572d1c5be61fb497"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/server/routes/jobRoutes.js": {
+    "mtime": 1775322275.8227463,
+    "ast_hash": "d17e189d7e9bcd94aea68344d081f22e",
+    "semantic_hash": "d17e189d7e9bcd94aea68344d081f22e"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/server/schema.sql": {
+    "mtime": 1775322209.911077,
+    "ast_hash": "ab4d66b6c0541d1cc9c750a9099bad17",
+    "semantic_hash": "ab4d66b6c0541d1cc9c750a9099bad17"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/server/services/aiParser.js": {
+    "mtime": 1775322249.977701,
+    "ast_hash": "0a30a53da4ebb619a57661ac2aacfd80",
+    "semantic_hash": "0a30a53da4ebb619a57661ac2aacfd80"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/server/services/mailer.js": {
+    "mtime": 1780682506.165145,
+    "ast_hash": "38efb643c7bda3aeb6991a8461515f94",
+    "semantic_hash": "38efb643c7bda3aeb6991a8461515f94"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/server/services/telegramBot.js": {
+    "mtime": 1775322226.459902,
+    "ast_hash": "808d8b06a0b55f494baa8e3039e01331",
+    "semantic_hash": "808d8b06a0b55f494baa8e3039e01331"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/.github/workflows/deploy.yml": {
+    "mtime": 1779420726.970571,
+    "ast_hash": "3a1a350bf3b63d6d073fb13ae5e18194",
+    "semantic_hash": "3a1a350bf3b63d6d073fb13ae5e18194"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/AGENTS.md": {
+    "mtime": 1769645420.5249684,
+    "ast_hash": "75848da585526cd7d9b8cdfb005ce7f7",
+    "semantic_hash": "75848da585526cd7d9b8cdfb005ce7f7"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/CLAUDE.md": {
+    "mtime": 1780685056.8733075,
+    "ast_hash": "d1e87a8c6b642f84b508c078bd132539",
+    "semantic_hash": "d1e87a8c6b642f84b508c078bd132539"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/DEPLOYMENT_SUCCESS.md": {
+    "mtime": 1769313007.8536365,
+    "ast_hash": "b2a974abe4c52a68e5c5bd68e1e7c1e9",
+    "semantic_hash": "b2a974abe4c52a68e5c5bd68e1e7c1e9"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/DNS_SETUP.md": {
+    "mtime": 1769302012.424642,
+    "ast_hash": "bc5e2dc80f1a70aee8d6270e10ed4fd9",
+    "semantic_hash": "bc5e2dc80f1a70aee8d6270e10ed4fd9"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/FIREBASE_SETUP.md": {
+    "mtime": 1769233804.325016,
+    "ast_hash": "0580a6d1170a078eebf7a070a961b667",
+    "semantic_hash": "0580a6d1170a078eebf7a070a961b667"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/GEMINI.md": {
+    "mtime": 1780686480.551492,
+    "ast_hash": "af5e60676ccc3d1de43267302babd0ff",
+    "semantic_hash": "af5e60676ccc3d1de43267302babd0ff"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/README.md": {
+    "mtime": 1777052272.686321,
+    "ast_hash": "5d65888664943b3ae407f45bc63b0a97",
+    "semantic_hash": "5d65888664943b3ae407f45bc63b0a97"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/VENTURE_ROADMAP.md": {
+    "mtime": 1769302052.2851822,
+    "ast_hash": "2c876401a5d132c0524f6cb673f6bc79",
+    "semantic_hash": "2c876401a5d132c0524f6cb673f6bc79"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/about.html": {
+    "mtime": 1779414398.0099785,
+    "ast_hash": "ab5143f851ef738c40637113796d8ccf",
+    "semantic_hash": "ab5143f851ef738c40637113796d8ccf"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/candidates.html": {
+    "mtime": 1779414398.0143428,
+    "ast_hash": "d6565609a2b0ff0d1b4c46ff5eb59bf0",
+    "semantic_hash": "d6565609a2b0ff0d1b4c46ff5eb59bf0"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/career-coach.html": {
+    "mtime": 1777644150.3872402,
+    "ast_hash": "05e6a68b7737389c705f605e02762d5f",
+    "semantic_hash": "05e6a68b7737389c705f605e02762d5f"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/client/index.html": {
+    "mtime": 1775325859.4348516,
+    "ast_hash": "97e30ecd12c2e94b08691b5af0faddee",
+    "semantic_hash": "97e30ecd12c2e94b08691b5af0faddee"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/contact.html": {
+    "mtime": 1780685935.6848042,
+    "ast_hash": "a708e9c39562dcffbadff6025d260f2f",
+    "semantic_hash": "a708e9c39562dcffbadff6025d260f2f"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/data/fde-practice.schema.md": {
+    "mtime": 1779414398.0155835,
+    "ast_hash": "132eb09673ebc9215340e1150986626b",
+    "semantic_hash": "132eb09673ebc9215340e1150986626b"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/docs/superpowers/plans/2026-05-18-fde-practice-page.md": {
+    "mtime": 1779414398.016296,
+    "ast_hash": "51d72e058cd13e2f3da6001b82ff9905",
+    "semantic_hash": "51d72e058cd13e2f3da6001b82ff9905"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/docs/superpowers/specs/2026-05-18-fde-practice-page-design.md": {
+    "mtime": 1779414398.0169742,
+    "ast_hash": "af812377edb9c3dec813deb922e139bf",
+    "semantic_hash": "af812377edb9c3dec813deb922e139bf"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/employers.html": {
+    "mtime": 1779414398.017227,
+    "ast_hash": "d9ba05d97b87fac02608d350290a702a",
+    "semantic_hash": "d9ba05d97b87fac02608d350290a702a"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/forward-deployed.html": {
+    "mtime": 1779414398.018736,
+    "ast_hash": "7d99fb97ea604f8c453e90d2920d0080",
+    "semantic_hash": "7d99fb97ea604f8c453e90d2920d0080"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/index.html": {
+    "mtime": 1779414398.019061,
+    "ast_hash": "79f8116771e2b91b56fd7611a79cefb8",
+    "semantic_hash": "79f8116771e2b91b56fd7611a79cefb8"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/requirements.txt": {
+    "mtime": 1776447328.3285456,
+    "ast_hash": "d5f4f5f373034659317abcd1a0848b3a",
+    "semantic_hash": "d5f4f5f373034659317abcd1a0848b3a"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/scripts/README.md": {
+    "mtime": 1776447328.3285463,
+    "ast_hash": "1946f0ccb6bfd15b8ffa4452b3d8988e",
+    "semantic_hash": "1946f0ccb6bfd15b8ffa4452b3d8988e"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/services.html": {
+    "mtime": 1779414398.0196178,
+    "ast_hash": "b57f3028519dabeb6d962b6019305269",
+    "semantic_hash": "b57f3028519dabeb6d962b6019305269"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/assets/certs/aws-sa-pro.svg": {
+    "mtime": 1779414398.0106552,
+    "ast_hash": "4161f9c37dfc726419d42770c6795dc4",
+    "semantic_hash": "4161f9c37dfc726419d42770c6795dc4"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/assets/certs/azure-sa.svg": {
+    "mtime": 1779414398.0109813,
+    "ast_hash": "5b3ef595aed34ffb661d2a94e9541d79",
+    "semantic_hash": "5b3ef595aed34ffb661d2a94e9541d79"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/assets/certs/ccaf.svg": {
+    "mtime": 1779414398.011409,
+    "ast_hash": "0c12bd669bd7fcef4ebb72b2f974254e",
+    "semantic_hash": "0c12bd669bd7fcef4ebb72b2f974254e"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/assets/certs/databricks-de.svg": {
+    "mtime": 1779414398.0116212,
+    "ast_hash": "d1f6e77fc458e09555665516b380e55f",
+    "semantic_hash": "d1f6e77fc458e09555665516b380e55f"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/assets/certs/gcp-pca.svg": {
+    "mtime": 1779414398.0119526,
+    "ast_hash": "4908191cc9e00ed294bc9fe732328af1",
+    "semantic_hash": "4908191cc9e00ed294bc9fe732328af1"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/assets/images/brain-icon-new.png": {
+    "mtime": 1767412846.0946398,
+    "ast_hash": "fb1d479c65f7b716b22eb870daa84d8c",
+    "semantic_hash": "fb1d479c65f7b716b22eb870daa84d8c"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/assets/images/logo-full-new.jpg": {
+    "mtime": 1767412816.1778646,
+    "ast_hash": "b1c44373a20192ef259955fa1a72c02a",
+    "semantic_hash": "b1c44373a20192ef259955fa1a72c02a"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/assets/images/logo-full.png": {
+    "mtime": 1767411906.9118168,
+    "ast_hash": "0e712e3d17683968fabd923de44ae35b",
+    "semantic_hash": "0e712e3d17683968fabd923de44ae35b"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/assets/images/logo-symbol.png": {
+    "mtime": 1769324635.2036,
+    "ast_hash": "5ee48fffbba36bfe11acd43e2beb5a9c",
+    "semantic_hash": "5ee48fffbba36bfe11acd43e2beb5a9c"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/assets/partners/adobe.svg": {
+    "mtime": 1779414398.0121906,
+    "ast_hash": "4e3bea38e96de9300744c459b31fa3c5",
+    "semantic_hash": "4e3bea38e96de9300744c459b31fa3c5"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/assets/partners/anthropic.svg": {
+    "mtime": 1779414398.012498,
+    "ast_hash": "d36931eb058bf36eef8715289d6a7453",
+    "semantic_hash": "d36931eb058bf36eef8715289d6a7453"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/assets/partners/aws.svg": {
+    "mtime": 1779414398.0127246,
+    "ast_hash": "1f95936b50201da792ab24349c384531",
+    "semantic_hash": "1f95936b50201da792ab24349c384531"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/assets/partners/databricks.svg": {
+    "mtime": 1779414398.013132,
+    "ast_hash": "4a785cf512c546b40fbe3c68327a73ee",
+    "semantic_hash": "4a785cf512c546b40fbe3c68327a73ee"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/assets/partners/google.svg": {
+    "mtime": 1779414398.0133362,
+    "ast_hash": "bb98f6da7fcb828d03afeeec45354244",
+    "semantic_hash": "bb98f6da7fcb828d03afeeec45354244"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/assets/partners/microsoft.svg": {
+    "mtime": 1779414398.0135658,
+    "ast_hash": "5f6292e69cce410f505b2415177bc769",
+    "semantic_hash": "5f6292e69cce410f505b2415177bc769"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/assets/team/placeholder.svg": {
+    "mtime": 1779414398.0139008,
+    "ast_hash": "3e23599b0099f656458a23b71e4cd323",
+    "semantic_hash": "3e23599b0099f656458a23b71e4cd323"
+  },
+  "/Users/kishorekumar/CascadeProjects/westleyresource/assets/tracks/palantir.svg": {
+    "mtime": 1779414398.0141082,
+    "ast_hash": "fec265c8c2024c0461af53b0b3134316",
+    "semantic_hash": "fec265c8c2024c0461af53b0b3134316"
+  }
+}

@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Career Coach</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+--ink:#1a1a18;--paper:#f7f5f0;--accent:#c8a96e;--soft:#e8e4db;
+--muted:#7a7670;--success:#2d7a4f;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh}
+.app{max-width:720px;margin:0 auto;padding:1.5rem 1rem 4rem}
+.header{text-align:center;padding:2rem 0 2.5rem;border-bottom:1px solid var(--soft);margin-bottom:2rem}
+.header h1{font-family:'Playfair Display',serif;font-size:2rem;font-weight:400;letter-spacing:-0.02em;line-height:1.2;margin-bottom:6px}
+.header h1 em{font-style:italic;color:var(--accent)}
+.header p{font-size:14px;color:var(--muted);font-weight:300}
+.steps{display:flex;gap:0;margin-bottom:2rem;border:1px solid var(--soft);border-radius:8px;overflow:hidden}
+.step-tab{flex:1;padding:10px 4px;text-align:center;font-size:11px;font-weight:500;color:var(--muted);background:var(--paper);cursor:default;border-right:1px solid var(--soft);transition:all .3s}
+.step-tab:last-child{border-right:none}
+.step-tab.active{background:var(--ink);color:#fff}
+.step-tab.done{background:var(--soft);color:var(--success)}
+.card{background:#fff;border:1px solid var(--soft);border-radius:12px;padding:1.5rem;margin-bottom:1rem}
+.card-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:600;margin-bottom:1rem;display:flex;align-items:center;gap:8px}
+label{display:block;font-size:13px;font-weight:500;color:var(--muted);margin-bottom:6px;margin-top:14px}
+label:first-child{margin-top:0}
+input[type=text],input[type=email],select,textarea{width:100%;padding:10px 14px;border:1px solid var(--soft);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:14px;background:var(--paper);color:var(--ink);outline:none;transition:border .2s;resize:vertical}
+input:focus,select:focus,textarea:focus{border-color:var(--accent)}
+textarea{min-height:100px}
+.pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.pill{padding:6px 14px;border-radius:99px;border:1px solid var(--soft);font-size:13px;cursor:pointer;transition:all .2s;background:var(--paper);color:var(--ink)}
+.pill.sel{background:var(--ink);color:#fff;border-color:var(--ink)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;border:none;transition:all .2s}
+.btn-primary{background:var(--ink);color:#fff}
+.btn-primary:hover{background:#333}
+.btn-primary:disabled{background:#ccc;cursor:not-allowed}
+.btn-outline{background:transparent;color:var(--ink);border:1px solid var(--soft)}
+.btn-outline:hover{border-color:var(--ink)}
+.btn-accent{background:var(--accent);color:#fff}
+.btn-row{display:flex;gap:10px;justify-content:flex-end;margin-top:1.5rem}
+.ai-block{background:var(--paper);border:1px solid var(--soft);border-radius:10px;padding:1.25rem;margin-top:1rem;font-size:14px;line-height:1.8;color:var(--ink);white-space:pre-wrap;min-height:60px}
+.ai-block.loading{color:var(--muted);font-style:italic}
+.section-label{font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.score-row{display:flex;align-items:center;gap:1.5rem;margin:1rem 0}
+.score-ring{width:72px;height:72px;border-radius:50%;border:3px solid var(--accent);display:flex;align-items:center;justify-content:center;flex-direction:column;flex-shrink:0}
+.score-ring .num{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:600;line-height:1}
+.score-ring .lbl{font-size:10px;color:var(--muted)}
+.inner-tabs{display:flex;gap:6px;margin-bottom:1rem;flex-wrap:wrap}
+.inner-tab{padding:6px 14px;border-radius:99px;font-size:13px;cursor:pointer;border:1px solid var(--soft);background:var(--paper);transition:all .2s}
+.inner-tab.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:inline-block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.fade-up{animation:fadeUp .4s ease forwards}
+.hidden{display:none !important}
+.divider{border:none;border-top:1px solid var(--soft);margin:1.25rem 0}
+
+/* ── Pricing page ── */
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:1.5rem 0}
+.plan{border:1px solid var(--soft);border-radius:12px;padding:1.25rem;background:#fff;position:relative;transition:box-shadow .2s}
+.plan:hover{box-shadow:0 4px 20px rgba(0,0,0,.07)}
+.plan.featured{border:2px solid var(--accent)}
+.plan-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;font-size:11px;font-weight:500;padding:3px 12px;border-radius:99px;white-space:nowrap}
+.plan-name{font-family:'Playfair Display',serif;font-size:1rem;font-weight:600;margin-bottom:4px}
+.plan-price{font-size:1.6rem;font-weight:500;margin:8px 0 4px;line-height:1}
+.plan-price span{font-size:13px;color:var(--muted);font-weight:400}
+.plan-desc{font-size:12px;color:var(--muted);margin-bottom:12px}
+.plan-features{list-style:none;font-size:13px;margin-bottom:1rem}
+.plan-features li{padding:4px 0;border-bottom:1px solid var(--soft);display:flex;align-items:center;gap:6px}
+.plan-features li:last-child{border-bottom:none}
+.check{color:var(--success);font-size:14px}
+.plan-btn{width:100%;padding:10px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;border:1px solid var(--soft);background:var(--paper);font-family:'DM Sans',sans-serif;transition:all .2s}
+.plan-btn:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.plan.featured .plan-btn{background:var(--accent);color:#fff;border-color:var(--accent)}
+.plan.featured .plan-btn:hover{background:#b8994e}
+
+/* ── Auth modal ── */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;z-index:100}
+.modal{background:#fff;border-radius:16px;padding:2rem;width:90%;max-width:400px}
+.modal h2{font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:6px}
+.modal p{font-size:13px;color:var(--muted);margin-bottom:1.25rem}
+.modal label{margin-top:10px}
+.modal-footer{margin-top:1rem;text-align:center;font-size:13px;color:var(--muted)}
+.modal-footer a{color:var(--accent);cursor:pointer;text-decoration:underline}
+
+/* ── Dashboard header ── */
+.dash-header{display:flex;align-items:center;justify-content:space-between;background:#fff;border:1px solid var(--soft);border-radius:12px;padding:1rem 1.25rem;margin-bottom:1.5rem}
+.dash-user{display:flex;align-items:center;gap:10px}
+.avatar{width:36px;height:36px;border-radius:50%;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:500}
+.plan-chip{font-size:11px;padding:3px 10px;border-radius:99px;background:#fdf3e3;color:#8a6200;font-weight:500;border:1px solid #f0d898}
+.plan-chip.pro{background:#e8f5ed;color:var(--success);border-color:#a8dbb8}
+.usage-bar-wrap{margin-top:6px}
+.usage-bar-bg{height:5px;background:var(--soft);border-radius:99px;overflow:hidden;width:140px}
+.usage-bar-fill{height:100%;background:var(--accent);border-radius:99px;transition:width .5s}
+.usage-label{font-size:11px;color:var(--muted);margin-top:3px}
+</style>
+
+<div class="app" id="main-app">
+
+  <!-- ══ LANDING / PRICING ══ -->
+  <div id="page-pricing">
+    <div class="header">
+      <h1>Your <em>AI Career</em> Coach</h1>
+      <p>Personalized resume rewrites, job roadmaps & interview prep — powered by AI</p>
+    </div>
+
+    <div class="pricing-grid">
+      <!-- Starter -->
+      <div class="plan">
+        <div class="plan-name">Starter</div>
+        <div class="plan-price">$49<span>/mo</span></div>
+        <div class="plan-desc">For casual job seekers</div>
+        <ul class="plan-features">
+          <li><span class="check">✓</span> 3 resume analyses</li>
+          <li><span class="check">✓</span> 1 roadmap</li>
+          <li><span class="check">✓</span> 10 interview Q&As</li>
+          <li><span class="check">✓</span> Email support</li>
+        </ul>
+        <button class="plan-btn" onclick="choosePlan('Starter','$49/mo')">Get started</button>
+      </div>
+      <!-- Pro -->
+      <div class="plan featured">
+        <div class="plan-badge">Most popular</div>
+        <div class="plan-name">Pro</div>
+        <div class="plan-price">$99<span>/mo</span></div>
+        <div class="plan-desc">For active job seekers</div>
+        <ul class="plan-features">
+          <li><span class="check">✓</span> Unlimited analyses</li>
+          <li><span class="check">✓</span> Unlimited roadmaps</li>
+          <li><span class="check">✓</span> Unlimited interview prep</li>
+          <li><span class="check">✓</span> LinkedIn optimizer</li>
+        </ul>
+        <button class="plan-btn" onclick="choosePlan('Pro','$99/mo')">Get Pro</button>
+      </div>
+      <!-- Executive -->
+      <div class="plan">
+        <div class="plan-name">Executive</div>
+        <div class="plan-price">$199<span>/mo</span></div>
+        <div class="plan-desc">For senior professionals</div>
+        <ul class="plan-features">
+          <li><span class="check">✓</span> Everything in Pro</li>
+          <li><span class="check">✓</span> Salary negotiation guide</li>
+          <li><span class="check">✓</span> Executive bio rewrite</li>
+          <li><span class="check">✓</span> Priority support</li>
+        </ul>
+        <button class="plan-btn" onclick="choosePlan('Executive','$199/mo')">Get Executive</button>
+      </div>
+    </div>
+
+    <p style="text-align:center;font-size:12px;color:var(--muted);margin-top:8px">
+      Already have an account? <a style="color:var(--accent);cursor:pointer" onclick="showLogin()">Sign in</a>
+    </p>
+  </div>
+
+  <!-- ══ AUTH MODAL ══ -->
+  <div id="modal-auth" class="modal-bg hidden">
+    <div class="modal">
+      <h2 id="modal-title">Create your account</h2>
+      <p id="modal-sub">Start your free 7-day trial. No credit card required.</p>
+      <div id="auth-error" style="color: red; font-size: 14px; margin-bottom: 10px; display: none;"></div>
+      <form id="auth-form" onsubmit="submitAuth(event)">
+        <div id="signup-fields">
+          <label>Full name</label>
+          <input type="text" id="auth-name" placeholder="John Doe">
+        </div>
+        <label>Email</label>
+        <input type="email" id="auth-email" placeholder="you@email.com">
+        <label>Password</label>
+        <input type="password" id="auth-pass" placeholder="Create a password" style="letter-spacing:.05em">
+        <div style="margin-top:1.25rem">
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center" id="auth-submit-btn">
+            <span id="auth-btn-text">Create account & continue</span>
+          </button>
+        </div>
+        
+        <div style="margin-top:1rem; text-align:center; font-size:12px; color:var(--muted);">OR</div>
+        
+        <div style="margin-top:1rem">
+          <button type="button" class="btn" style="width:100%;justify-content:center;background:#fff;border:1px solid var(--soft);color:var(--ink)" onclick="alert('Google Sign-In will be configured when connected to Google Cloud/Firebase in production.')">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google" style="width:16px;height:16px;margin-right:4px;">
+            Continue with Google
+          </button>
+        </div>
+      </form>
+      <div class="modal-footer" id="auth-switch">
+        Already have an account? <a onclick="toggleAuthMode()">Sign in</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ MAIN APP (after login) ══ -->
+  <div id="page-app" class="hidden">
+
+    <!-- Dashboard header -->
+    <div class="dash-header">
+      <div class="dash-user">
+        <div class="avatar" id="user-avatar">J</div>
+        <div>
+          <div style="font-size:14px;font-weight:500" id="user-name-display">John</div>
+          <span class="plan-chip pro" id="plan-display">Pro plan</span>
+        </div>
+      </div>
+      <div style="text-align:right">
+        <div class="usage-bar-wrap">
+          <div style="font-size:11px;color:var(--muted);margin-bottom:4px">Monthly usage</div>
+          <div class="usage-bar-bg"><div class="usage-bar-fill" id="usage-fill" style="width:20%"></div></div>
+          <div class="usage-label" id="usage-label">2 / 10 sessions used</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step tabs -->
+    <div class="steps">
+      <div class="step-tab active" id="tab-0">1. Profile</div>
+      <div class="step-tab" id="tab-1">2. Resume</div>
+      <div class="step-tab" id="tab-2">3. Roadmap</div>
+      <div class="step-tab" id="tab-3">4. Interview</div>
+    </div>
+
+    <!-- STEP 0 -->
+    <div id="step-0" class="fade-up">
+      <div class="card">
+        <div class="card-title"><span>👤</span> Tell us about yourself</div>
+        <label>Full name</label>
+        <input type="text" id="name" placeholder="e.g. John Doe">
+        <label>Current role / title</label>
+        <input type="text" id="role" placeholder="e.g. Ph.D. Researcher, Materials Chemistry">
+        <label>Years of experience</label>
+        <select id="exp">
+          <option value="">Select...</option>
+          <option>0–1 year (student / fresh grad)</option>
+          <option>1–3 years (early career)</option>
+          <option>3–6 years (mid level)</option>
+          <option>6–10 years (senior)</option>
+          <option>10+ years (lead / executive)</option>
+        </select>
+        <label>Target job title</label>
+        <input type="text" id="target" placeholder="e.g. AI Engineer, Data Scientist, R&D Chemist">
+        <label>Industries you are interested in</label>
+        <div class="pills" id="industry-pills">
+          <div class="pill" onclick="togglePill(this)">Tech / AI</div>
+          <div class="pill" onclick="togglePill(this)">Biotech</div>
+          <div class="pill" onclick="togglePill(this)">Finance</div>
+          <div class="pill" onclick="togglePill(this)">Healthcare</div>
+          <div class="pill" onclick="togglePill(this)">Semiconductors</div>
+          <div class="pill" onclick="togglePill(this)">Consulting</div>
+          <div class="pill" onclick="togglePill(this)">Energy</div>
+          <div class="pill" onclick="togglePill(this)">Manufacturing</div>
+        </div>
+        <label>What do you need most help with?</label>
+        <div class="pills" id="help-pills">
+          <div class="pill" onclick="togglePill(this)">Resume rewrite</div>
+          <div class="pill" onclick="togglePill(this)">Job search strategy</div>
+          <div class="pill" onclick="togglePill(this)">Interview prep</div>
+          <div class="pill" onclick="togglePill(this)">LinkedIn optimization</div>
+          <div class="pill" onclick="togglePill(this)">Salary negotiation</div>
+          <div class="pill" onclick="togglePill(this)">Career switch</div>
+        </div>
+      </div>
+      <div class="btn-row"><button class="btn btn-primary" onclick="goStep(1)">Continue →</button></div>
+    </div>
+
+    <!-- STEP 1 -->
+    <div id="step-1" class="hidden">
+      <div class="card">
+        <div class="card-title"><span>📄</span> Paste your current resume</div>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:12px">Even a rough version works. AI will analyze, score, and rewrite it for your target role.</p>
+        <textarea id="resume-text" placeholder="Paste your resume text here — work experience, education, skills, publications, projects..."></textarea>
+        <div class="btn-row">
+          <button class="btn btn-outline" onclick="goStep(0)">← Back</button>
+          <button class="btn btn-primary" id="analyze-btn" onclick="analyzeResume()">Analyze my resume</button>
+        </div>
+      </div>
+      <div id="resume-result" class="hidden card fade-up">
+        <div class="section-label">AI resume analysis</div>
+        <div class="score-row">
+          <div class="score-ring"><span class="num" id="score-num">—</span><span class="lbl">/ 100</span></div>
+          <div class="score-desc" id="score-desc">Analyzing...</div>
+        </div>
+        <hr class="divider">
+        <div class="inner-tabs">
+          <div class="inner-tab active" onclick="switchTab(this,'rewrite')">Rewritten version</div>
+          <div class="inner-tab" onclick="switchTab(this,'gaps')">Gaps & suggestions</div>
+          <div class="inner-tab" onclick="switchTab(this,'keywords')">Missing keywords</div>
+        </div>
+        <div id="tab-rewrite" class="ai-block"></div>
+        <div id="tab-gaps" class="ai-block hidden"></div>
+        <div id="tab-keywords" class="ai-block hidden"></div>
+        <div class="btn-row"><button class="btn btn-primary" onclick="goStep(2)">Build my roadmap →</button></div>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div id="step-2" class="hidden">
+      <div class="card">
+        <div class="card-title"><span>🗺️</span> Your personalized job search roadmap</div>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:1rem">Based on your profile, here is your 8-week plan to land your target role.</p>
+        <button class="btn btn-accent" id="roadmap-btn" onclick="buildRoadmap()">Generate my roadmap</button>
+      </div>
+      <div id="roadmap-result" class="hidden card fade-up">
+        <div class="section-label">Your 8-week action plan</div>
+        <div id="roadmap-content" class="ai-block"></div>
+        <div class="btn-row">
+          <button class="btn btn-outline" onclick="goStep(1)">← Back</button>
+          <button class="btn btn-primary" onclick="goStep(3)">Start interview prep →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div id="step-3" class="hidden">
+      <div class="card">
+        <div class="card-title"><span>🎤</span> Interview prep</div>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:1rem">Paste a job description and practice with AI-generated questions and feedback.</p>
+        <label>Job description</label>
+        <textarea id="jd-text" placeholder="Paste the full job description..." style="min-height:120px"></textarea>
+        <label>Question type</label>
+        <div class="pills" id="qtype-pills" style="margin-bottom:1rem">
+          <div class="pill sel" onclick="togglePill(this,'qtype-pills')">Behavioral</div>
+          <div class="pill" onclick="togglePill(this,'qtype-pills')">Technical</div>
+          <div class="pill" onclick="togglePill(this,'qtype-pills')">Situational</div>
+          <div class="pill" onclick="togglePill(this,'qtype-pills')">Culture fit</div>
+        </div>
+        <button class="btn btn-primary" id="interview-btn" onclick="generateQuestions()">Generate questions + model answers</button>
+      </div>
+      <div id="interview-result" class="hidden card fade-up">
+        <div class="section-label">Practice questions & model answers</div>
+        <div id="interview-content" class="ai-block"></div>
+        <hr class="divider">
+        <div style="margin-top:1rem">
+          <div class="section-label">Your answer — get AI feedback</div>
+          <textarea id="user-answer" placeholder="Type your answer to any question above..." style="min-height:80px"></textarea>
+          <div class="btn-row" style="margin-top:8px">
+            <button class="btn btn-primary" id="feedback-btn" onclick="getFeedback()">Get AI feedback</button>
+          </div>
+          <div id="feedback-result" class="ai-block hidden" style="margin-top:10px"></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /page-app -->
+</div>
+
+<script>
+const BACKEND_API = "https://westley-agents.kindtree-748f04e0.centralus.azurecontainerapps.io/api";
+let profile={};
+let currentUser=null;
+let authToken=localStorage.getItem('cc_token');
+let isLoginMode=false;
+let selectedPlan='Pro';
+
+async function checkAuth() {
+  currentUser = { name: "Guest User", email: "guest@example.com", plan: "Pro" };
+  showDashboard();
+}
+
+// Call on load
+checkAuth();
+
+function choosePlan(plan, price) {
+  selectedPlan = plan;
+  document.getElementById('modal-title').textContent = 'Create your account';
+  document.getElementById('modal-sub').textContent = `You selected the ${plan} plan (${price}). Start your 7-day free trial.`;
+  document.getElementById('signup-fields').style.display = 'block';
+  document.getElementById('auth-btn-text').textContent = 'Create account & continue';
+  document.getElementById('auth-switch').innerHTML = 'Already have an account? <a onclick="toggleAuthMode()">Sign in</a>';
+  isLoginMode = false;
+  document.getElementById('modal-auth').classList.remove('hidden');
+}
+
+function showLogin() {
+  isLoginMode = true;
+  document.getElementById('modal-title').textContent = 'Welcome back';
+  document.getElementById('modal-sub').textContent = 'Sign in to continue your career coaching.';
+  document.getElementById('signup-fields').style.display = 'none';
+  document.getElementById('auth-btn-text').textContent = 'Sign in';
+  document.getElementById('auth-pass').placeholder = 'Enter your password';
+  document.getElementById('auth-switch').innerHTML = "Don't have an account? <a onclick=\"toggleAuthMode()\">Sign up</a>";
+  document.getElementById('modal-auth').classList.remove('hidden');
+}
+
+function toggleAuthMode() {
+  isLoginMode = !isLoginMode;
+  if (isLoginMode) {
+    document.getElementById('modal-title').textContent = 'Welcome back';
+    document.getElementById('modal-sub').textContent = 'Sign in to continue.';
+    document.getElementById('signup-fields').style.display = 'none';
+    document.getElementById('auth-btn-text').textContent = 'Sign in';
+    document.getElementById('auth-pass').placeholder = 'Enter your password';
+    document.getElementById('auth-switch').innerHTML = "Don't have an account? <a onclick=\"toggleAuthMode()\">Sign up</a>";
+  } else {
+    document.getElementById('modal-title').textContent = 'Create your account';
+    document.getElementById('modal-sub').textContent = `${selectedPlan} plan — 7-day free trial.`;
+    document.getElementById('signup-fields').style.display = 'block';
+    document.getElementById('auth-btn-text').textContent = 'Create account & continue';
+    document.getElementById('auth-pass').placeholder = 'Create a password';
+    document.getElementById('auth-switch').innerHTML = 'Already have an account? <a onclick="toggleAuthMode()">Sign in</a>';
+  }
+}
+
+async function submitAuth(e) {
+  if (e) e.preventDefault();
+  const errorDiv = document.getElementById('auth-error');
+  errorDiv.style.display = 'none';
+  
+  const email = document.getElementById('auth-email').value.trim();
+  const pass = document.getElementById('auth-pass').value;
+  const nameVal = document.getElementById('auth-name').value.trim();
+  
+  if (!email || !pass) { 
+    errorDiv.textContent = 'Please enter email and password.'; 
+    errorDiv.style.display = 'block';
+    return; 
+  }
+  if (!isLoginMode) {
+    if (!nameVal) { 
+      errorDiv.textContent = 'Please enter your name.'; 
+      errorDiv.style.display = 'block';
+      return; 
+    }
+    if (nameVal.split(' ').filter(n => n.trim().length > 0).length < 2) {
+      errorDiv.textContent = 'Please enter both your first and last name.'; 
+      errorDiv.style.display = 'block';
+      return; 
+    }
+  }
+  
+  const btn = document.getElementById('auth-submit-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> ' + (isLoginMode ? 'Signing in...' : 'Creating account...');
+  
+  try {
+    const endpoint = isLoginMode ? '/auth/login' : '/auth/register';
+    const payload = isLoginMode ? { email, password: pass } : { name: nameVal, email, password: pass };
+    
+    const res = await fetch(`${BACKEND_API}${endpoint}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Authentication failed');
+    
+    authToken = data.token;
+    localStorage.setItem('cc_token', authToken);
+    currentUser = data.user;
+    
+    if (!isLoginMode && selectedPlan !== 'free') {
+      // Create checkout session
+      const checkRes = await fetch(`${BACKEND_API}/payments/create-checkout`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${authToken}` },
+        body: JSON.stringify({ plan: selectedPlan })
+      });
+      const checkData = await checkRes.json();
+      if (checkData.checkoutUrl) {
+        window.location.href = checkData.checkoutUrl;
+        return;
+      } else if (checkData.error) {
+        // Stripe failed (likely due to missing real keys), but account IS created!
+        errorDiv.textContent = 'Account created successfully! Skipping payment in local test mode...';
+        errorDiv.style.display = 'block';
+        errorDiv.style.color = 'var(--success)';
+        errorDiv.style.backgroundColor = '#e8f5e9';
+        
+        // Wait 1.5 seconds then show dashboard
+        setTimeout(() => {
+          showDashboard();
+          updateUsageUI();
+        }, 1500);
+        return;
+      }
+    }
+    
+    showDashboard();
+    updateUsageUI();
+    
+  } catch (e) {
+    errorDiv.textContent = e.message;
+    errorDiv.style.display = 'block';
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<span id="auth-btn-text">' + (isLoginMode ? 'Sign in' : 'Create account & continue') + '</span>';
+  }
+}
+
+function showDashboard() {
+  document.getElementById('modal-auth').classList.add('hidden');
+  document.getElementById('page-pricing').classList.add('hidden');
+  document.getElementById('page-app').classList.remove('hidden');
+  
+  const safeName = currentUser.name || 'User';
+  const initials = safeName.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+  document.getElementById('user-avatar').textContent = initials;
+  document.getElementById('user-name-display').textContent = safeName.split(' ')[0];
+  document.getElementById('plan-display').textContent = (currentUser.plan || 'Free') + ' plan';
+  document.getElementById('name').value = currentUser.name;
+}
+
+async function updateUsageUI() {
+  document.getElementById('usage-label').textContent = 'Unlimited sessions active';
+  document.getElementById('usage-fill').style.width = '100%';
+}
+
+async function logSession(type) {
+  return true;
+}
+
+function togglePill(el, groupId) {
+  if (groupId) {
+    document.getElementById(groupId).querySelectorAll('.pill').forEach(p => p.classList.remove('sel'));
+    el.classList.add('sel');
+  } else {
+    el.classList.toggle('sel');
+  }
+}
+
+function getSelectedPills(groupId) {
+  return [...document.getElementById(groupId).querySelectorAll('.pill.sel')].map(p => p.textContent);
+}
+
+function goStep(n) {
+  for (let i=0;i<4;i++) {
+    document.getElementById('step-'+i).classList.add('hidden');
+    const tab=document.getElementById('tab-'+i);
+    tab.classList.remove('active','done');
+    if(i<n) tab.classList.add('done');
+  }
+  document.getElementById('step-'+n).classList.remove('hidden');
+  document.getElementById('tab-'+n).classList.add('active');
+  profile={
+    name:document.getElementById('name').value||'the candidate',
+    role:document.getElementById('role').value||'professional',
+    exp:document.getElementById('exp').value||'1–3 years',
+    target:document.getElementById('target').value||'a new role',
+    industries:getSelectedPills('industry-pills').join(', ')||'various industries',
+    needs:getSelectedPills('help-pills').join(', ')||'career guidance'
+  };
+}
+
+function switchTab(el,tab) {
+  document.querySelectorAll('.inner-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  ['rewrite','gaps','keywords'].forEach(t=>document.getElementById('tab-'+t).classList.add('hidden'));
+  document.getElementById('tab-'+tab).classList.remove('hidden');
+}
+
+async function callClaude(sys, user, el) {
+  el.textContent='Thinking...';
+  el.classList.add('loading');
+  try {
+    const res = await fetch(`${BACKEND_API}/ai/generate`, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({system: sys, userPrompt: user})
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error);
+    const text = data.text || 'No response.';
+    el.textContent=text;
+    el.classList.remove('loading');
+    return text;
+  } catch(e) {
+    el.textContent='Error reaching AI: ' + e.message;
+    el.classList.remove('loading');
+    return null;
+  }
+}
+
+async function analyzeResume() {
+  const rt=document.getElementById('resume-text').value.trim();
+  if(!rt){alert('Please paste your resume text first.');return;}
+  
+  const canProceed = await logSession('analysis');
+  if (!canProceed) return;
+
+  const btn=document.getElementById('analyze-btn');
+  btn.innerHTML='<span class="spinner"></span> Analyzing...';btn.disabled=true;
+  document.getElementById('resume-result').classList.remove('hidden');
+  const sys='You are an expert career coach and resume writer. Be concise, specific, and actionable.';
+  const ctx=`Candidate: ${profile.name}, ${profile.role}, ${profile.exp}. Target: ${profile.target} in ${profile.industries}.`;
+  
+  const scoreEl=document.getElementById('score-desc');
+  scoreEl.textContent='Scoring...';
+  const sr=await callClaude(sys,`${ctx}\n\nResume:\n${rt}\n\nScore this resume out of 100 for targeting "${profile.target}". Start with just the number, then a newline, then 2 sentences explaining the score.`,{textContent:'',classList:{add:()=>{},remove:()=>{}}});
+  if(sr){const l=sr.split('\n').filter(x=>x.trim());const n=parseInt(l[0]);if(!isNaN(n))document.getElementById('score-num').textContent=n;scoreEl.textContent=l.slice(1).join(' ');}
+  
+  await callClaude(sys,`${ctx}\n\nResume:\n${rt}\n\nRewrite the professional summary and top 3 experience bullets tailored for "${profile.target}" in ${profile.industries}. Make it punchy, metric-driven, ATS-optimized.`,document.getElementById('tab-rewrite'));
+  await callClaude(sys,`${ctx}\n\nResume:\n${rt}\n\nList the top 5 gaps or weaknesses for targeting "${profile.target}". For each, give a specific fix. Number them.`,document.getElementById('tab-gaps'));
+  await callClaude(sys,`${ctx}\n\nResume:\n${rt}\n\nList 15 missing keywords critical for "${profile.target}" in ${profile.industries}. Group as: Technical Skills | Soft Skills | Industry Terms.`,document.getElementById('tab-keywords'));
+  
+  btn.innerHTML='Analyze my resume';btn.disabled=false;
+}
+
+async function buildRoadmap() {
+  const canProceed = await logSession('roadmap');
+  if (!canProceed) return;
+
+  const btn=document.getElementById('roadmap-btn');
+  btn.innerHTML='<span class="spinner"></span> Building...';btn.disabled=true;
+  document.getElementById('roadmap-result').classList.remove('hidden');
+  await callClaude('You are an expert career strategist. Create practical week-by-week job search plans.',
+    `Create an 8-week job search roadmap for ${profile.name}. Background: ${profile.role}, ${profile.exp}. Target: ${profile.target} in ${profile.industries}. Needs: ${profile.needs}.\n\nFormat:\nWeek 1: [title]\n- 3-4 bullet action items\n\n...through Week 8. Be specific and realistic.`,
+    document.getElementById('roadmap-content'));
+  btn.innerHTML='Generate my roadmap';btn.disabled=false;
+}
+
+async function generateQuestions() {
+  const jd=document.getElementById('jd-text').value.trim();
+  const qt=getSelectedPills('qtype-pills')[0]||'Behavioral';
+  if(!jd){alert('Please paste a job description first.');return;}
+  
+  const canProceed = await logSession('interview');
+  if (!canProceed) return;
+
+  const btn=document.getElementById('interview-btn');
+  btn.innerHTML='<span class="spinner"></span> Generating...';btn.disabled=true;
+  document.getElementById('interview-result').classList.remove('hidden');
+  await callClaude('You are an expert interview coach. Generate realistic questions with strong model answers.',
+    `Candidate: ${profile.name}, ${profile.role}, ${profile.exp}, targeting ${profile.target}.\n\nJob description:\n${jd}\n\nGenerate 5 ${qt} interview questions likely for this role. For each:\nQ: [question]\nModel answer: [2-3 sentence strong answer tailored to this candidate]`,
+    document.getElementById('interview-content'));
+  btn.innerHTML='Generate questions + model answers';btn.disabled=false;
+}
+
+async function getFeedback() {
+  const ans=document.getElementById('user-answer').value.trim();
+  if(!ans){alert('Please type your answer first.');return;}
+  
+  const canProceed = await logSession('interview');
+  if (!canProceed) return;
+
+  const btn=document.getElementById('feedback-btn');
+  btn.innerHTML='<span class="spinner"></span> Evaluating...';btn.disabled=true;
+  const el=document.getElementById('feedback-result');
+  el.classList.remove('hidden');
+  await callClaude('You are a tough but fair interview coach.',
+    `Candidate targeting: ${profile.target}. Background: ${profile.role}, ${profile.exp}.\n\nAnswer:\n"${ans}"\n\nRate out of 10. Give:\n1. What worked\n2. What to improve\n3. A stronger version (3-4 sentences)`,
+    el);
+  btn.innerHTML='Get AI feedback';btn.disabled=false;
+}
+</script>
+</body>
+</html>

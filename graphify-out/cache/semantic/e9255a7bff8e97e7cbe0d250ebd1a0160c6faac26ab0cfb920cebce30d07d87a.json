@@ -1,0 +1,1 @@
+{"nodes": [{"id": "workflows_deploy_firebase_hosting", "label": "Firebase Hosting Deploy", "file_type": "concept", "source_file": ".github/workflows/deploy.yml"}, {"id": "workflows_deploy_dynatrace", "label": "Dynatrace Deployment Event", "file_type": "concept", "source_file": ".github/workflows/deploy.yml"}], "edges": [], "hyperedges": []}
