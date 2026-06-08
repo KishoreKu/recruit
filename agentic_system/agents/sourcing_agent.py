@@ -28,6 +28,10 @@ settings = get_settings()
 class SourcingAgent(BaseAgent):
     name = "sourcing-agent"
 
+    async def run_task(self, task_id: str, payload: dict) -> None:
+        """Not used by SourcingAgent; it only pushes tasks, doesn't consume them."""
+        pass
+
     async def run_polling_loop(self) -> None:
         """
         Periodic sourcing loop — pulls candidates every 24 hours.
