@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, MapPin, Building, DollarSign, Calendar, MessageSquare } from 'lucide-react';
 
+const ORCHESTRATOR = 'https://westley-agents.kindtree-748f04e0.centralus.azurecontainerapps.io';
+
 const JobDetail = () => {
   const { id } = useParams();
   const [job, setJob] = useState(null);
@@ -11,7 +13,7 @@ const JobDetail = () => {
   useEffect(() => {
     const fetchJob = async () => {
       try {
-        const res = await axios.get(`/api/jobs/${id}`);
+        const res = await axios.get(`${ORCHESTRATOR}/requisitions/${id}`);
         setJob(res.data);
       } catch (err) {
         console.error('Failed to fetch job detail:', err);
@@ -36,13 +38,13 @@ const JobDetail = () => {
         
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '2rem' }}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <Building size={18} style={{ marginRight: '8px' }} /> <strong>Company:</strong>&nbsp;{job.company || 'Not Specified'}
+            <Building size={18} style={{ marginRight: '8px' }} /> <strong>Company:</strong>&nbsp;{job.client_company || 'Not Specified'}
           </div>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <MapPin size={18} style={{ marginRight: '8px' }} /> <strong>Location:</strong>&nbsp;{job.location || 'Remote'}
           </div>
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <DollarSign size={18} style={{ marginRight: '8px' }} /> <strong>Salary:</strong>&nbsp;{job.salary || 'Competitive'}
+            <DollarSign size={18} style={{ marginRight: '8px' }} /> <strong>Salary:</strong>&nbsp;{job.bill_rate_max ? `$${job.bill_rate_max}/hr` : 'Competitive'}
           </div>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <Calendar size={18} style={{ marginRight: '8px' }} /> <strong>Posted:</strong>&nbsp;{new Date(job.created_at).toLocaleDateString()}
@@ -52,7 +54,7 @@ const JobDetail = () => {
         <div style={{ marginBottom: '2rem' }}>
           <h3>Required Skills</h3>
           <div className="job-skills">
-            {job.skills && job.skills.map((skill, index) => (
+            {job.skills_required && job.skills_required.map((skill, index) => (
               <span key={index} className="skill-tag" style={{ fontSize: '1rem', padding: '4px 12px' }}>{skill}</span>
             ))}
           </div>
@@ -68,10 +70,10 @@ const JobDetail = () => {
         <div>
           <h3>Source Details</h3>
           <p style={{ color: '#aaa' }}>
-            Aggregated from <strong>{job.source_platform}</strong> group <em>{job.source_group}</em>.
+            Aggregated from <strong>{job.vms_platform}</strong>.
           </p>
           <pre style={{ whiteSpace: 'pre-wrap', background: '#111', padding: '1rem', borderRadius: '4px', fontSize: '0.85rem' }}>
-            {job.raw_text}
+            {job.description}
           </pre>
         </div>
       </div>

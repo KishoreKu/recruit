@@ -437,7 +437,24 @@ async def list_requisitions(status: str = "open", limit: int = 50):
             status, limit,
         )
     return [dict(r) | {"id": str(r["id"]), "created_at": r["created_at"].isoformat()} for r in rows]
-
+@app.get("/requisitions/{req_id}", tags=["VMS"])
+async def list_requisition_by_id(req_id: str):
+    """Get a specific requisition by ID."""
+    pool = await get_pool()
+    async with pool.acquire() as conn:
+        row = await conn.fetchrow("SELECT * FROM requisitions WHERE id = $1::uuid", req_id)
+        if not row:
+            raise HTTPException(status_code=404, detail="Requisition not found")
+        
+        # Convert skills arrays/JSON properly if needed
+        job_dict = dict(row)
+        if isinstance(job_dict.get('skills_required'), str):
+            try:
+                job_dict['skills_required'] = json.loads(job_dict['skills_required'])
+            except:
+                pass
+                
+        return job_dict
 
 @app.get("/submissions", tags=["Submissions"])
 async def list_submissions(limit: int = 50):
