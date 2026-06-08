@@ -17,8 +17,8 @@ async def get_pool() -> asyncpg.Pool:
         settings = get_settings()
         _pool = await asyncpg.create_pool(
             dsn=settings.DATABASE_URL,
-            min_size=2,
-            max_size=10,
+            min_size=1,
+            max_size=2,
             init=_init_connection,
         )
         logger.info("Database pool initialised.")
