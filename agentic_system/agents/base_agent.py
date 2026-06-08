@@ -211,6 +211,10 @@ class BaseAgent(ABC):
                             with attempt:
                                 await self.run_task(task["id"], task["payload"])
                     except Exception as exc:
+                        # Extract the actual exception from tenacity's RetryError wrapper
+                        if exc.__class__.__name__ == "RetryError" and hasattr(exc, "last_attempt"):
+                            exc = exc.last_attempt.exception()
+                            
                         # Unwrap Python 3.11+ ExceptionGroup (raised by anyio TaskGroup)
                         # so the real sub-exception message is stored, not the generic wrapper.
                         if hasattr(exc, "exceptions") and exc.exceptions:
