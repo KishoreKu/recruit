@@ -168,7 +168,15 @@ class SubmissionAgent(BaseAgent):
         )
 
         if not reply:
-            logger.info(f"[Submission Agent] No reply from {candidate_email} yet.")
+            poll_count = payload.get("poll_count", 0)
+            if poll_count < 192:  # 192 * 15m = 48 hours
+                logger.info(f"[Submission Agent] No reply from {candidate_email} yet. Requeuing (poll {poll_count+1}/192).")
+                await self.enqueue_task("check_rtr_reply", {
+                    **payload,
+                    "poll_count": poll_count + 1,
+                }, delay_seconds=900)  # Check again in 15 mins
+            else:
+                logger.warning(f"[Submission Agent] Gave up waiting for RTR from {candidate_email} after 48 hours.")
             await self.complete_task(task_id)
             return
 

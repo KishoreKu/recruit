@@ -205,12 +205,12 @@ class MatchingAgent(BaseAgent):
                         candidate_id=candidate["id"],
                     )
 
-            # Schedule RTR reply check after wait period
+            # Schedule RTR reply check immediately (Option A: continuous polling)
             await self.enqueue_task("check_rtr_reply", {
                 "candidate_id": candidate["id"],
                 "requisition_id": requisition_id,
                 "candidate_email": candidate["email"],
-            }, delay_seconds=settings.OUTREACH_WAIT_HOURS * 3600)
+            })
 
         await self.complete_task(task_id)
         await self._log_health("succeeded", f"Matched {len(selected_ids)} candidates for {requisition_id}")
