@@ -40,6 +40,7 @@ from agents.vms_agent import VMSAgent
 from agents.matching_agent import MatchingAgent
 from agents.submission_agent import SubmissionAgent
 from agents.self_healing_agent import SelfHealingAgent
+from agents.sourcing_agent import SourcingAgent
 
 settings = get_settings()
 
@@ -56,10 +57,12 @@ async def lifespan(app: FastAPI):
     matching_agent = MatchingAgent()
     submission_agent = SubmissionAgent()
     healing_agent  = SelfHealingAgent()
+    sourcing_agent = SourcingAgent()
 
     tasks = [
         asyncio.create_task(ats_agent.run_loop("ingest_resume"), name="ats-agent"),
         asyncio.create_task(vms_agent.run(), name="vms-agent"),
+        asyncio.create_task(sourcing_agent.run(), name="sourcing-agent"),
         asyncio.create_task(matching_agent.run_loop("match_candidates"), name="matching-agent"),
         asyncio.create_task(submission_agent.run_loop("submit_candidate"), name="submission-agent-submit"),
         asyncio.create_task(submission_agent.run_loop("check_rtr_reply"), name="submission-agent-rtr"),
