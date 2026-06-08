@@ -3,6 +3,9 @@ gemini_client.py — Shared LLM client: chat completions + embeddings.
 Supports Azure OpenAI (preferred) and falls back to Google Gemini.
 """
 import httpx
+import warnings
+warnings.filterwarnings("ignore", category=FutureWarning, module="google.generativeai")
+warnings.filterwarnings("ignore", category=UserWarning, module="pydantic")
 import google.generativeai as genai
 from config import get_settings
 from loguru import logger
