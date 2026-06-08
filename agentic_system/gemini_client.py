@@ -4,8 +4,8 @@ Supports Azure OpenAI (preferred) and falls back to Google Gemini.
 """
 import httpx
 import warnings
-warnings.filterwarnings("ignore", category=FutureWarning, module="google.generativeai")
-warnings.filterwarnings("ignore", category=UserWarning, module="pydantic")
+warnings.filterwarnings("ignore", category=FutureWarning)
+warnings.filterwarnings("ignore", category=UserWarning)
 import google.generativeai as genai
 from config import get_settings
 from loguru import logger
