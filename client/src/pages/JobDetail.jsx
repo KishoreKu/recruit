@@ -61,10 +61,31 @@ const JobDetail = () => {
         </div>
 
         <div style={{ marginBottom: '2rem' }}>
-          <h3>Contact / How to Apply</h3>
-          <p style={{ background: '#222', padding: '1rem', borderRadius: '4px' }}>
-            {job.contact || 'Please refer to the source.'}
+          <h3>Auto Apply</h3>
+          <p style={{ color: '#aaa', marginBottom: '1rem', fontSize: '0.9rem' }}>
+            Automatically scan your candidate database, find matching candidates, and submit their profiles to the VMS platform.
           </p>
+          <button 
+            className="btn btn-primary" 
+            style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'var(--accent)', border: 'none' }}
+            onClick={async (e) => {
+              const btn = e.currentTarget;
+              const originalText = btn.innerHTML;
+              btn.innerHTML = 'Queuing...';
+              btn.disabled = true;
+              try {
+                await axios.post(`${ORCHESTRATOR}/requisitions/${id}/match`);
+                btn.innerHTML = 'Auto-Apply Queued!';
+                btn.style.background = 'var(--success)';
+              } catch (err) {
+                alert('Error queuing auto-apply: ' + err.message);
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+              }
+            }}
+          >
+            <MessageSquare size={16} /> Start Auto-Apply Process
+          </button>
         </div>
 
         <div>

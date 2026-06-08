@@ -446,15 +446,47 @@ async def list_requisition_by_id(req_id: str):
         if not row:
             raise HTTPException(status_code=404, detail="Requisition not found")
         
-        # Convert skills arrays/JSON properly if needed
+        import json
+        from fastapi.responses import Response
+        
         job_dict = dict(row)
+        
+        # Serialize UUIDs and Datetimes to strings safely
+        def _default(obj):
+            import datetime
+            import uuid
+            import decimal
+            if isinstance(obj, (datetime.date, datetime.datetime)):
+                return obj.isoformat()
+            if isinstance(obj, uuid.UUID):
+                return str(obj)
+            if isinstance(obj, decimal.Decimal):
+                return float(obj)
+            return str(obj)
+            
         if isinstance(job_dict.get('skills_required'), str):
             try:
                 job_dict['skills_required'] = json.loads(job_dict['skills_required'])
             except:
                 pass
                 
-        return job_dict
+        return Response(content=json.dumps(job_dict, default=_default), media_type="application/json")
+
+@app.post("/requisitions/{req_id}/match", tags=["VMS"])
+async def trigger_requisition_match(req_id: str):
+    """Manually trigger candidate matching & auto-apply for a specific requisition."""
+    pool = await get_pool()
+    import json
+    async with pool.acquire() as conn:
+        row = await conn.fetchrow("SELECT id FROM requisitions WHERE id = $1::uuid", req_id)
+        if not row:
+            raise HTTPException(status_code=404, detail="Requisition not found")
+        
+        await conn.execute(
+            "INSERT INTO agent_task_queue (task_type, payload) VALUES ('match_candidates', $1)",
+            json.dumps({"requisition_id": str(row["id"]), "trigger": "manual_match_ui"}),
+        )
+    return {"status": "success", "message": "Matching and auto-apply queued."}
 
 @app.get("/submissions", tags=["Submissions"])
 async def list_submissions(limit: int = 50):
