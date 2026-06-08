@@ -211,9 +211,20 @@ class BaseAgent(ABC):
                             with attempt:
                                 await self.run_task(task["id"], task["payload"])
                     except Exception as exc:
-                        err_msg = str(exc)
+                        # Unwrap Python 3.11+ ExceptionGroup (raised by anyio TaskGroup)
+                        # so the real sub-exception message is stored, not the generic wrapper.
                         if hasattr(exc, "exceptions") and exc.exceptions:
-                            err_msg = f"{err_msg} (Underlying: {'; '.join(str(e) for e in exc.exceptions)})"
+                            sub_errors = []
+                            for sub in exc.exceptions:
+                                # Recursively unwrap nested ExceptionGroups
+                                if hasattr(sub, "exceptions") and sub.exceptions:
+                                    sub_errors.extend(str(e) for e in sub.exceptions)
+                                else:
+                                    sub_errors.append(str(sub))
+                            err_msg = " | ".join(sub_errors)
+                        else:
+                            err_msg = str(exc)
+                        logger.error(f"[{self.name}] Task {task['id']} failed: {err_msg}")
                         await self.fail_task(task["id"], err_msg, task["attempts"], task["max_attempts"])
                         await self._log_health("failed", err_msg)
                 else:

@@ -287,6 +287,38 @@ async def add_requisition(
     return r
 
 
+# ─── Tool: get_requisition ───────────────────────────────────────────────────
+
+@mcp.tool()
+async def get_requisition(requisition_id: str) -> dict:
+    """
+    Fetch a single requisition by ID directly from the database.
+    Fast, no scraping — use this instead of fetch_new_requisitions when
+    you just need the details of one specific job.
+    """
+    pool = await get_pool()
+    async with pool.acquire() as conn:
+        row = await conn.fetchrow(
+            """
+            SELECT id, vms_platform, vms_job_id, title, client_company,
+                   skills_required, location, job_type, bill_rate_max,
+                   description, status, deadline, created_at
+            FROM requisitions
+            WHERE id = $1::uuid
+            """,
+            requisition_id,
+        )
+    if not row:
+        return {"error": f"Requisition {requisition_id} not found."}
+    r = dict(row)
+    r["id"] = str(r["id"])
+    if r.get("created_at"):
+        r["created_at"] = r["created_at"].isoformat()
+    if r.get("deadline"):
+        r["deadline"] = r["deadline"].isoformat()
+    return r
+
+
 if __name__ == "__main__":
     logger.info("Starting VMS MCP Server...")
     mcp.run(transport="stdio")

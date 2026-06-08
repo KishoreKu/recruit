@@ -3,10 +3,17 @@ agents/matching_agent.py
 ─────────────────────────────────────────────────────────────────────────────
 Matching & Outreach Agent — "The Sourcer"
 Handles: match_candidates tasks
-  1. Given a requisition_id, calls ATS MCP → semantic_search_candidates
-  2. Scores each match with Gemini reasoning
-  3. Sends personalized RTR outreach via Comm MCP
-  4. Schedules rtr_check tasks (watches inbox for replies)
+  1. Given a requisition_id, calls VMS MCP → get_requisition (direct DB)
+  2. Calls ATS MCP → semantic_search_candidates
+  3. Scores each match with Gemini reasoning
+  4. Sends personalized RTR outreach via Comm MCP
+  5. Schedules rtr_check tasks (watches inbox for replies)
+─────────────────────────────────────────────────────────────────────────────
+Fix (2026-06-08): Replaced fetch_new_requisitions (full scrape + embed of all
+jobs) with get_requisition (single DB row lookup). The old call was triggering
+the job scraper + Gemini embed for every match task, which timed out inside
+the MCP stdio subprocess and caused Python 3.11 anyio TaskGroup to raise an
+ExceptionGroup — landing every match task in human_review.
 ─────────────────────────────────────────────────────────────────────────────
 """
 import sys
@@ -104,11 +111,12 @@ class MatchingAgent(BaseAgent):
     async def _match_job_to_candidates(self, task_id: str, requisition_id: str):
         """Find top candidates for a given job and send RTR outreach."""
 
-        # 1. Get requisition details
-        req_result = await self.call_vms("fetch_new_requisitions", limit=100)
-        req = next((r for r in req_result if r["id"] == requisition_id), None)
-        if not req:
-            raise RuntimeError(f"Requisition {requisition_id} not found.")
+        # 1. Get requisition details — use direct DB lookup, NOT fetch_new_requisitions.
+        #    fetch_new_requisitions triggers a full job scrape + embed for all jobs on
+        #    every call, which times out inside the MCP subprocess and crashes the TaskGroup.
+        req = await self.call_vms("get_requisition", requisition_id=requisition_id)
+        if not req or "error" in req:
+            raise RuntimeError(f"Requisition {requisition_id} not found: {req.get('error', 'unknown')}")
 
         job_desc = f"{req['title']}\n{req.get('description', '')}\nSkills: {', '.join(req.get('skills_required', []))}"
 
@@ -210,19 +218,27 @@ class MatchingAgent(BaseAgent):
     async def _match_candidate_to_jobs(self, task_id: str, candidate_id: str):
         """When a new candidate is ingested, find best jobs for them."""
         candidate = await self.call_ats("get_candidate", candidate_id=candidate_id)
-        if "error" in candidate:
-            raise RuntimeError(candidate["error"])
+        if not candidate or "error" in candidate:
+            raise RuntimeError(candidate.get("error", f"Candidate {candidate_id} not found"))
 
         skills_text = ", ".join(candidate.get("skills", []))
-        resume_query = f"{candidate.get('current_title', '')} {skills_text}"
+        logger.info(f"[Matching Agent] Finding jobs for candidate {candidate_id} ({candidate.get('full_name')}).")
 
-        requisitions = await self.call_vms("fetch_new_requisitions", limit=10)
-        logger.info(f"[Matching Agent] Matching candidate {candidate_id} against {len(requisitions)} open jobs.")
+        # Fetch open requisitions directly from DB (no scraping) — just get IDs to queue.
+        # We use the pool directly here to avoid triggering the full VMS scrape.
+        from db import get_pool
+        pool = await get_pool()
+        async with pool.acquire() as conn:
+            rows = await conn.fetch(
+                "SELECT id FROM requisitions WHERE status = 'open' ORDER BY created_at DESC LIMIT 20"
+            )
+        requisition_ids = [str(r["id"]) for r in rows]
+        logger.info(f"[Matching Agent] Queuing {len(requisition_ids)} job→candidate match tasks.")
 
         # For each open job, queue a job→candidate match task
-        for req in requisitions:
+        for req_id in requisition_ids:
             await self.enqueue_task("match_candidates", {
-                "requisition_id": req["id"],
+                "requisition_id": req_id,
                 "trigger": "new_candidate_check",
             })
 
