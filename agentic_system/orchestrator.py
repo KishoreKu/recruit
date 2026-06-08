@@ -491,6 +491,22 @@ async def trigger_requisition_match(req_id: str):
         )
     return {"status": "success", "message": "Matching and auto-apply queued."}
 
+@app.post("/candidates/{candidate_id}/match", tags=["ATS"])
+async def trigger_candidate_match(candidate_id: str):
+    """Manually trigger finding matching jobs for a specific candidate."""
+    pool = await get_pool()
+    import json
+    async with pool.acquire() as conn:
+        row = await conn.fetchrow("SELECT id FROM candidates WHERE id = $1::uuid", candidate_id)
+        if not row:
+            raise HTTPException(status_code=404, detail="Candidate not found")
+        
+        await conn.execute(
+            "INSERT INTO agent_task_queue (task_type, payload) VALUES ('match_candidates', $1)",
+            json.dumps({"candidate_id": str(row["id"]), "trigger": "manual_candidate_match_ui"}),
+        )
+    return {"status": "success", "message": "Job matching process queued for candidate."}
+
 @app.get("/submissions", tags=["Submissions"])
 async def list_submissions(limit: int = 50):
     """List all candidate submissions."""

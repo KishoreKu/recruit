@@ -96,9 +96,30 @@ function CandidateCard({ candidate, index }) {
           <Calendar size={12} />
           {new Date(candidate.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
         </div>
-        <span className={`badge ${candidate.rtr_given ? 'badge-green' : 'badge-amber'}`}>
-          {candidate.rtr_given ? <><CheckCircle size={11} /> RTR ✓</> : <><XCircle size={11} /> No RTR</>}
-        </span>
+        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+          <span className={`badge ${candidate.rtr_given ? 'badge-green' : 'badge-amber'}`}>
+            {candidate.rtr_given ? <><CheckCircle size={11} /> RTR ✓</> : <><XCircle size={11} /> No RTR</>}
+          </span>
+          <button 
+            className="btn btn-sm"
+            style={{ padding: '0.2rem 0.5rem', fontSize: '0.7rem', backgroundColor: 'var(--primary)', color: 'white', borderRadius: '4px', border: 'none', cursor: 'pointer' }}
+            onClick={async (e) => {
+              e.stopPropagation();
+              const btn = e.currentTarget;
+              btn.disabled = true;
+              btn.innerText = 'Queued...';
+              try {
+                await axios.post(`${ORCHESTRATOR}/candidates/${candidate.id}/match`);
+                btn.innerText = 'Match Queued ✓';
+              } catch (err) {
+                btn.innerText = 'Error';
+                console.error(err);
+              }
+            }}
+          >
+            Find Jobs
+          </button>
+        </div>
       </div>
     </div>
   );
