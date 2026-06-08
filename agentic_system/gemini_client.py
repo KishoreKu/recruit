@@ -17,15 +17,16 @@ def _ensure_init():
     global _initialised
     if not _initialised:
         settings = get_settings()
-        # Initialize Gemini SDK only if no Azure OpenAI credentials are set
-        if not (settings.AZURE_OPENAI_KEY and settings.AZURE_OPENAI_ENDPOINT):
-            if settings.GEMINI_API_KEY:
-                genai.configure(api_key=settings.GEMINI_API_KEY)
-                logger.info("Configured Gemini SDK client.")
-            else:
-                logger.warning("No LLM keys configured (neither Azure OpenAI nor Gemini).")
-        else:
+        
+        # User requested migration to Google Gemini. Always prefer Gemini if key is present.
+        if settings.GEMINI_API_KEY:
+            logger.info("Configuring Gemini SDK...")
+            genai.configure(api_key=settings.GEMINI_API_KEY)
+        elif settings.AZURE_OPENAI_KEY and settings.AZURE_OPENAI_ENDPOINT:
             logger.info("Azure OpenAI credentials found. Bypassing Gemini SDK configuration.")
+        else:
+            logger.warning("No LLM keys configured (neither Azure OpenAI nor Gemini).")
+        
         _initialised = True
 
 
@@ -45,7 +46,16 @@ async def embed_text(text: str) -> list[float]:
     _ensure_init()
     settings = get_settings()
 
-    if settings.AZURE_OPENAI_KEY and settings.AZURE_OPENAI_ENDPOINT:
+    if settings.GEMINI_API_KEY:
+        # Use Gemini
+        result = genai.embed_content(
+            model=settings.GEMINI_EMBED_MODEL,
+            content=text,
+            task_type="RETRIEVAL_DOCUMENT",
+            output_dimensionality=settings.GEMINI_EMBED_DIMENSIONS,
+        )
+        return result["embedding"]
+    elif settings.AZURE_OPENAI_KEY and settings.AZURE_OPENAI_ENDPOINT:
         endpoint = settings.AZURE_OPENAI_ENDPOINT.rstrip("/")
         url = f"{endpoint}/openai/deployments/{settings.AZURE_OPENAI_EMBED_DEPLOYMENT}/embeddings?api-version={settings.AZURE_OPENAI_API_VERSION}"
         headers = {
@@ -66,14 +76,7 @@ async def embed_text(text: str) -> list[float]:
                 logger.error(f"Azure OpenAI Embeddings error: {exc}")
                 raise
     else:
-        # Fallback to Gemini
-        result = genai.embed_content(
-            model=settings.GEMINI_EMBED_MODEL,
-            content=text,
-            task_type="RETRIEVAL_DOCUMENT",
-            output_dimensionality=settings.GEMINI_EMBED_DIMENSIONS,
-        )
-        return result["embedding"]
+        raise ValueError("No API keys configured for embeddings.")
 
 
 async def chat_completion(prompt: str, system: str | None = None) -> str:
@@ -81,7 +84,14 @@ async def chat_completion(prompt: str, system: str | None = None) -> str:
     _ensure_init()
     settings = get_settings()
 
-    if settings.AZURE_OPENAI_KEY and settings.AZURE_OPENAI_ENDPOINT:
+    if settings.GEMINI_API_KEY:
+        model = genai.GenerativeModel(
+            model_name=settings.GEMINI_CHAT_MODEL,
+            system_instruction=system
+        )
+        response = await model.generate_content_async(prompt)
+        return response.text
+    elif settings.AZURE_OPENAI_KEY and settings.AZURE_OPENAI_ENDPOINT:
         endpoint = settings.AZURE_OPENAI_ENDPOINT.rstrip("/")
         url = f"{endpoint}/openai/deployments/{settings.AZURE_OPENAI_CHAT_DEPLOYMENT}/chat/completions?api-version={settings.AZURE_OPENAI_API_VERSION}"
         headers = {
@@ -109,17 +119,4 @@ async def chat_completion(prompt: str, system: str | None = None) -> str:
                 logger.error(f"Azure OpenAI Chat error: {exc}")
                 raise
     else:
-        # Fallback to Gemini
-        model = get_chat_model()
-        messages = []
-        if system:
-            messages.append({"role": "user", "parts": [f"[SYSTEM] {system}"]})
-            messages.append({"role": "model", "parts": ["Understood."]})
-        messages.append({"role": "user", "parts": [prompt]})
-
-        try:
-            response = model.generate_content(messages)
-            return response.text
-        except Exception as exc:
-            logger.error(f"Gemini error: {exc}")
-            raise
+        raise ValueError("No API keys configured for chat completions.")
