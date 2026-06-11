@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentic AI System Architecture - Westley Resource</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Roboto:wght@500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Project Colors */
+            --primary-color: hsl(210, 60%, 45%);
+            --secondary-color: hsl(200, 20%, 50%);
+            --accent-color: hsl(25, 70%, 55%);
+            --success-color: hsl(150, 40%, 45%);
+            --dark-bg: hsl(220, 20%, 10%);
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-light: hsl(0, 0%, 95%);
+            --text-muted: hsl(220, 10%, 70%);
+
+            /* Spacing */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 2rem;
+            --spacing-lg: 4rem;
+            --spacing-xl: 6rem;
+
+            /* Utilities */
+            --radius-md: 12px;
+            --radius-lg: 24px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            line-height: 1.6;
+            min-height: 100vh;
+            background: radial-gradient(circle at top right, hsl(210, 60%, 20%), var(--dark-bg) 40%);
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Roboto', sans-serif;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-lg) var(--spacing-sm);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Diagram Section */
+        .diagram-container {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-xl);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow-x: auto;
+        }
+
+        .diagram-container h2 {
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .mermaid {
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Topics Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--spacing-md);
+        }
+
+        @media(min-width: 768px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-md);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            background: var(--primary-color);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .qa-section {
+            margin-top: var(--spacing-sm);
+            background: rgba(0,0,0,0.2);
+            padding: 15px;
+            border-radius: var(--radius-md);
+        }
+
+        .qa-section h4 {
+            color: #4facfe;
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .qa-section p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+
+        .qa-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Agentic AI System Architecture</h1>
+            <p>A deep dive into how the automated recruiter agents and orchestrator operate on Azure to ingest, parse, match, and submit candidates autonomously.</p>
+        </header>
+
+        <!-- Visual Architecture Diagram -->
+        <section class="diagram-container">
+            <h2>Cloud Infrastructure & Agent Fleet Topology</h2>
+            <div class="mermaid">
+                graph TD
+                    %% Nodes
+                    User((Candidate / Frontend))
+                    API(FastAPI Orchestrator<br/>Azure Container Apps)
+                    Gemini{Gemini 2.0 Flash}
+                    DB[(PostgreSQL DB<br/>Task Queue & Vector Store)]
+                    
+                    subgraph Azure Container Apps (Agent Fleet)
+                        ATSAgent[ATS Agent]
+                        VMSAgent[VMS Agent]
+                        MatchAgent[Matching Agent]
+                        SubAgent[Submission Agent]
+                        SourceAgent[Sourcing Agent]
+                        HealAgent[Self-Healing Agent]
+                    end
+                    
+                    %% Connections
+                    User -->|Multipart Form Upload| API
+                    API -->|Extracts text & structures| Gemini
+                    API -->|Enqueues raw Task| DB
+                    
+                    DB <-->|Polling: Claim Task| ATSAgent
+                    DB <-->|Polling: Claim Task| VMSAgent
+                    DB <-->|Polling: Claim Task| MatchAgent
+                    DB <-->|Polling: Claim Task| SubAgent
+                    DB <-->|Polling: Claim Task| SourceAgent
+                    
+                    DB -.->|Monitors & Retries Failed Tasks| HealAgent
+                    
+                    %% Styling
+                    classDef default fill:#1e293b,stroke:#3b82f6,stroke-width:2px,color:#fff;
+                    classDef api fill:#0f172a,stroke:#0ea5e9,stroke-width:2px,color:#fff;
+                    classDef db fill:#020617,stroke:#10b981,stroke-width:2px,color:#fff;
+                    classDef ai fill:#312e81,stroke:#8b5cf6,stroke-width:2px,color:#fff;
+                    
+                    class API api;
+                    class DB db;
+                    class Gemini ai;
+            </div>
+        </section>
+
+        <!-- Detailed Topics Grid -->
+        <section class="grid">
+            
+            <!-- 1. Orchestration & Async Queuing -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">⚙️</div>
+                    <h3>1. Orchestrator API & Task Queuing</h3>
+                </div>
+                <div class="qa-section">
+                    <h4>What should we do?</h4>
+                    <p>We need to receive resumes and large candidate datasets from the frontend instantly, without making the user wait for complex AI processing (which can take 10-30 seconds per document). We need a scalable way to handle traffic spikes.</p>
+                    
+                    <h4>How did we achieve it?</h4>
+                    <p>We built the <strong>FastAPI Orchestrator</strong> deployed on <strong>Azure Container Apps</strong>. When a user uploads a resume via `candidates.html`, the API accepts the payload, quickly uses <strong>Gemini 2.0 Flash</strong> to extract structural text, and immediately enqueues a background task (e.g., `ingest_resume`) into our Azure PostgreSQL Database. The user gets an instant success response while the heavy lifting happens behind the scenes.</p>
+                </div>
+            </div>
+
+            <!-- 2. Fleet of Specialized Agents -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">🤖</div>
+                    <h3>2. Specialized Micro-Agents</h3>
+                </div>
+                <div class="qa-section">
+                    <h4>What should we do?</h4>
+                    <p>Instead of one monolithic AI trying to do everything (parse, match, submit, track), we need isolated contexts so that if a vendor management system (VMS) changes, it doesn't break our applicant tracking system (ATS) logic.</p>
+                    
+                    <h4>How did we achieve it?</h4>
+                    <p>We adopted a <strong>decoupled micro-agent fleet architecture</strong>. All agents inherit from a common `base_agent.py` which provides the loop to pull work from the PostgreSQL database queue. We created specialized workers: 
+                    <br/>• <strong>ATSAgent:</strong> Only parses and syncs candidate profiles.
+                    <br/>• <strong>VMSAgent:</strong> Only pulls open jobs and pushes submissions to vendor portals.
+                    <br/>• <strong>Submission/Sourcing Agents:</strong> Handle niche outreach tasks concurrently.</p>
+                </div>
+            </div>
+
+            <!-- 3. Vector Matching -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">🎯</div>
+                    <h3>3. AI Semantic Matching</h3>
+                </div>
+                <div class="qa-section">
+                    <h4>What should we do?</h4>
+                    <p>Traditional keyword search is inadequate for modern recruiting. We need to match candidates to open jobs based on semantic meaning, skills context, and conceptual overlap, rather than exact text matches.</p>
+                    
+                    <h4>How did we achieve it?</h4>
+                    <p>The <strong>MatchingAgent</strong> utilizes the `vector` extension in our Azure PostgreSQL database (`pgvector`). When candidates are ingested, their skills and experience are converted into embeddings via Gemini/embedding models. When a new job opens, the agent runs a cosine similarity vector search across the database to identify the top N candidates conceptually, scoring them autonomously.</p>
+                </div>
+            </div>
+
+            <!-- 4. Self-Healing & Fault Tolerance -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">🏥</div>
+                    <h3>4. Self-Healing Architecture</h3>
+                </div>
+                <div class="qa-section">
+                    <h4>What should we do?</h4>
+                    <p>AI models occasionally hallucinate, APIs timeout, or parsing fails on complex PDFs. We cannot afford to silently drop tasks or have deadlocks in the queue. We need resilience.</p>
+                    
+                    <h4>How did we achieve it?</h4>
+                    <p>We created a dedicated <strong>SelfHealingAgent</strong>. Instead of processing raw jobs, it continuously sweeps the task queue for tasks that are marked "failed" or have been "pending" too long. It automatically requeues transient failures. If a task fails repeatedly, it marks it for <em>Human Review</em> and uses Microsoft Graph API to send an email alert, ensuring zero dropped candidates.</p>
+                </div>
+            </div>
+
+            <!-- 5. Cloud Container Scalability -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">☁️</div>
+                    <h3>5. Azure Container Scaling</h3>
+                </div>
+                <div class="qa-section">
+                    <h4>What should we do?</h4>
+                    <p>We need the infrastructure to be cost-effective during quiet hours but capable of massively scaling horizontally when 1,000 resumes drop during a career fair.</p>
+                    
+                    <h4>How did we achieve it?</h4>
+                    <p>By deploying on <strong>Azure Container Apps</strong>, we achieve independent horizontal scaling. The Orchestrator container can scale to handle web traffic, while the Agent Fleet containers can scale out based on queue depth. They use <strong>Azure Key Vault</strong> to securely inject credentials across all spun-up replicas without hardcoding API keys.</p>
+                </div>
+            </div>
+
+            <!-- 6. Database Subnet Isolation -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">🔒</div>
+                    <h3>6. Secure Data Isolation</h3>
+                </div>
+                <div class="qa-section">
+                    <h4>What should we do?</h4>
+                    <p>Resumes contain highly sensitive Personally Identifiable Information (PII). We must ensure the database is absolutely protected from public internet exposure while remaining accessible to our agents.</p>
+                    
+                    <h4>How did we achieve it?</h4>
+                    <p>We use <strong>Azure Database for PostgreSQL Flexible Server</strong> configured with `AllowAllAzureIPs`. It sits within an isolated subnet. The only entities that can read/write candidate data are the internal container apps hosting our agents, creating an air-gapped environment from the public-facing Firebase frontend.</p>
+                </div>
+            </div>
+
+        </section>
+    </div>
+
+    <!-- Mermaid.js for Diagrams -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</body>
+</html>

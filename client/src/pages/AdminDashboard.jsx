@@ -228,9 +228,29 @@ function PostJobTab({ onJobPosted }) {
   const [form, setForm] = useState(emptyForm);
   const [skills, setSkills] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [enhancing, setEnhancing] = useState(false);
   const [result, setResult] = useState(null); // { ok, message }
 
   const set = (field) => (e) => setForm(f => ({ ...f, [field]: e.target.value }));
+
+  const handleEnhance = async () => {
+    if (!form.description) {
+      setResult({ ok: false, message: 'Please enter a few bullet points in the description to enhance.' });
+      return;
+    }
+    setEnhancing(true);
+    setResult(null);
+    try {
+      const prompt = `Please enhance this short job description into a professional 2-3 paragraph job listing. Title: ${form.title || 'Unknown'}. Draft: ${form.description}`;
+      const res = await axios.post(`${ORCHESTRATOR}/api/ai/generate`, { userPrompt: prompt, system: 'You are an expert technical recruiter. Output only the plain text job description, no markdown formatting.' });
+      setForm(f => ({ ...f, description: res.data.text.trim() }));
+      setResult({ ok: true, message: '✨ Job description enhanced by AI!' });
+    } catch (err) {
+      setResult({ ok: false, message: err.response?.data?.detail || err.message });
+    } finally {
+      setEnhancing(false);
+    }
+  };
 
   const loadSample = (sample) => {
     setForm({
@@ -336,7 +356,23 @@ function PostJobTab({ onJobPosted }) {
 
           {/* Description */}
           <div style={{ gridColumn: '1 / -1' }}>
-            <label style={LABEL_STYLE}>Job Description <span style={{ color: 'var(--danger)' }}>*</span></label>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
+              <label style={{ ...LABEL_STYLE, marginBottom: 0 }}>Job Description <span style={{ color: 'var(--danger)' }}>*</span></label>
+              <button 
+                type="button" 
+                onClick={handleEnhance} 
+                disabled={enhancing}
+                style={{
+                  background: 'linear-gradient(90deg, #4facfe 0%, #00f2fe 100%)',
+                  border: 'none', color: '#000', padding: '0.3rem 0.6rem', 
+                  borderRadius: '4px', fontSize: '0.75rem', fontWeight: 600, 
+                  cursor: enhancing ? 'not-allowed' : 'pointer',
+                  opacity: enhancing ? 0.7 : 1
+                }}
+              >
+                {enhancing ? '✨ Enhancing...' : '✨ AI Enhance'}
+              </button>
+            </div>
             <textarea
               style={{ ...FIELD_STYLE, minHeight: '130px', resize: 'vertical', lineHeight: 1.6 }}
               placeholder="Describe the role, responsibilities, and requirements…"

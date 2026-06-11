@@ -399,12 +399,16 @@ async def add_job(body: AddJobRequest):
             raw = result.content[0].text if result.content else "{}"
             req = j.loads(raw)
 
-    # Queue matching
+    # Queue matching and job posting
     pool = await get_pool()
     async with pool.acquire() as conn:
         await conn.execute(
             "INSERT INTO agent_task_queue (task_type, payload) VALUES ('match_candidates', $1)",
             json.dumps({"requisition_id": req["id"], "trigger": "manual_add"}),
+        )
+        await conn.execute(
+            "INSERT INTO agent_task_queue (task_type, payload) VALUES ('post_to_job_boards', $1)",
+            json.dumps({"requisition_id": req["id"], "title": req["title"], "location": req.get("location", "")}),
         )
 
     return {"status": "queued", "requisition_id": req["id"], "title": req["title"]}

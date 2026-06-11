@@ -24,7 +24,7 @@ class Settings(BaseSettings):
     # ─── Azure OpenAI ────────────────────────────────────────
     AZURE_OPENAI_KEY: str = ""
     AZURE_OPENAI_ENDPOINT: str = ""
-    AZURE_OPENAI_CHAT_DEPLOYMENT: str = "gpt-5-mini"
+    AZURE_OPENAI_CHAT_DEPLOYMENT: str = "gpt-4o-mini"
     AZURE_OPENAI_EMBED_DEPLOYMENT: str = "text-embedding-3-small"
     AZURE_OPENAI_API_VERSION: str = "2024-08-01-preview"
 

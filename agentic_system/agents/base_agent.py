@@ -53,8 +53,11 @@ class BaseAgent(ABC):
     async def _call_tool(self, session: ClientSession, tool: str, **kwargs) -> dict | list:
         """Call an MCP tool and return its result dict or list."""
         list_tools = {"fetch_new_requisitions", "semantic_search_candidates", "list_candidates"}
-        
         result = await session.call_tool(tool, arguments=kwargs)
+        if result.isError:
+            error_text = result.content[0].text if result.content else "Unknown error"
+            raise RuntimeError(f"MCP Tool '{tool}' failed: {error_text}")
+            
         if result.content and len(result.content) > 0:
             raw = result.content[0].text
             try:
@@ -227,7 +230,7 @@ class BaseAgent(ABC):
                                     sub_errors.append(str(sub))
                             err_msg = " | ".join(sub_errors)
                         else:
-                            err_msg = str(exc)
+                            err_msg = f"{exc.__class__.__name__}: {str(exc)} (repr: {repr(exc)})"
                         logger.error(f"[{self.name}] Task {task['id']} failed: {err_msg}")
                         await self.fail_task(task["id"], err_msg, task["attempts"], task["max_attempts"])
                         await self._log_health("failed", err_msg)
