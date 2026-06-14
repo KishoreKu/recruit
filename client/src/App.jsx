@@ -1,12 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
-import { BrainCircuit, Briefcase, Users, Send, Activity, Home } from 'lucide-react';
+import { BrainCircuit, Briefcase, Users, Send, Activity, Home, Clock } from 'lucide-react';
 import JobList from './pages/JobList';
 import JobDetail from './pages/JobDetail';
 import AdminDashboard from './pages/AdminDashboard';
 import CandidatesPage from './pages/CandidatesPage';
 import SubmissionsPage from './pages/SubmissionsPage';
 import HomePage from './pages/HomePage';
+import SchedulerPage from './pages/SchedulerPage';
 
 function NavLink({ to, icon: Icon, children }) {
   const location = useLocation();
@@ -34,6 +35,7 @@ function Navbar() {
           <NavLink to="/candidates" icon={Users}>Candidates</NavLink>
           <NavLink to="/submissions" icon={Send}>Submissions</NavLink>
           <NavLink to="/admin" icon={Activity}>Admin</NavLink>
+          <NavLink to="/scheduler" icon={Clock}>Scheduler</NavLink>
         </nav>
       </div>
     </div>
@@ -52,6 +54,7 @@ function App() {
           <Route path="/candidates" element={<CandidatesPage />} />
           <Route path="/submissions" element={<SubmissionsPage />} />
           <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/scheduler" element={<SchedulerPage />} />
         </Routes>
       </main>
     </Router>

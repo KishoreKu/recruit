@@ -48,6 +48,26 @@ class SourcingAgent(BaseAgent):
             
             await asyncio.sleep(interval)
 
+    async def get_github_commit_email(self, username: str, headers: dict) -> str | None:
+        """
+        Scrapes the GitHub events log for public PushEvents and retrieves the author's real email.
+        """
+        try:
+            url = f"https://api.github.com/users/{username}/events/public"
+            res = requests.get(url, headers=headers)
+            if res.status_code == 200:
+                events = res.json()
+                for event in events:
+                    if event.get("type") == "PushEvent":
+                        commits = event.get("payload", {}).get("commits", [])
+                        for commit in commits:
+                            email = commit.get("author", {}).get("email")
+                            if email and "noreply" not in email and "@" in email:
+                                return email
+        except Exception as e:
+            logger.error(f"[Sourcing Agent] Error scraping commit email for {username}: {e}")
+        return None
+
     async def pull_github_candidates(self, max_candidates=10):
         logger.info("[Sourcing Agent] 🔍 Searching GitHub for developers 'open to work'...")
         
@@ -74,7 +94,13 @@ class SourcingAgent(BaseAgent):
             # 1. Fetch user details to get name and email
             user_details = requests.get(f"https://api.github.com/users/{username}", headers=headers).json()
             full_name = user_details.get("name") or username
-            email = user_details.get("email") or f"{username}@github.candidate.local"
+            email = user_details.get("email")
+            if not email:
+                email = await self.get_github_commit_email(username, headers)
+                if email:
+                    logger.info(f"[Sourcing Agent] 📧 Found email in public commits for {username}: {email}")
+                else:
+                    email = f"{username}@github.candidate.local"
             
             # 2. Check if candidate already exists in DB to prevent duplicates
             pool = await get_pool()

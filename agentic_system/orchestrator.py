@@ -21,6 +21,7 @@ import sys
 import asyncio
 import json
 import traceback
+import re
 from contextlib import asynccontextmanager
 from pathlib import Path
 
@@ -29,7 +30,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from fastapi import FastAPI, HTTPException, BackgroundTasks, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, field_validator
 from loguru import logger
 # Direct genai imports removed, parsing is now offline
 
@@ -111,11 +112,21 @@ async def validation_exception_handler(request, exc):
 
 # ── Request / Response Models ─────────────────────────────────────────────────
 
+EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
+
 class IngestResumeRequest(BaseModel):
     full_name: str
     email: str
     phone: str | None = None
     resume_text: str
+
+    @field_validator('email')
+    @classmethod
+    def validate_email_format(cls, v: str) -> str:
+        v_clean = v.strip()
+        if not EMAIL_REGEX.match(v_clean):
+            raise ValueError("Invalid email format. Please provide a valid email address.")
+        return v_clean
 
 
 class AddJobRequest(BaseModel):
@@ -246,6 +257,13 @@ async def ingest_resume_file(
     Gemini will parse the file in the cloud, extract the raw text content,
     and queue it in the self-healing ATS pipeline.
     """
+    email = email.strip()
+    if not EMAIL_REGEX.match(email):
+        raise HTTPException(
+            status_code=422,
+            detail="Invalid email format. Please provide a valid email address."
+        )
+        
     logger.info(f"[Orchestrator] Received file upload {file.filename} for {email}")
     content = await file.read()
     

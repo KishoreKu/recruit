@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Scheduler Flow - React Flow</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- React Flow Styles -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reactflow@11.10.3/dist/style.css">
+  
+  <style>
+    :root {
+      --primary:       hsl(220, 90%, 60%);
+      --primary-glow:  hsl(220, 90%, 70%);
+      --accent:        hsl(168, 80%, 50%);
+      --danger:        hsl(0, 75%, 60%);
+      --warn:          hsl(38, 90%, 60%);
+      --purple:        hsl(265, 80%, 65%);
+      --bg-deep:       #06070a;
+      --bg-dark:       #0c0e14;
+      --bg-card:       #131722;
+      --border:        rgba(255, 255, 255, 0.08);
+      --border-active: rgba(255, 255, 255, 0.2);
+      --text-primary:  #f3f4f6;
+      --text-secondary:#9ca3af;
+      --text-muted:    #6b7280;
+      --radius-md:     12px;
+      --radius-lg:     20px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-deep);
+      color: var(--text-primary);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      background-image:
+        radial-gradient(ellipse 80% 50% at 50% -20%, hsla(220, 90%, 40%, 0.12), transparent),
+        radial-gradient(ellipse 60% 40% at 80% 100%, hsla(168, 80%, 30%, 0.07), transparent);
+    }
+
+    /* Header styling */
+    header {
+      padding: 1.25rem 2rem;
+      border-bottom: 1px solid var(--border);
+      background: rgba(6, 7, 10, 0.85);
+      backdrop-filter: blur(12px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .header-title h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: linear-gradient(90deg, #4facfe, #00f2fe);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .header-title p {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      margin-top: 0.15rem;
+    }
+
+    .status-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      color: #10b981;
+      padding: 0.35rem 0.85rem;
+      border-radius: 20px;
+      font-size: 0.76rem;
+      font-weight: 600;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      background-color: #10b981;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #10b981;
+      animation: pulse 2s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+
+    /* Main layout */
+    .app-container {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* React Flow Panel */
+    .flow-wrapper {
+      flex: 1;
+      height: 100%;
+      position: relative;
+    }
+
+    /* Details sidebar panel */
+    .details-panel {
+      width: 420px;
+      border-left: 1px solid var(--border);
+      background: var(--bg-dark);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      overflow-y: auto;
+      padding: 2rem;
+      gap: 1.5rem;
+      box-shadow: -4px 0 24px rgba(0, 0, 0, 0.4);
+    }
+    @media (max-width: 900px) {
+      .details-panel {
+        display: none;
+      }
+    }
+
+    .detail-section-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .detail-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+    }
+
+    .detail-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .detail-icon-box {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+
+    .detail-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .detail-interval {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .code-box {
+      background: #06070a;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.74rem;
+      color: #e5e7eb;
+      overflow-x: auto;
+      line-height: 1.5;
+      max-height: 300px;
+    }
+
+    /* Custom React Flow Node styles */
+    .custom-flow-node {
+      padding: 12px 16px;
+      border-radius: 10px;
+      background: var(--bg-card);
+      border: 1.5px solid var(--border);
+      color: var(--text-primary);
+      font-size: 0.8rem;
+      min-width: 170px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+
+    .custom-flow-node:hover {
+      border-color: var(--border-active);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+    }
+
+    .custom-flow-node.selected {
+      border-color: var(--node-color);
+      box-shadow: 0 0 16px var(--node-glow);
+    }
+
+    .node-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .node-subtitle {
+      font-size: 0.68rem;
+      color: var(--text-secondary);
+    }
+
+    .node-badge {
+      display: inline-block;
+      font-size: 0.6rem;
+      font-weight: 600;
+      padding: 0.1rem 0.4rem;
+      border-radius: 12px;
+      margin-top: 0.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    /* React Flow Overrides */
+    .react-flow__handle {
+      background: var(--text-muted);
+      border: 1px solid var(--bg-card);
+      width: 8px;
+      height: 8px;
+    }
+    .react-flow__handle-right { right: -4px; }
+    .react-flow__handle-left { left: -4px; }
+
+    .react-flow__controls {
+      background: var(--bg-card) !important;
+      border: 1px solid var(--border) !important;
+      border-radius: 8px !important;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3) !important;
+    }
+    .react-flow__controls-button {
+      border-bottom: 1px solid var(--border) !important;
+      background: transparent !important;
+      fill: var(--text-secondary) !important;
+      color: var(--text-secondary) !important;
+    }
+    .react-flow__controls-button:hover {
+      background: rgba(255,255,255,0.03) !important;
+    }
+
+    .react-flow__minimap {
+      background: var(--bg-dark) !important;
+      border: 1px solid var(--border) !important;
+      border-radius: 8px !important;
+    }
+    .react-flow__minimap-mask {
+      fill: rgba(0, 0, 0, 0.6) !important;
+    }
+    .react-flow__minimap-node {
+      fill: var(--border) !important;
+    }
+
+    .back-btn {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+    }
+    .back-btn:hover {
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.04);
+      border-color: var(--border-active);
+    }
+  </style>
+
+  <!-- Native Import Maps for ES Modules in the Browser -->
+  <script type="importmap">
+    {
+      "imports": {
+        "react": "https://esm.sh/react@18.2.0",
+        "react-dom": "https://esm.sh/react-dom@18.2.0",
+        "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+        "reactflow": "https://esm.sh/reactflow@11.10.3?external=react,react-dom",
+        "htm": "https://esm.sh/htm@3.1.1"
+      }
+    }
+  </script>
+</head>
+<body>
+
+  <header>
+    <div class="header-title">
+      <h1>
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00f2fe" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 4px #00f2fe)"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        Westley Recruiting Engine
+      </h1>
+      <p>Interactive Agentic Scheduling Architecture (React Flow Visualizer)</p>
+    </div>
+    <div style="display: flex; gap: 0.75rem; align-items: center;">
+      <a href="index.html" class="back-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Back to Home
+      </a>
+      <div class="status-badge">
+        <div class="status-dot"></div>
+        Scheduler Active
+      </div>
+    </div>
+  </header>
+
+  <div class="app-container" id="root">
+    <!-- React will mount here -->
+  </div>
+
+  <!-- Main JavaScript App module -->
+  <script type="module">
+    import React, { useState, useMemo } from 'react';
+    import { createRoot } from 'react-dom/client';
+    import ReactFlow, { MiniMap, Controls, Background, Handle, Position } from 'reactflow';
+    import htm from 'htm';
+
+    const html = htm.bind(React.createElement);
+
+    // Architectural data details
+    const DETAILS = {
+      vms_cron: {
+        title: "VMS Sync Clock",
+        interval: "Cron: 0 * * * * (Hourly)",
+        description: "A scheduled Azure container cron check that fires once every hour. It triggers the queueing system to scrape new client requisitions from Vendor Management Systems.",
+        implementation: "FastAPI server runs a loop with scheduler cron evaluations. When triggered, it publishes a new 'sync_vms' task row to the Postgres database queue.",
+        code: `// python/vms_trigger.py (Hourly Scheduler)
+import asyncio
+
+async def check_cron():
+    while True:
+        # Fires on the hour: 0 * * * *
+        await wait_until_next_hour()
+        await db.enqueue_task(
+            task_type="sync_vms",
+            payload={"sources": ["Fieldglass", "Beeline"]}
+        )
+        print("⏰ VMS sync task queued successfully!")`
+      },
+      resume_upload: {
+        title: "Resume Ingest Webhook",
+        interval: "Instant Event Trigger",
+        description: "Fires immediately when a user uploads a resume. Sends a multipart/form-data POST request containing the PDF stream to the Orchestrator endpoint.",
+        implementation: "The client-side form blocks default redirects, triggers a file parser API, and queues a vector-matching task instantly.",
+        code: `// client/src/pages/CandidatesPage.jsx
+const onUpload = async (file) => {
+  const data = new FormData();
+  data.append("resume", file);
+  
+  // POST request triggers instant background pipeline
+  const res = await axios.post("/api/ingest-resume-file", data);
+  updateQueueUI(res.data.task_id);
+};`
+      },
+      self_healing_cron: {
+        title: "Self-Healing Clock",
+        interval: "Cron: */5 * * * * (5 Mins)",
+        description: "Cron trigger that fires every 5 minutes, requesting a queue status check. Ensures that if any worker instance crashed, tasks are marked failed and retried.",
+        implementation: "Queries Postgres for tasks stuck in 'running' state for longer than 15 minutes, requeues them, and dispatches Microsoft Graph email alerts.",
+        code: `// cron/self_healing.py
+async def main():
+    # Runs every 300 seconds
+    while True:
+        await asyncio.sleep(300)
+        await db.enqueue_task(task_type="monitor_health")`
+      },
+      orchestrator: {
+        title: "FastAPI Orchestrator",
+        interval: "Azure Container App Gateway",
+        description: "The core HTTP entry point. Coordinates heavy file extraction routines using Gemini 2.0 Flash and manages job vector database inserts.",
+        implementation: "A highly-available ASGI application deployed on Azure Container Apps. Leverages Gemini AI to build JSON candidate profiles from raw text streams.",
+        code: `# server/orchestrator.py
+@app.post("/ingest-resume-file")
+async def ingest(file: UploadFile):
+    # Call Gemini Flash to extract structural skills
+    parsed_json = await gemini.parse_resume(file)
+    # Generate database task record
+    task_id = await db.enqueue_task(
+        task_type="match_candidate",
+        payload=parsed_json
+    )
+    return {"status": "queued", "task_id": task_id}`
+      },
+      postgres_queue: {
+        title: "PostgreSQL Database Queue",
+        interval: "Transactional Lock Queue",
+        description: "Holds the state of all background tasks. Utilizes Postgres transactional locks to support safe multi-process polling without duplicate claims.",
+        implementation: "Uses SELECT FOR UPDATE SKIP LOCKED. This tells the database engine to skip records currently claimed by other processing pods, preventing thread collisions.",
+        code: `-- database/claims.sql
+UPDATE tasks
+SET 
+  status = 'running', 
+  claimed_by = :agent_id,
+  started_at = NOW()
+WHERE id = (
+  SELECT id FROM tasks
+  WHERE status = 'pending'
+  ORDER BY created_at ASC
+  FOR UPDATE SKIP LOCKED
+  LIMIT 1
+) RETURNING *;`
+      },
+      vms_agent: {
+        title: "VMS Sync Agent",
+        interval: "Claim Polling: 1 hr",
+        description: "Background worker that claims 'sync_vms' tasks. Logins to external vendor portals (Fieldglass, Workday) to pull, parse, and update open job listings.",
+        implementation: "Periodically queries the queue. If it finds a VMS task, it fires browser automation scripts and inserts new roles, which automatically trigger matching tasks.",
+        code: `# agents/vms_agent.py
+async def execute_task(task_row):
+    raw_listings = await scrape_vms_portals()
+    for job in raw_listings:
+        skills = await gemini.extract_skills(job.description)
+        await db.create_requisition(job, skills)`
+      },
+      matching_agent: {
+        title: "AI Matching Agent",
+        interval: "Polled: Continuous (2s)",
+        description: "Compares candidate profiles and job orders. Reads skill embeddings from Postgres, evaluates cosine distance vectors, and saves top candidate matches.",
+        implementation: "Pulls 'match_candidate' tasks from the Postgres queue. Uses vector database algorithms to match candidates to new postings.",
+        code: `# agents/matching_agent.py
+async def match_candidates(candidate_id):
+    # Fetch candidate embedding vector
+    cand_vector = await db.get_embedding(candidate_id)
+    # Cosine distance search in database
+    matches = await db.search_requisitions(cand_vector, min_score=0.75)
+    await db.save_matches(candidate_id, matches)`
+      },
+      self_healing_agent: {
+        title: "Self-Healing Agent",
+        interval: "Claim Polling: 5 Mins",
+        description: "Claims 'monitor_health' tasks. Inspects task table for tasks stuck in 'running' status, resets them to 'pending' for retry, and triggers SMTP warning alerts.",
+        implementation: "Ensures fault tolerance across the entire automated recruiting pipeline. Integrates with Microsoft Graph for alert delivery.",
+        code: `# agents/health_agent.py
+async def heal_tasks():
+    # Identify tasks active for >15 minutes
+    stuck = await db.get_stuck_tasks()
+    for task in stuck:
+        await db.mark_task_failed(task.id)
+        await email.send_error_report(
+            to="support@westleyresource.com",
+            msg=f"Task {task.id} crashed. Resetting."
+        )`
+      },
+      vms_portals: {
+        title: "VMS Portals",
+        interval: "External API Integration",
+        description: "External enterprise systems (Fieldglass, Beeline, Workday) hosting job orders for corporate IT clients.",
+        implementation: "Scraped hourly or connected via partner API endpoints to sync job listings into WestleyRecruit.",
+        code: `// Scraper HTTP request headers
+const headers = {
+  "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)...",
+  "Authorization": "Bearer VMS_ACCESS_TOKEN"
+};`
+      },
+      ms_graph: {
+        title: "Microsoft Graph SMTP",
+        interval: "OAuth 2.0 Integration",
+        description: "Azure email sender integration. Sends alerts, match reports, and candidate Right-to-Represent (RTR) authorization files.",
+        implementation: "Authenticated using client credentials via the Microsoft Entra ID tenant token endpoint.",
+        code: `// functions/email.js
+const getAuthToken = async () => {
+  const url = \`https://login.microsoftonline.com/\${TENANT_ID}/oauth2/v2.0/token\`;
+  const res = await axios.post(url, new URLSearchParams({
+    client_id: CLIENT_ID,
+    client_secret: CLIENT_SECRET,
+    scope: "https://graph.microsoft.com/.default",
+    grant_type: "client_credentials"
+  }));
+  return res.data.access_token;
+};`
+      }
+    };
+
+    // Custom Node Component for React Flow
+    const CustomNode = ({ data, selected }) => {
+      const nodeColor = data.color || 'var(--primary)';
+      const nodeGlow = `color-mix(in srgb, ${nodeColor} 30%, transparent)`;
+      
+      const badgeStyle = {
+        background: `color-mix(in srgb, ${nodeColor} 12%, transparent)`,
+        border: `1px solid color-mix(in srgb, ${nodeColor} 25%, transparent)`,
+        color: nodeColor
+      };
+
+      return html`
+        <div 
+          className=${`custom-flow-node ${selected ? 'selected' : ''}`}
+          style=${{ '--node-color': nodeColor, '--node-glow': nodeGlow }}
+        >
+          <${Handle} type="target" position=${Position.Left} />
+          
+          <div className="node-header">
+            <span style=${{ color: nodeColor }}>●</span>
+            <span>${data.label}</span>
+          </div>
+          <div className="node-subtitle">${data.subtitle || ''}</div>
+          <span className="node-badge" style=${badgeStyle}>${data.badge || ''}</span>
+          
+          <${Handle} type="source" position=${Position.Right} />
+        </div>
+      `;
+    };
+
+    const nodeTypes = { custom: CustomNode };
+
+    // Initial React Flow Nodes Setup
+    const initialNodes = [
+      // Column 1: Triggers (x: 50)
+      {
+        id: 'vms_cron',
+        type: 'custom',
+        position: { x: 50, y: 100 },
+        data: { label: 'VMS Sync Clock', subtitle: 'Hourly Timer Event', badge: 'Cron Trigger', color: 'var(--warn)' }
+      },
+      {
+        id: 'resume_upload',
+        type: 'custom',
+        position: { x: 50, y: 220 },
+        data: { label: 'Resume Upload', subtitle: 'User Web Form Action', badge: 'HTTP Webhook', color: 'var(--primary)' }
+      },
+      {
+        id: 'self_healing_cron',
+        type: 'custom',
+        position: { x: 50, y: 340 },
+        data: { label: 'Self-Healing Clock', subtitle: '5-Minute Audit Timer', badge: 'Cron Trigger', color: 'var(--danger)' }
+      },
+      
+      // Column 2: Gateway (x: 280)
+      {
+        id: 'orchestrator',
+        type: 'custom',
+        position: { x: 280, y: 220 },
+        data: { label: 'FastAPI Orchestrator', subtitle: 'App Coordinator', badge: 'Azure Container', color: 'var(--primary-glow)' }
+      },
+
+      // Column 3: Queue Broker (x: 510)
+      {
+        id: 'postgres_queue',
+        type: 'custom',
+        position: { x: 510, y: 220 },
+        data: { label: 'Postgres DB Queue', subtitle: 'Transaction Task Lock', badge: 'Database Queue', color: 'var(--accent)' }
+      },
+
+      // Column 4: Workers (x: 740)
+      {
+        id: 'vms_agent',
+        type: 'custom',
+        position: { x: 740, y: 100 },
+        data: { label: 'VMS Sync Agent', subtitle: 'Pulls external jobs', badge: 'Scraper Worker', color: 'var(--purple)' }
+      },
+      {
+        id: 'matching_agent',
+        type: 'custom',
+        position: { x: 740, y: 220 },
+        data: { label: 'AI Matching Agent', subtitle: 'Embeddings Cosine Search', badge: 'LLM Match Worker', color: 'var(--purple)' }
+      },
+      {
+        id: 'self_healing_agent',
+        type: 'custom',
+        position: { x: 740, y: 340 },
+        data: { label: 'Self-Healing Agent', subtitle: 'Queue Health Checker', badge: 'Audit Worker', color: 'var(--danger)' }
+      },
+
+      // Column 5: Outputs (x: 970)
+      {
+        id: 'vms_portals',
+        type: 'custom',
+        position: { x: 970, y: 100 },
+        data: { label: 'VMS Portals', subtitle: 'Fieldglass / Beeline', badge: 'External Vendor', color: 'var(--accent)' }
+      },
+      {
+        id: 'ms_graph',
+        type: 'custom',
+        position: { x: 970, y: 280 },
+        data: { label: 'Microsoft Graph SMTP', subtitle: 'Exchange Mail Delivery', badge: 'OAuth 2.0 Client', color: 'var(--accent)' }
+      }
+    ];
+
+    // Connectors configuration
+    const initialEdges = [
+      // Triggers -> Orchestrator
+      { id: 'e-vms-orch', source: 'vms_cron', target: 'orchestrator', animated: true, style: { stroke: 'var(--warn)' } },
+      { id: 'e-res-orch', source: 'resume_upload', target: 'orchestrator', animated: true, style: { stroke: 'var(--primary)' } },
+      { id: 'e-heal-orch', source: 'self_healing_cron', target: 'orchestrator', animated: true, style: { stroke: 'var(--danger)' } },
+
+      // Orchestrator -> Postgres
+      { id: 'e-orch-pg', source: 'orchestrator', target: 'postgres_queue', animated: true, style: { stroke: 'var(--primary-glow)' } },
+
+      // Postgres -> Workers
+      { id: 'e-pg-vms', source: 'postgres_queue', target: 'vms_agent', animated: true, style: { stroke: 'var(--purple)' } },
+      { id: 'e-pg-match', source: 'postgres_queue', target: 'matching_agent', animated: true, style: { stroke: 'var(--purple)' } },
+      { id: 'e-pg-heal', source: 'postgres_queue', target: 'self_healing_agent', animated: true, style: { stroke: 'var(--danger)' } },
+
+      // Workers -> Outputs
+      { id: 'e-vms-port', source: 'vms_agent', target: 'vms_portals', animated: true, style: { stroke: 'var(--accent)' } },
+      { id: 'e-match-msg', source: 'matching_agent', target: 'ms_graph', animated: true, style: { stroke: 'var(--accent)' } },
+      { id: 'e-heal-msg', source: 'self_healing_agent', target: 'ms_graph', animated: true, style: { stroke: 'var(--accent)' } }
+    ];
+
+    function App() {
+      const [nodes, setNodes] = useState(initialNodes);
+      const [edges, setEdges] = useState(initialEdges);
+      const [selectedKey, setSelectedKey] = useState('orchestrator');
+
+      const onNodeClick = (event, node) => {
+        setSelectedKey(node.id);
+      };
+
+      const selectedInfo = useMemo(() => {
+        return DETAILS[selectedKey] || {
+          title: "Select a node",
+          interval: "N/A",
+          description: "Click on any node in the React Flow graph to inspect its background scheduling loops and implementation code.",
+          implementation: "",
+          code: ""
+        };
+      }, [selectedKey]);
+
+      const activeNode = useMemo(() => {
+        return nodes.find(n => n.id === selectedKey);
+      }, [selectedKey, nodes]);
+
+      const borderCol = activeNode ? activeNode.data.color : 'var(--primary)';
+
+      return html`
+        <div style=${{ display: 'flex', flex: 1, overflow: 'hidden', width: '100%' }}>
+          
+          <!-- React Flow Canvas Panel -->
+          <div className="flow-wrapper">
+            <${ReactFlow}
+              nodes=${nodes}
+              edges=${edges}
+              nodeTypes=${nodeTypes}
+              onNodeClick=${onNodeClick}
+              fitView
+              style=${{ background: 'var(--bg-deep)' }}
+            >
+              <${Background} color="rgba(255,255,255,0.03)" gap=${24} size=${1.5} />
+              <${Controls} />
+              <${MiniMap} zoomable pannable />
+            <//>
+          </div>
+
+          <!-- Side Details Inspector -->
+          <div className="details-panel">
+            <div>
+              <div className="detail-section-title">Inspector</div>
+              <div className="detail-card" style=${{ borderTop: `3px solid ${borderCol}` }}>
+                <div className="detail-header">
+                  <div 
+                    className="detail-icon-box"
+                    style=${{ 
+                      background: `color-mix(in srgb, ${borderCol} 15%, transparent)`,
+                      border: `1px solid ${borderCol}`,
+                      color: borderCol
+                    }}
+                  >
+                    ⚡
+                  </div>
+                  <div>
+                    <h3 className="detail-title">${selectedInfo.title}</h3>
+                    <span className="detail-interval" style=${{ color: borderCol }}>${selectedInfo.interval}</span>
+                  </div>
+                </div>
+                <p style=${{ fontSize: '0.86rem', color: 'var(--text-secondary)', lineHeight: 1.55 }}>
+                  ${selectedInfo.description}
+                </p>
+              </div>
+            </div>
+
+            ${selectedInfo.implementation && html`
+              <div>
+                <div className="detail-section-title">Deployment Info</div>
+                <p style=${{ fontSize: '0.86rem', color: 'var(--text-secondary)', lineHeight: 1.55 }}>
+                  ${selectedInfo.implementation}
+                </p>
+              </div>
+            `}
+
+            ${selectedInfo.code && html`
+              <div>
+                <div className="detail-section-title">Background Thread Implementation</div>
+                <div className="code-box">
+                  <pre><code>${selectedInfo.code}</code></pre>
+                </div>
+              </div>
+            `}
+          </div>
+
+        </div>
+      `;
+    }
+
+    const root = createRoot(document.getElementById('root'));
+    root.render(html`<${App} />`);
+  </script>
+</body>
+</html>

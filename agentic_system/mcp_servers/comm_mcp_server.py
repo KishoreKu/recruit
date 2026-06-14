@@ -69,6 +69,11 @@ async def send_email(
     Send an email via Microsoft Graph API using the configured MS_SENDER account.
     Falls back gracefully if credentials are not configured.
     """
+    if to_address.endswith(".local") or "candidate.local" in to_address:
+        logger.warning(f"[COMM] Intercepted email to placeholder local domain ({to_address}) — email bypassed.")
+        await _log_outreach(candidate_id, "email", "outbound", subject, body_html, "bypassed")
+        return {"status": "simulated", "to": to_address, "subject": subject}
+
     if not settings.MS_TENANT_ID or not settings.MS_CLIENT_ID:
         logger.warning("[COMM] MS Graph not configured — email simulated.")
         await _log_outreach(candidate_id, "email", "outbound", subject, body_html, "simulated")
