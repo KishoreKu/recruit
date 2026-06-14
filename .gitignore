@@ -44,3 +44,4 @@ error_log
 firebase-debug.log
 firebase-debug.*.log
 .firebaserc
+.gstack/
