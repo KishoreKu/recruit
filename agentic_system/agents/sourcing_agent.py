@@ -38,36 +38,10 @@ class SourcingAgent(BaseAgent):
         """
         Periodic sourcing loop — pulls candidates every 24 hours from multiple sources.
         """
-        # Sourcing cycle every 24 hours (86400 seconds)
-        interval = 86400 
-        logger.info(f"[Sourcing Agent] Starting daily sourcing loop (every {interval}s).")
-        
-        while True:
-            # 1. GitHub Sourcing
-            await self._safe_source("GitHub", self.pull_github_candidates, max_candidates=5)
-            
-            # 2. Stack Overflow Sourcing
-            await self._safe_source("Stack Overflow", self.pull_stackoverflow_candidates, max_candidates=5)
-                
-            # 3. Hacker News Sourcing
-            await self._safe_source("Hacker News", self.pull_hackernews_candidates, max_candidates=5)
-            
-            # 4. Reddit Sourcing
-            await self._safe_source("Reddit", self.pull_reddit_candidates, max_candidates=3)
-            
-            # 5. GitLab Sourcing
-            await self._safe_source("GitLab", self.pull_gitlab_candidates, max_candidates=3)
-            
-            # 6. Bitbucket Sourcing
-            await self._safe_source("Bitbucket", self.pull_bitbucket_candidates, max_candidates=3)
-            
-            # 7. LinkedIn Sourcing
-            await self._safe_source("LinkedIn", self.pull_linkedin_candidates, max_candidates=3)
-            
-            # 8. USAJobs Sourcing
-            await self._safe_source("USAJobs", self.pull_usajobs_candidates, max_candidates=3)
-            
-            await asyncio.sleep(interval)
+        # Disable automatic background sourcing to prevent database clutter with mock candidate profiles.
+        # Sourcing can still be triggered manually or via intake forms (candidates.html).
+        logger.warning("[Sourcing Agent] Automated background sourcing loop is disabled to prevent mock profile pollution.")
+        return
 
     async def get_github_commit_email(self, username: str, headers: dict) -> str | None:
         """
@@ -581,39 +555,8 @@ Work History Sourced from LinkedIn Profile.
                 logger.error(f"[Sourcing Agent] RapidAPI LinkedIn search failed: {e}")
                 
         # Fallback simulation if no API Key is set
-        logger.warning("[Sourcing Agent] RAPIDAPI_KEY not configured. Simulating LinkedIn candidate ingestion...")
-        mock_candidates = [
-            {"name": "Alex Mercer", "title": "Senior Cloud Infrastructure Architect", "skills": "AWS, Terraform, Kubernetes, Go", "email": "alex.mercer@linkedin.candidate.local"},
-            {"name": "Elena Rostova", "title": "Lead React & Frontend Engineer", "skills": "React, TypeScript, Redux, TailwindCSS", "email": "elena.rostova@linkedin.candidate.local"}
-        ]
-        
-        count = 0
-        for cand in mock_candidates:
-            if count >= max_candidates:
-                break
-            async with pool.acquire() as conn:
-                existing = await conn.fetchrow("SELECT id FROM candidates WHERE email = $1", cand["email"])
-                if existing:
-                    continue
-            
-            resume_text = f"""LINKEDIN PROFILE RESUME (SIMULATED):
-Name: {cand['name']}
-Headline: {cand['title']}
-Skills: {cand['skills']}
-Email: {cand['email']}
-LinkedIn URL: https://linkedin.com/in/{cand['name'].replace(' ', '').lower()}
-
-Summary:
-Experienced tech leader seeking new opportunities. Proven track record in scaling cloud architectures.
-"""
-            logger.info(f"[Sourcing Agent] Enqueuing simulated LinkedIn candidate: {cand['name']}...")
-            await self.enqueue_task("ingest_resume", {
-                "full_name": cand["name"],
-                "email": cand["email"],
-                "phone": "555-019-8372",
-                "resume_text": resume_text
-            })
-            count += 1
+        logger.warning("[Sourcing Agent] RAPIDAPI_KEY not configured. LinkedIn candidate ingestion skipped (no mock fallback).")
+        return
 
     async def pull_usajobs_candidates(self, max_candidates=3):
         logger.info("[Sourcing Agent] 🔍 Sourcing USAJobs federal profiles...")
@@ -624,40 +567,8 @@ Experienced tech leader seeking new opportunities. Proven track record in scalin
             pass
             
         # Fallback simulation
-        logger.warning("[Sourcing Agent] USAJOBS_API_KEY not configured. Simulating Federal Candidate ingestion...")
-        mock_usajobs = [
-            {"name": "Command Sgt. Frank Castle", "title": "Senior Cybersecurity Specialist (GS-14)", "skills": "NIST, SIEM, Incident Response, Splunk, CISSP", "clearance": "Top Secret / SCI", "email": "frank.castle@usajobs.candidate.local"},
-            {"name": "Major Samantha Carter", "title": "Lead Software Engineer (GS-13)", "skills": "C++, Python, Aerospace Systems, Embedded C", "clearance": "Secret", "email": "samantha.carter@usajobs.candidate.local"}
-        ]
-        
-        count = 0
-        for cand in mock_usajobs:
-            if count >= max_candidates:
-                break
-            async with pool.acquire() as conn:
-                existing = await conn.fetchrow("SELECT id FROM candidates WHERE email = $1", cand["email"])
-                if existing:
-                    continue
-            
-            resume_text = f"""USAJOBS FEDERAL RESUME (SIMULATED):
-Name: {cand['name']}
-Current Grade: {cand['title']}
-Security Clearance: {cand['clearance']}
-Key Tech Skills: {cand['skills']}
-Email: {cand['email']}
-
-Professional History:
-10+ years serving federal agencies in advanced computing roles.
-Expertise in secure systems integration and defense networks compliance.
-"""
-            logger.info(f"[Sourcing Agent] Enqueuing simulated USAJobs candidate: {cand['name']}...")
-            await self.enqueue_task("ingest_resume", {
-                "full_name": cand["name"],
-                "email": cand["email"],
-                "phone": "555-019-8372",
-                "resume_text": resume_text
-            })
-            count += 1
+        logger.warning("[Sourcing Agent] USAJOBS_API_KEY not configured. USAJobs candidate ingestion skipped (no mock fallback).")
+        return
 
     async def run(self) -> None:
         """Run the daily polling loop."""
