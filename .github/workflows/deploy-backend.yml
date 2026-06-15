@@ -1,0 +1,33 @@
+name: Deploy Backend to Azure
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'agentic_system/**'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Build Image in ACR
+        run: |
+          az acr build --registry westleyregistry --image westley-agents:latest ./agentic_system
+
+      - name: Update Container App
+        run: |
+          az containerapp update \
+            --name westley-agents \
+            --resource-group westley-agents-rg \
+            --set-env-vars REVISION_FORCE_BUILD=${{ github.sha }}
