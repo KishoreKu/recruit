@@ -124,8 +124,8 @@ class IngestResumeRequest(BaseModel):
     @classmethod
     def validate_email_format(cls, v: str) -> str:
         v_clean = v.strip()
-        if not EMAIL_REGEX.match(v_clean):
-            raise ValueError("Invalid email format. Please provide a valid email address.")
+        if not EMAIL_REGEX.match(v_clean) or v_clean.endswith(".local") or "candidate.local" in v_clean:
+            raise ValueError("Invalid email format. Placeholder or simulated emails (.local) are not permitted.")
         return v_clean
 
 
@@ -258,10 +258,10 @@ async def ingest_resume_file(
     and queue it in the self-healing ATS pipeline.
     """
     email = email.strip()
-    if not EMAIL_REGEX.match(email):
+    if not EMAIL_REGEX.match(email) or email.endswith(".local") or "candidate.local" in email:
         raise HTTPException(
             status_code=422,
-            detail="Invalid email format. Please provide a valid email address."
+            detail="Invalid email format. Placeholder or simulated emails (.local) are not permitted."
         )
         
     logger.info(f"[Orchestrator] Received file upload {file.filename} for {email}")
@@ -558,6 +558,60 @@ async def health_log(limit: int = 100):
             "SELECT * FROM agent_health_log ORDER BY logged_at DESC LIMIT $1", limit
         )
     return [dict(r) | {"id": str(r["id"]), "logged_at": r["logged_at"].isoformat()} for r in rows]
+
+
+@app.get("/debug-tasks", tags=["Debug"])
+async def debug_tasks():
+    """Diagnostic endpoint to inspect .local candidate tasks and outreach logs."""
+    pool = await get_pool()
+    async with pool.acquire() as conn:
+        tasks = await conn.fetch(
+            """
+            SELECT id, task_type, payload, status, attempts, max_attempts, created_at, updated_at
+            FROM agent_task_queue
+            WHERE payload::text LIKE '%candidate.local%' OR payload::text LIKE '%.local%'
+            ORDER BY created_at DESC
+            LIMIT 50
+            """
+        )
+        outreach = await conn.fetch(
+            """
+            SELECT id, candidate_id, channel, direction, subject, status, sent_at, metadata
+            FROM outreach_log
+            WHERE metadata::text LIKE '%candidate.local%' OR metadata::text LIKE '%.local%'
+               OR body LIKE '%candidate.local%' OR body LIKE '%.local%'
+            ORDER BY sent_at DESC
+            LIMIT 50
+            """
+        )
+    return {
+        "tasks": [
+            {
+                "id": str(t["id"]),
+                "task_type": t["task_type"],
+                "payload": t["payload"],
+                "status": t["status"],
+                "attempts": t["attempts"],
+                "max_attempts": t["max_attempts"],
+                "created_at": t["created_at"].isoformat() if t["created_at"] else None,
+                "updated_at": t["updated_at"].isoformat() if t["updated_at"] else None,
+            }
+            for t in tasks
+        ],
+        "outreach": [
+            {
+                "id": str(o["id"]),
+                "candidate_id": str(o["candidate_id"]) if o["candidate_id"] else None,
+                "channel": o["channel"],
+                "direction": o["direction"],
+                "subject": o["subject"],
+                "status": o["status"],
+                "sent_at": o["sent_at"].isoformat() if o["sent_at"] else None,
+                "metadata": o["metadata"],
+            }
+            for o in outreach
+        ]
+    }
 
 
 # ── Entry point ───────────────────────────────────────────────────────────────
