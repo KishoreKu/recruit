@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, MapPin, Building, DollarSign, Calendar, MessageSquare } from 'lucide-react';
+import { ArrowLeft, MapPin, Building, DollarSign, Calendar, MessageSquare, User, Mail, Phone } from 'lucide-react';
 
 const ORCHESTRATOR = 'https://westley-agents.kindtree-748f04e0.centralus.azurecontainerapps.io';
 
@@ -49,6 +49,21 @@ const JobDetail = () => {
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <Calendar size={18} style={{ marginRight: '8px' }} /> <strong>Posted:</strong>&nbsp;{new Date(job.created_at).toLocaleDateString()}
           </div>
+          {job.client_contact_name && (
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <User size={18} style={{ marginRight: '8px' }} /> <strong>Contact Name:</strong>&nbsp;{job.client_contact_name}
+            </div>
+          )}
+          {job.client_contact_email && (
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <Mail size={18} style={{ marginRight: '8px' }} /> <strong>Contact Email:</strong>&nbsp;{job.client_contact_email}
+            </div>
+          )}
+          {job.client_contact_phone && (
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <Phone size={18} style={{ marginRight: '8px' }} /> <strong>Contact Phone:</strong>&nbsp;{job.client_contact_phone}
+            </div>
+          )}
         </div>
 
         <div style={{ marginBottom: '2rem' }}>

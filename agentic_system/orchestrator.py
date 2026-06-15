@@ -459,7 +459,8 @@ async def list_requisitions(status: str = "open", limit: int = 50):
         rows = await conn.fetch(
             """
             SELECT id, vms_platform, title, client_company, skills_required,
-                   location, job_type, bill_rate_max, status, created_at
+                   location, job_type, bill_rate_max, status, created_at,
+                   client_contact_name, client_contact_email, client_contact_phone
             FROM requisitions WHERE status = $1 ORDER BY created_at DESC LIMIT $2
             """,
             status, limit,

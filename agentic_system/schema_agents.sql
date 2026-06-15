@@ -29,8 +29,12 @@ CREATE TABLE IF NOT EXISTS candidates (
   created_at       TIMESTAMPTZ DEFAULT NOW(),
   updated_at       TIMESTAMPTZ DEFAULT NOW()
 );
-CREATE INDEX IF NOT EXISTS candidates_embedding_idx
-  ON candidates USING ivfflat (embedding vector_cosine_ops) WITH (lists = 100);
+-- NOTE: We comment out this approximate index because for smaller datasets (<10,000 rows),
+-- pgvector exact sequential scanning is fast and guarantees 100% recall.
+-- Having an IVFFlat index with lists=100 on a small database restricts search results.
+-- CREATE INDEX IF NOT EXISTS candidates_embedding_idx
+--   ON candidates USING ivfflat (embedding vector_cosine_ops) WITH (lists = 100);
+
 
 -- ─────────────────────────────────────────────────────────────
 -- REQUISITIONS: VMS job requisitions
