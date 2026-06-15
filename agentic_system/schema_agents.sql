@@ -49,6 +49,9 @@ CREATE TABLE IF NOT EXISTS requisitions (
   embedding        vector(768),
   status           VARCHAR(50) DEFAULT 'open',  -- open | filled | expired | cancelled
   deadline         TIMESTAMPTZ,
+  client_contact_name VARCHAR(255),
+  client_contact_email VARCHAR(255),
+  client_contact_phone VARCHAR(50),
   created_at       TIMESTAMPTZ DEFAULT NOW(),
   updated_at       TIMESTAMPTZ DEFAULT NOW()
 );
@@ -136,3 +139,10 @@ BEGIN
       FOR EACH ROW EXECUTE PROCEDURE update_updated_at();', t, t, t, t);
   END LOOP;
 END $$;
+
+-- ─────────────────────────────────────────────────────────────
+-- ALTER TABLE updates to support client contact lead enrichment
+-- ─────────────────────────────────────────────────────────────
+ALTER TABLE requisitions ADD COLUMN IF NOT EXISTS client_contact_name VARCHAR(255);
+ALTER TABLE requisitions ADD COLUMN IF NOT EXISTS client_contact_email VARCHAR(255);
+ALTER TABLE requisitions ADD COLUMN IF NOT EXISTS client_contact_phone VARCHAR(50);

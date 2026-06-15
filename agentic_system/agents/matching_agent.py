@@ -212,6 +212,23 @@ class MatchingAgent(BaseAgent):
                 "candidate_email": candidate["email"],
             })
 
+        # 5. If requisition has client contact details, queue speculation pitch to client
+        if req.get("client_contact_email"):
+            top_candidate_id = None
+            for candidate in matches:
+                if candidate["id"] in selected_ids:
+                    top_candidate_id = candidate["id"]
+                    break
+            
+            if top_candidate_id:
+                logger.info(f"[Matching Agent] Requisition has client contact ({req['client_contact_email']}). Enqueuing client_speculation task.")
+                await self.enqueue_task("client_speculation", {
+                    "requisition_id": requisition_id,
+                    "candidate_id": top_candidate_id,
+                    "client_contact_name": req.get("client_contact_name"),
+                    "client_contact_email": req.get("client_contact_email"),
+                })
+
         await self.complete_task(task_id)
         await self._log_health("succeeded", f"Matched {len(selected_ids)} candidates for {requisition_id}")
 
