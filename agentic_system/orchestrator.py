@@ -611,6 +611,11 @@ async def approve_outreach(outreach_id: str):
             raise HTTPException(status_code=404, detail="Pending outreach not found or already processed.")
             
         metadata = row["metadata"] or {}
+        if isinstance(metadata, str):
+            try:
+                metadata = json.loads(metadata)
+            except Exception:
+                metadata = {}
         to_address = metadata.get("to_address")
         if not to_address:
             raise HTTPException(status_code=400, detail="Recipient address (to_address) not found in metadata.")
@@ -663,6 +668,11 @@ async def edit_and_approve_outreach(outreach_id: str, request_body: EditOutreach
             raise HTTPException(status_code=404, detail="Pending outreach not found or already processed.")
             
         metadata = row["metadata"] or {}
+        if isinstance(metadata, str):
+            try:
+                metadata = json.loads(metadata)
+            except Exception:
+                metadata = {}
         metadata["to_address"] = request_body.to_address
         
         await conn.execute(
