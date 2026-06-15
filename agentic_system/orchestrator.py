@@ -564,7 +564,168 @@ async def health_log(limit: int = 100):
     return [dict(r) | {"id": str(r["id"]), "logged_at": r["logged_at"].isoformat()} for r in rows]
 
 
+# ── Outreach human review endpoints ──────────────────────────────────────────
+
+class EditOutreachRequest(BaseModel):
+    to_address: str
+    subject: str
+    body: str
+
+@app.get("/api/outreach/pending", tags=["Outreach"])
+async def list_pending_outreach():
+    """List all outreach communications pending review."""
+    pool = await get_pool()
+    async with pool.acquire() as conn:
+        rows = await conn.fetch(
+            """
+            SELECT id, candidate_id, channel, direction, subject, body, status, metadata, sent_at
+            FROM outreach_log
+            WHERE status = 'pending_review'
+            ORDER BY sent_at DESC
+            """
+        )
+    return [
+        {
+            "id": str(r["id"]),
+            "candidate_id": str(r["candidate_id"]) if r["candidate_id"] else None,
+            "channel": r["channel"],
+            "direction": r["direction"],
+            "subject": r["subject"],
+            "body": r["body"],
+            "status": r["status"],
+            "metadata": r["metadata"],
+            "sent_at": r["sent_at"].isoformat()
+        } for r in rows
+    ]
+
+@app.post("/api/outreach/pending/{outreach_id}/approve", tags=["Outreach"])
+async def approve_outreach(outreach_id: str):
+    """Approve a pending outreach email and send it."""
+    pool = await get_pool()
+    async with pool.acquire() as conn:
+        row = await conn.fetchrow(
+            "SELECT id, subject, body, metadata, candidate_id FROM outreach_log WHERE id = $1::uuid AND status = 'pending_review'",
+            outreach_id
+        )
+        if not row:
+            raise HTTPException(status_code=404, detail="Pending outreach not found or already processed.")
+            
+        metadata = row["metadata"] or {}
+        to_address = metadata.get("to_address")
+        if not to_address:
+            raise HTTPException(status_code=400, detail="Recipient address (to_address) not found in metadata.")
+            
+        import os
+        from mcp import ClientSession, StdioServerParameters
+        from mcp.client.stdio import stdio_client
+        from agents.base_agent import COMM_SERVER
+        
+        try:
+            async with stdio_client(StdioServerParameters(command=sys.executable, args=[COMM_SERVER], env=dict(os.environ))) as (rc, wc):
+                async with ClientSession(rc, wc) as comm:
+                    await comm.initialize()
+                    result = await comm.call_tool(
+                        "send_email",
+                        arguments={
+                            "to_address": to_address,
+                            "subject": row["subject"],
+                            "body_html": row["body"],
+                            "candidate_id": str(row["candidate_id"]) if row["candidate_id"] else None,
+                            "bypass_review": True,
+                            "outreach_id": outreach_id
+                        }
+                    )
+                    
+                    if result.isError:
+                        error_text = result.content[0].text if result.content else "Unknown error"
+                        raise RuntimeError(error_text)
+                        
+                    parsed = json.loads(result.content[0].text) if result.content else {}
+                    if parsed.get("status") == "failed":
+                        raise RuntimeError(parsed.get("error", "Email sending failed"))
+                        
+                    return {"status": parsed.get("status") or "sent", "message": "Email approved and sent."}
+                    
+        except Exception as e:
+            logger.error(f"Failed to send approved email: {e}")
+            raise HTTPException(status_code=500, detail=f"Failed to send email: {str(e)}")
+
+@app.post("/api/outreach/pending/{outreach_id}/edit", tags=["Outreach"])
+async def edit_and_approve_outreach(outreach_id: str, request_body: EditOutreachRequest):
+    """Edit a pending outreach email, then approve and send it."""
+    pool = await get_pool()
+    async with pool.acquire() as conn:
+        row = await conn.fetchrow(
+            "SELECT id, metadata, candidate_id FROM outreach_log WHERE id = $1::uuid AND status = 'pending_review'",
+            outreach_id
+        )
+        if not row:
+            raise HTTPException(status_code=404, detail="Pending outreach not found or already processed.")
+            
+        metadata = row["metadata"] or {}
+        metadata["to_address"] = request_body.to_address
+        
+        await conn.execute(
+            """
+            UPDATE outreach_log
+            SET subject = $1, body = $2, metadata = $3
+            WHERE id = $4::uuid
+            """,
+            request_body.subject, request_body.body, json.dumps(metadata), outreach_id
+        )
+        
+        import os
+        from mcp import ClientSession, StdioServerParameters
+        from mcp.client.stdio import stdio_client
+        from agents.base_agent import COMM_SERVER
+        
+        try:
+            async with stdio_client(StdioServerParameters(command=sys.executable, args=[COMM_SERVER], env=dict(os.environ))) as (rc, wc):
+                async with ClientSession(rc, wc) as comm:
+                    await comm.initialize()
+                    result = await comm.call_tool(
+                        "send_email",
+                        arguments={
+                            "to_address": request_body.to_address,
+                            "subject": request_body.subject,
+                            "body_html": request_body.body,
+                            "candidate_id": str(row["candidate_id"]) if row["candidate_id"] else None,
+                            "bypass_review": True,
+                            "outreach_id": outreach_id
+                        }
+                    )
+                    
+                    if result.isError:
+                        error_text = result.content[0].text if result.content else "Unknown error"
+                        raise RuntimeError(error_text)
+                        
+                    parsed = json.loads(result.content[0].text) if result.content else {}
+                    if parsed.get("status") == "failed":
+                        raise RuntimeError(parsed.get("error", "Email sending failed"))
+                        
+                    return {"status": parsed.get("status") or "sent", "message": "Email updated and sent."}
+                    
+        except Exception as e:
+            logger.error(f"Failed to send edited email: {e}")
+            raise HTTPException(status_code=500, detail=f"Failed to send email: {str(e)}")
+
+@app.post("/api/outreach/pending/{outreach_id}/reject", tags=["Outreach"])
+async def reject_outreach(outreach_id: str):
+    """Reject a pending outreach email."""
+    pool = await get_pool()
+    async with pool.acquire() as conn:
+        result = await conn.execute(
+            "UPDATE outreach_log SET status = 'rejected' WHERE id = $1::uuid AND status = 'pending_review'",
+            outreach_id
+        )
+        count = int(result.split(" ")[-1])
+        if count == 0:
+            raise HTTPException(status_code=404, detail="Pending outreach not found or already processed.")
+        return {"status": "rejected", "message": "Email rejected and discarded."}
+
+
 # ── Entry point ───────────────────────────────────────────────────────────────
+
 
 if __name__ == "__main__":
     import uvicorn

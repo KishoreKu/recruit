@@ -3,7 +3,7 @@ import axios from 'axios';
 import {
   Activity, Briefcase, RefreshCw, Search, MapPin, DollarSign,
   XCircle, Building, Calendar, Plus, Send, CheckCircle,
-  AlertCircle, Loader, Tag, X
+  AlertCircle, Loader, Tag, X, Mail
 } from 'lucide-react';
 
 const ORCHESTRATOR = 'https://westley-agents.kindtree-748f04e0.centralus.azurecontainerapps.io';
@@ -481,6 +481,228 @@ function HealthLogTab() {
   );
 }
 
+/* ── Outreach Review Tab ────────────────────────────────────── */
+function OutreachReviewTab() {
+  const [emails, setEmails] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [editingEmail, setEditingEmail] = useState(null);
+  const [viewingBody, setViewingBody] = useState(null);
+
+  const fetchEmails = async () => {
+    setLoading(true); setError(null);
+    try {
+      const res = await axios.get(`${ORCHESTRATOR}/api/outreach/pending`);
+      setEmails(res.data);
+    } catch (err) {
+      setError(err.response?.data?.detail || err.message);
+    } finally { setLoading(false); }
+  };
+
+  useEffect(() => { fetchEmails(); }, []);
+
+  const handleApprove = async (id) => {
+    try {
+      await axios.post(`${ORCHESTRATOR}/api/outreach/pending/${id}/approve`);
+      setEmails(emails.filter(e => e.id !== id));
+    } catch (err) {
+      alert("Error approving email: " + (err.response?.data?.detail || err.message));
+    }
+  };
+
+  const handleReject = async (id) => {
+    if (!window.confirm("Are you sure you want to reject and discard this email?")) return;
+    try {
+      await axios.post(`${ORCHESTRATOR}/api/outreach/pending/${id}/reject`);
+      setEmails(emails.filter(e => e.id !== id));
+    } catch (err) {
+      alert("Error rejecting email: " + (err.response?.data?.detail || err.message));
+    }
+  };
+
+  const handleSaveEdit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post(`${ORCHESTRATOR}/api/outreach/pending/${editingEmail.id}/edit`, {
+        to_address: editingEmail.to_address,
+        subject: editingEmail.subject,
+        body: editingEmail.body
+      });
+      setEmails(emails.filter(el => el.id !== editingEmail.id));
+      setEditingEmail(null);
+    } catch (err) {
+      alert("Error sending edited email: " + (err.response?.data?.detail || err.message));
+    }
+  };
+
+  if (loading) return <div className="loading-state"><div className="spinner" /><span>Loading pending emails…</span></div>;
+  if (error) return <div className="empty-state"><div className="empty-icon"><XCircle size={24} /></div><strong>{error}</strong></div>;
+  if (emails.length === 0) return (
+    <div className="empty-state">
+      <div className="empty-icon"><Mail size={24} /></div>
+      <strong>All caught up!</strong>
+      <span>No emails pending review. Future automated outreach emails will queue here.</span>
+    </div>
+  );
+
+  return (
+    <div>
+      <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'flex-end', marginBottom: '0.75rem', alignItems: 'center' }}>
+        <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{emails.length} pending emails</span>
+        <button className="btn btn-ghost btn-sm" onClick={fetchEmails}><RefreshCw size={13} /> Refresh</button>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        {emails.map((email) => {
+          const toAddress = email.metadata?.to_address || 'Unknown';
+          return (
+            <div key={email.id} className="data-card" style={{ padding: '1.25rem', width: '100%' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '0.5rem' }}>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
+                    <span className="badge badge-blue" style={{ textTransform: 'uppercase', fontSize: '0.65rem' }}>
+                      {email.channel}
+                    </span>
+                    <strong style={{ fontSize: '1rem', color: 'var(--primary)' }}>{email.subject}</strong>
+                  </div>
+                  <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+                    <strong>To:</strong> {toAddress}
+                  </div>
+                  <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.25rem' }}>
+                    Created: {new Date(email.sent_at).toLocaleString()}
+                  </div>
+                </div>
+                
+                <div style={{ display: 'flex', gap: '0.5rem', alignSelf: 'center' }}>
+                  <button className="btn btn-ghost btn-sm" onClick={() => setViewingBody(email)}>
+                    View Body
+                  </button>
+                  <button className="btn btn-ghost btn-sm" onClick={() => setEditingEmail({
+                    id: email.id,
+                    to_address: toAddress,
+                    subject: email.subject,
+                    body: email.body
+                  })}>
+                    Edit
+                  </button>
+                  <button 
+                    className="btn btn-sm" 
+                    style={{ background: 'var(--success)', border: 'none', color: '#000' }}
+                    onClick={() => handleApprove(email.id)}
+                  >
+                    Approve & Send
+                  </button>
+                  <button 
+                    className="btn btn-sm" 
+                    style={{ background: 'var(--danger)', border: 'none', color: '#fff' }}
+                    onClick={() => handleReject(email.id)}
+                  >
+                    Reject
+                  </button>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Viewing HTML Body Modal */}
+      {viewingBody && (
+        <div style={{
+          position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+          background: 'rgba(0,0,0,0.85)', display: 'flex', alignItems: 'center',
+          justifyContent: 'center', zIndex: 1000, padding: '2rem'
+        }}>
+          <div style={{
+            background: '#1e1e24', borderRadius: '8px', width: '100%', maxWidth: '700px',
+            padding: '1.5rem', display: 'flex', flexDirection: 'column', maxHeight: '90vh'
+          }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', borderBottom: '1px solid #333', paddingBottom: '0.5rem' }}>
+              <h3>Email Preview</h3>
+              <button className="btn btn-ghost btn-sm" onClick={() => setViewingBody(null)}><X size={18} /></button>
+            </div>
+            <div style={{ fontSize: '0.9rem', marginBottom: '0.5rem' }}>
+              <strong>To:</strong> {viewingBody.metadata?.to_address || 'Unknown'}
+            </div>
+            <div style={{ fontSize: '0.9rem', marginBottom: '1rem' }}>
+              <strong>Subject:</strong> {viewingBody.subject}
+            </div>
+            <div style={{
+              flex: 1, overflowY: 'auto', background: '#fff', color: '#000',
+              padding: '1.5rem', borderRadius: '4px', border: '1px solid #ddd', minHeight: '300px'
+            }} dangerouslySetInnerHTML={{ __html: viewingBody.body }} />
+            <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'flex-end', gap: '0.5rem' }}>
+              <button className="btn btn-ghost" onClick={() => setViewingBody(null)}>Close</button>
+              <button 
+                className="btn btn-primary" 
+                onClick={() => { handleApprove(viewingBody.id); setViewingBody(null); }}
+              >
+                Approve & Send
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Editing Email Modal */}
+      {editingEmail && (
+        <div style={{
+          position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+          background: 'rgba(0,0,0,0.85)', display: 'flex', alignItems: 'center',
+          justifyContent: 'center', zIndex: 1000, padding: '2rem'
+        }}>
+          <form onSubmit={handleSaveEdit} style={{
+            background: '#1e1e24', borderRadius: '8px', width: '100%', maxWidth: '750px',
+            padding: '1.5rem', display: 'flex', flexDirection: 'column', maxHeight: '90vh'
+          }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', borderBottom: '1px solid #333', paddingBottom: '0.5rem' }}>
+              <h3>Edit & Approve Email</h3>
+              <button type="button" className="btn btn-ghost btn-sm" onClick={() => setEditingEmail(null)}><X size={18} /></button>
+            </div>
+            
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', flex: 1, overflowY: 'auto', paddingRight: '0.5rem' }}>
+              <div>
+                <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, marginBottom: '0.25rem' }}>To Email Address</label>
+                <input 
+                  type="email" 
+                  style={FIELD_STYLE} 
+                  required
+                  value={editingEmail.to_address} 
+                  onChange={e => setEditingEmail({ ...editingEmail, to_address: e.target.value })} 
+                />
+              </div>
+              <div>
+                <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, marginBottom: '0.25rem' }}>Subject Line</label>
+                <input 
+                  type="text" 
+                  style={FIELD_STYLE} 
+                  required
+                  value={editingEmail.subject} 
+                  onChange={e => setEditingEmail({ ...editingEmail, subject: e.target.value })} 
+                />
+              </div>
+              <div>
+                <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, marginBottom: '0.25rem' }}>Email Content (HTML allowed)</label>
+                <textarea 
+                  style={{ ...FIELD_STYLE, minHeight: '250px', fontFamily: 'monospace', fontSize: '0.85rem' }} 
+                  required
+                  value={editingEmail.body} 
+                  onChange={e => setEditingEmail({ ...editingEmail, body: e.target.value })} 
+                />
+              </div>
+            </div>
+
+            <div style={{ marginTop: '1.5rem', display: 'flex', justifyContent: 'flex-end', gap: '0.5rem' }}>
+              <button type="button" className="btn btn-ghost" onClick={() => setEditingEmail(null)}>Cancel</button>
+              <button type="submit" className="btn btn-primary">Save & Send</button>
+            </div>
+          </form>
+        </div>
+      )}
+    </div>
+  );
+}
+
 /* ── Main Dashboard ─────────────────────────────────────────── */
 export default function AdminDashboard() {
   const [tab, setTab] = useState('post');
@@ -488,6 +710,7 @@ export default function AdminDashboard() {
   const tabs = [
     { id: 'post',         label: 'Post Job',      icon: Plus },
     { id: 'requisitions', label: 'Requisitions',  icon: Briefcase },
+    { id: 'outreach',     label: 'Outreach Review', icon: Mail },
     { id: 'health',       label: 'Agent Health',  icon: Activity },
   ];
 
@@ -496,7 +719,7 @@ export default function AdminDashboard() {
       <div className="page-header">
         <div>
           <h1 className="page-title">Admin Dashboard</h1>
-          <div className="page-subtitle">Post requisitions and monitor agent health in real time</div>
+          <div className="page-subtitle">Post requisitions, review outreach, and monitor agent health</div>
         </div>
       </div>
 
@@ -511,6 +734,7 @@ export default function AdminDashboard() {
 
       {tab === 'post'         && <PostJobTab onJobPosted={() => setTab('requisitions')} />}
       {tab === 'requisitions' && <RequisitionsTab />}
+      {tab === 'outreach'     && <OutreachReviewTab />}
       {tab === 'health'       && <HealthLogTab />}
     </div>
   );

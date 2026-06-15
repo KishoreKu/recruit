@@ -64,19 +64,33 @@ async def send_email(
     subject: str,
     body_html: str,
     candidate_id: str | None = None,
+    bypass_review: bool = False,
+    outreach_id: str | None = None,
 ) -> dict:
     """
-    Send an email via Microsoft Graph API using the configured MS_SENDER account.
-    Falls back gracefully if credentials are not configured.
+    Queue an email for Human-In-The-Loop review, or send it directly if bypass_review is True.
     """
+    if not bypass_review:
+        logger.info(f"[COMM] Intercepting email to {to_address} for human review (HITL).")
+        inserted_id = await _log_outreach(
+            candidate_id=candidate_id,
+            channel="email",
+            direction="outbound",
+            subject=subject,
+            body=body_html,
+            status="pending_review",
+            metadata={"to_address": to_address}
+        )
+        return {"status": "pending_review", "to": to_address, "subject": subject, "outreach_id": inserted_id}
+
     if to_address.endswith(".local") or "candidate.local" in to_address:
         logger.warning(f"[COMM] Intercepted email to placeholder local domain ({to_address}) — email bypassed.")
-        await _log_outreach(candidate_id, "email", "outbound", subject, body_html, "bypassed")
+        await _log_outreach(candidate_id, "email", "outbound", subject, body_html, "bypassed", {"to_address": to_address}, outreach_id=outreach_id)
         return {"status": "simulated", "to": to_address, "subject": subject}
 
     if not settings.MS_TENANT_ID or not settings.MS_CLIENT_ID:
         logger.warning("[COMM] MS Graph not configured — email simulated.")
-        await _log_outreach(candidate_id, "email", "outbound", subject, body_html, "simulated")
+        await _log_outreach(candidate_id, "email", "outbound", subject, body_html, "simulated", {"to_address": to_address}, outreach_id=outreach_id)
         return {"status": "simulated", "to": to_address, "subject": subject}
 
     try:
@@ -95,19 +109,19 @@ async def send_email(
         async with aiohttp.ClientSession() as session:
             async with session.post(url, json=payload, headers=headers) as resp:
                 if resp.status in (200, 202):
-                    await _log_outreach(candidate_id, "email", "outbound", subject, body_html, "sent")
+                    await _log_outreach(candidate_id, "email", "outbound", subject, body_html, "sent", {"to_address": to_address}, outreach_id=outreach_id)
                     logger.success(f"[COMM] Email sent → {to_address}")
                     return {"status": "sent", "to": to_address, "subject": subject}
                 else:
                     text = await resp.text()
                     await _log_outreach(candidate_id, "email", "outbound", subject, body_html, "failed",
-                                        {"error": text, "http_status": resp.status})
+                                        {"error": text, "http_status": resp.status, "to_address": to_address}, outreach_id=outreach_id)
                     return {"status": "failed", "error": text, "http_status": resp.status}
 
     except Exception as exc:
         logger.error(f"[COMM] Email failed: {exc}")
         await _log_outreach(candidate_id, "email", "outbound", subject, body_html, "failed",
-                            {"exception": str(exc)})
+                            {"exception": str(exc), "to_address": to_address}, outreach_id=outreach_id)
         # Signal to self-healing agent that we need a fallback channel
         return {"status": "failed", "error": str(exc), "suggest_fallback": "sms"}
 
@@ -251,21 +265,36 @@ async def _log_outreach(
     body: str,
     status: str,
     metadata: dict | None = None,
-) -> None:
+    outreach_id: str | None = None,
+) -> str | None:
     try:
         pool = await get_pool()
         async with pool.acquire() as conn:
-            await conn.execute(
-                """
-                INSERT INTO outreach_log
-                  (candidate_id, channel, direction, subject, body, status, metadata)
-                VALUES ($1, $2, $3, $4, $5, $6, $7)
-                """,
-                candidate_id, channel, direction, subject, body, status,
-                json.dumps(metadata) if metadata else None,
-            )
+            if outreach_id:
+                await conn.execute(
+                    """
+                    UPDATE outreach_log
+                    SET status = $1, metadata = $2, sent_at = NOW()
+                    WHERE id = $3::uuid
+                    """,
+                    status, json.dumps(metadata) if metadata else None, outreach_id
+                )
+                return outreach_id
+            else:
+                row = await conn.fetchrow(
+                    """
+                    INSERT INTO outreach_log
+                      (candidate_id, channel, direction, subject, body, status, metadata)
+                    VALUES ($1, $2, $3, $4, $5, $6, $7)
+                    RETURNING id
+                    """,
+                    candidate_id, channel, direction, subject, body, status,
+                    json.dumps(metadata) if metadata else None,
+                )
+                return str(row["id"]) if row else None
     except Exception as exc:
         logger.warning(f"[COMM] Failed to log outreach: {exc}")
+        return None
 
 
 if __name__ == "__main__":
