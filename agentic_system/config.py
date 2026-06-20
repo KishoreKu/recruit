@@ -58,6 +58,13 @@ class Settings(BaseSettings):
     TWILIO_AUTH_TOKEN: str = ""
     TWILIO_FROM_NUMBER: str = ""
 
+    # ─── Indeed Job Posting ───────────────────────────────────────────────────
+    INDEED_EMAIL: str = ""
+    INDEED_PASSWORD: str = ""
+    INDEED_USER_DATA_DIR: str = ""      # Persistent browser context directory to avoid captcha
+    INDEED_HEADLESS: bool = True
+
+
 
 @lru_cache(maxsize=1)
 def get_settings() -> Settings:

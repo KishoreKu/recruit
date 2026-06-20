@@ -150,3 +150,17 @@ END $$;
 ALTER TABLE requisitions ADD COLUMN IF NOT EXISTS client_contact_name VARCHAR(255);
 ALTER TABLE requisitions ADD COLUMN IF NOT EXISTS client_contact_email VARCHAR(255);
 ALTER TABLE requisitions ADD COLUMN IF NOT EXISTS client_contact_phone VARCHAR(50);
+
+-- ─────────────────────────────────────────────────────────────
+-- AGENT_SETTINGS: Dynamic configuration / state storage (e.g. session cookies)
+-- ─────────────────────────────────────────────────────────────
+CREATE TABLE IF NOT EXISTS agent_settings (
+  key         VARCHAR(255) PRIMARY KEY,
+  value       JSONB NOT NULL,
+  updated_at  TIMESTAMPTZ DEFAULT NOW()
+);
+
+DROP TRIGGER IF EXISTS trg_upd_agent_settings ON agent_settings;
+CREATE TRIGGER trg_upd_agent_settings BEFORE UPDATE ON agent_settings
+  FOR EACH ROW EXECUTE PROCEDURE update_updated_at();
+

@@ -15,7 +15,10 @@ COPY pyproject.toml .
 
 # Install dependencies using pip (since pyproject.toml is modern, we can use pip install)
 RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir .
+    pip install --no-cache-dir . && \
+    playwright install chromium && \
+    playwright install-deps
+
 
 # Copy the rest of the application files
 COPY . .

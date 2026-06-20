@@ -45,3 +45,12 @@ firebase-debug.log
 firebase-debug.*.log
 .firebaserc
 .gstack/
+
+# Python local development and session state
+agentic_system/venv/
+agentic_system/.venv/
+agentic_system/indeed_session/
+agentic_system/indeed_session
+**/__pycache__/
+*.pyc
+
