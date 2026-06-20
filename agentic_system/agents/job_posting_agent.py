@@ -150,59 +150,143 @@ class JobPostingAgent(BaseAgent):
                     else:
                         logger.warning(f"[{self.name} - Indeed] Password input not visible. May be prompting for verification or MFA.")
 
-                # Wait for title input
-                title_selector = "input[name='title'], #jobTitle, input[id*='jobtitle']"
-                await page.wait_for_selector(title_selector, timeout=20000)
-                logger.info(f"[{self.name} - Indeed] Filling job title: {title}")
-                await page.locator(title_selector).first.fill(title)
-                
-                # Fill location
-                loc_selector = "input[name='location'], #location, input[id*='location']"
-                if await page.locator(loc_selector).first.is_visible():
-                    logger.info(f"[{self.name} - Indeed] Filling location: {location}")
-                    await page.locator(loc_selector).first.fill(location)
-                
-                # Click Continue/Next
-                submit_btn = page.locator("button[type='submit'], button:has-text('Continue'), button:has-text('Next')")
-                logger.info(f"[{self.name} - Indeed] Clicking Continue...")
-                await submit_btn.first.click()
-                await page.wait_for_load_state("domcontentloaded")
-                await page.wait_for_timeout(2000)
-                
-                # Fill description & details (Indeed step 2)
-                desc_selector = "textarea, [contenteditable='true'], #jobDescriptionText"
-                if await page.locator(desc_selector).first.is_visible():
-                    logger.info(f"[{self.name} - Indeed] Filling description...")
-                    await page.locator(desc_selector).first.fill(description)
-                
-                # Select Job Type if label matches
-                if job_type:
-                    logger.info(f"[{self.name} - Indeed] Selecting job type: {job_type}")
-                    job_type_label = page.locator(f"label:has-text('{job_type}')")
-                    if await job_type_label.first.is_visible():
-                        await job_type_label.first.click()
-                
-                if bill_rate:
-                    logger.info(f"[{self.name} - Indeed] Filling max rate: {bill_rate}")
-                    rate_selector = "input[name='salary'], input[name='rate'], #salary-input"
-                    if await page.locator(rate_selector).first.is_visible():
-                        await page.locator(rate_selector).first.fill(str(bill_rate))
-                
-                # Continue through steps
-                logger.info(f"[{self.name} - Indeed] Clicking Continue to next steps...")
-                await submit_btn.first.click()
-                await page.wait_for_load_state("domcontentloaded")
-                await page.wait_for_timeout(2000)
-                
-                # Click publish/submit at the end
-                publish_btn = page.locator("button:has-text('Publish'), button:has-text('Submit'), button:has-text('Post Job')")
-                if await publish_btn.first.is_visible():
-                    logger.info(f"[{self.name} - Indeed] Clicking Publish...")
-                    await publish_btn.first.click()
+                # Check if we are on the template selection screen first
+                brand_new_post_locator = page.locator("label:has-text('Create a brand new post'), :text('Create a brand new post')")
+                try:
+                    logger.info(f"[{self.name} - Indeed] Checking for template selection screen...")
+                    await brand_new_post_locator.first.wait_for(state="visible", timeout=4000)
+                    logger.info(f"[{self.name} - Indeed] Template selection screen detected. Selecting 'Create a brand new post'...")
+                    await page.locator("label:has-text('Create a brand new post')").first.click()
+                    await page.wait_for_timeout(1000)
+                    
+                    # Click Continue/Next
+                    continue_btn = page.locator("button[type='submit'], button:has-text('Continue'), button:has-text('Next')")
+                    await continue_btn.first.click()
                     await page.wait_for_load_state("domcontentloaded")
-                    logger.info(f"[{self.name} - Indeed] Successfully clicked publish.")
+                    await page.wait_for_timeout(2000)
+                except Exception as e:
+                    logger.info(f"[{self.name} - Indeed] Template selection screen not detected or timed out (continuing to wizard): {str(e)}")
+
+                # Parse location information
+                location_lower = location.lower() if location else ""
+                is_remote = "remote" in location_lower or not location
+                is_hybrid = "hybrid" in location_lower
+                
+                clean_location = ""
+                if is_remote:
+                    cleaned = location_lower.replace("remote", "").replace("usa", "").replace("us", "").replace("/", "").replace("-", "").strip()
+                    if cleaned and len(cleaned) > 3:
+                        clean_location = location.replace("Remote", "").replace("remote", "").replace("USA", "").replace("usa", "").replace("/", "").replace("-", "").strip(" ,")
+                    else:
+                        clean_location = "San Francisco, CA"
                 else:
-                    logger.info(f"[{self.name} - Indeed] Clicked final Continue. Job is queued.")
+                    clean_location = location or "San Francisco, CA"
+                
+                target_loc_type = "Remote" if is_remote else ("Hybrid" if is_hybrid else "In person")
+                logger.info(f"[{self.name} - Indeed] Requisition Location parsed: type={target_loc_type}, value={clean_location}")
+
+                # Wizard loop
+                logger.info(f"[{self.name} - Indeed] Starting wizard loop...")
+                step = 0
+                max_steps = 10
+                title_filled = False
+                loc_type_filled = False
+                loc_filled = False
+                desc_filled = False
+                job_type_filled = False
+                rate_filled = False
+                
+                while step < max_steps:
+                    step += 1
+                    await page.wait_for_timeout(2000)
+                    logger.info(f"[{self.name} - Indeed] Processing wizard page {step}...")
+
+                    # 1. Fill Job Title
+                    title_selector = "input[name='title'], #jobTitle, input[id*='job-title'], input[id*='jobtitle']"
+                    title_elem = page.locator(title_selector).first
+                    if not title_filled and await title_elem.is_visible():
+                        logger.info(f"[{self.name} - Indeed] Filling job title: {title}")
+                        await title_elem.fill(title)
+                        title_filled = True
+
+                    # 2. Select Location Type
+                    loc_type_selector = "[data-testid='job-location-type-selector']"
+                    loc_type_elem = page.locator(loc_type_selector).first
+                    if not loc_type_filled and await loc_type_elem.is_visible():
+                        current_type = await loc_type_elem.inner_text()
+                        logger.info(f"[{self.name} - Indeed] Current location type: {current_type}. Target: {target_loc_type}")
+                        if target_loc_type not in current_type:
+                            await loc_type_elem.click()
+                            await page.wait_for_timeout(1000)
+                            if target_loc_type == "Remote":
+                                option_selector = "[role='option'][data-testid='REMOTE_WORK_FROM_HOME']"
+                            elif target_loc_type == "Hybrid":
+                                option_selector = "[role='option'][data-testid='HYBRID_REMOTE']"
+                            else:
+                                option_selector = "[role='option'][data-testid='PRECISE_OR_GENERAL']"
+                            
+                            await page.locator(option_selector).first.click()
+                            await page.wait_for_timeout(1000)
+                        loc_type_filled = True
+
+                    # 3. Fill Location Text
+                    loc_selector = "input[id='suggestlist-id'], input[data-testid='location-input-component'], input[name='location'], #location"
+                    loc_elem = page.locator(loc_selector).first
+                    if not loc_filled and await loc_elem.is_visible():
+                        logger.info(f"[{self.name} - Indeed] Filling location: {clean_location}")
+                        await loc_elem.fill(clean_location)
+                        await page.wait_for_timeout(1000)
+                        # Press Enter to dismiss autocomplete dropdown if present
+                        await loc_elem.press("Enter")
+                        await page.wait_for_timeout(1000)
+                        loc_filled = True
+
+                    # 4. Fill Description
+                    desc_selector = "textarea, [contenteditable='true'], #jobDescriptionText"
+                    desc_elem = page.locator(desc_selector).first
+                    if not desc_filled and await desc_elem.is_visible():
+                        logger.info(f"[{self.name} - Indeed] Filling description...")
+                        await desc_elem.fill(description)
+                        desc_filled = True
+
+                    # 5. Select Job Type Option
+                    if job_type and not job_type_filled:
+                        job_type_label = page.locator(f"label:has-text('{job_type}')").first
+                        if await job_type_label.is_visible():
+                            logger.info(f"[{self.name} - Indeed] Selecting job type: {job_type}")
+                            await job_type_label.click()
+                            await page.wait_for_timeout(1000)
+                            job_type_filled = True
+
+                    # 6. Fill Salary / Bill Rate
+                    rate_selector = "input[name='salary'], input[name='rate'], #salary-input"
+                    rate_elem = page.locator(rate_selector).first
+                    if bill_rate and not rate_filled and await rate_elem.is_visible():
+                        logger.info(f"[{self.name} - Indeed] Filling max rate: {bill_rate}")
+                        await rate_elem.fill(str(bill_rate))
+                        rate_filled = True
+
+                    # 7. Check if final Publish / Submit is visible
+                    publish_selector = "button:has-text('Publish'), button:has-text('Submit'), button:has-text('Post Job'), button:has-text('Post job')"
+                    publish_btn = page.locator(publish_selector).first
+                    if await publish_btn.is_visible():
+                        logger.info(f"[{self.name} - Indeed] Publish button found! Clicking Publish...")
+                        await publish_btn.click()
+                        await page.wait_for_load_state("domcontentloaded")
+                        await page.wait_for_timeout(5000)
+                        logger.info(f"[{self.name} - Indeed] Successfully clicked publish.")
+                        break
+
+                    # 8. Otherwise, click Continue/Next to go to next page
+                    continue_selector = "button[type='submit'], button:has-text('Continue'), button:has-text('Next'), button:has-text('Save & Continue')"
+                    continue_btn = page.locator(continue_selector).first
+                    if await continue_btn.is_visible():
+                        logger.info(f"[{self.name} - Indeed] Clicking Continue/Next...")
+                        await continue_btn.click()
+                        await page.wait_for_load_state("domcontentloaded")
+                    else:
+                        logger.warning(f"[{self.name} - Indeed] No Continue or Publish button found on page {step}. Breaking loop.")
+                        break
                 
             except Exception as e:
                 # Take screenshot on failure for troubleshooting
