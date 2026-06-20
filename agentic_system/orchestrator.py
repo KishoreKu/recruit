@@ -43,6 +43,7 @@ from agents.submission_agent import SubmissionAgent
 from agents.self_healing_agent import SelfHealingAgent
 from agents.sourcing_agent import SourcingAgent
 from agents.client_outreach_agent import ClientOutreachAgent
+from agents.job_posting_agent import JobPostingAgent
 
 settings = get_settings()
 
@@ -61,6 +62,7 @@ async def lifespan(app: FastAPI):
     healing_agent  = SelfHealingAgent()
     sourcing_agent = SourcingAgent()
     outreach_agent = ClientOutreachAgent()
+    posting_agent  = JobPostingAgent()
 
     tasks = [
         asyncio.create_task(ats_agent.run_loop("ingest_resume"), name="ats-agent"),
@@ -72,6 +74,7 @@ async def lifespan(app: FastAPI):
         asyncio.create_task(submission_agent.run_loop("ask_candidate_info"), name="submission-agent-info"),
         asyncio.create_task(healing_agent.run(), name="self-healing-agent"),
         asyncio.create_task(outreach_agent.run_loop("client_speculation"), name="client-outreach-agent"),
+        asyncio.create_task(posting_agent.run(), name="job-posting-agent"),
     ]
 
     logger.success("✅ All agents running.")
