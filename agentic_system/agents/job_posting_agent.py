@@ -114,7 +114,7 @@ class JobPostingAgent(BaseAgent):
             try:
                 # Navigate directly to target job posting page
                 logger.info(f"[{self.name} - Indeed] Navigating to job posting page...")
-                await page.goto("https://employers.indeed.com/post-job", wait_until="networkidle")
+                await page.goto("https://employers.indeed.com/post-job", wait_until="domcontentloaded")
                 await page.wait_for_timeout(3000)
                 
                 # Check if we need to sign in (redirected to a login/authentication screen)
@@ -124,7 +124,7 @@ class JobPostingAgent(BaseAgent):
                 if await sign_in_link.first.is_visible():
                     logger.info(f"[{self.name} - Indeed] Clicking Sign In button...")
                     await sign_in_link.first.click()
-                    await page.wait_for_load_state("networkidle")
+                    await page.wait_for_load_state("domcontentloaded")
                     await page.wait_for_timeout(2000)
                     
                 if await email_input.first.is_visible():
@@ -145,7 +145,7 @@ class JobPostingAgent(BaseAgent):
                             raise ValueError("INDEED_PASSWORD setting not set. Cannot authenticate.")
                         await password_input.first.fill(settings.INDEED_PASSWORD)
                         await page.locator("button[type='submit'], button:has-text('Sign')").first.click()
-                        await page.wait_for_load_state("networkidle")
+                        await page.wait_for_load_state("domcontentloaded")
                         await page.wait_for_timeout(5000)
                     else:
                         logger.warning(f"[{self.name} - Indeed] Password input not visible. May be prompting for verification or MFA.")
@@ -166,7 +166,7 @@ class JobPostingAgent(BaseAgent):
                 submit_btn = page.locator("button[type='submit'], button:has-text('Continue'), button:has-text('Next')")
                 logger.info(f"[{self.name} - Indeed] Clicking Continue...")
                 await submit_btn.first.click()
-                await page.wait_for_load_state("networkidle")
+                await page.wait_for_load_state("domcontentloaded")
                 await page.wait_for_timeout(2000)
                 
                 # Fill description & details (Indeed step 2)
@@ -191,7 +191,7 @@ class JobPostingAgent(BaseAgent):
                 # Continue through steps
                 logger.info(f"[{self.name} - Indeed] Clicking Continue to next steps...")
                 await submit_btn.first.click()
-                await page.wait_for_load_state("networkidle")
+                await page.wait_for_load_state("domcontentloaded")
                 await page.wait_for_timeout(2000)
                 
                 # Click publish/submit at the end
@@ -199,7 +199,7 @@ class JobPostingAgent(BaseAgent):
                 if await publish_btn.first.is_visible():
                     logger.info(f"[{self.name} - Indeed] Clicking Publish...")
                     await publish_btn.first.click()
-                    await page.wait_for_load_state("networkidle")
+                    await page.wait_for_load_state("domcontentloaded")
                     logger.info(f"[{self.name} - Indeed] Successfully clicked publish.")
                 else:
                     logger.info(f"[{self.name} - Indeed] Clicked final Continue. Job is queued.")
