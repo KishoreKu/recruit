@@ -192,14 +192,22 @@ class JobPostingAgent(BaseAgent):
                 title_filled = False
                 loc_type_filled = False
                 loc_filled = False
-                desc_filled = False
+                timeline_filled = False
+                hires_filled = False
                 job_type_filled = False
+                desc_filled = False
                 rate_filled = False
                 
                 while step < max_steps:
                     step += 1
                     await page.wait_for_timeout(2000)
-                    logger.info(f"[{self.name} - Indeed] Processing wizard page {step}...")
+                    # 0. Dismiss Sponsorship Modal if visible
+                    no_thanks_btn = page.locator("button:has-text('No thanks'), button:has-text('No, thanks'), button:has-text('Skip sponsorship'), [data-testid*='no-thanks']").first
+                    if await no_thanks_btn.is_visible():
+                        logger.info(f"[{self.name} - Indeed] Sponsorship modal detected. Clicking 'No thanks'...")
+                        await no_thanks_btn.click()
+                        await page.wait_for_timeout(2000)
+                        continue
 
                     # 1. Fill Job Title
                     title_selector = "input[name='title'], #jobTitle, input[id*='job-title'], input[id*='jobtitle']"
@@ -241,32 +249,54 @@ class JobPostingAgent(BaseAgent):
                         await page.wait_for_timeout(1000)
                         loc_filled = True
 
-                    # 4. Fill Description
-                    desc_selector = "textarea, [contenteditable='true'], #jobDescriptionText"
-                    desc_elem = page.locator(desc_selector).first
-                    if not desc_filled and await desc_elem.is_visible():
-                        logger.info(f"[{self.name} - Indeed] Filling description...")
-                        await desc_elem.fill(description)
-                        desc_filled = True
+                    # 4. Fill Hiring Timeline
+                    timeline_dropdown = page.locator("[data-testid='expect-hire-date-input']").first
+                    if not timeline_filled and await timeline_dropdown.is_visible():
+                        logger.info(f"[{self.name} - Indeed] Opening hiring timeline dropdown...")
+                        await timeline_dropdown.click()
+                        await page.wait_for_timeout(1500)
+                        options = await page.locator("[role='option']").all()
+                        if options:
+                            logger.info(f"[{self.name} - Indeed] Selecting timeline option: {await options[0].inner_text()}")
+                            await options[0].click()
+                            await page.wait_for_timeout(1000)
+                        timeline_filled = True
 
-                    # 5. Select Job Type Option
+                    # 5. Fill Hires Needed
+                    hires_input = page.locator("[data-testid='job-hires-needed-input']").first
+                    if not hires_filled and await hires_input.is_visible():
+                        logger.info(f"[{self.name} - Indeed] Filling hires needed: 1")
+                        await hires_input.fill("1")
+                        await page.wait_for_timeout(1000)
+                        hires_filled = True
+
+                    # 6. Select Job Type Chip
                     if job_type and not job_type_filled:
-                        job_type_label = page.locator(f"label:has-text('{job_type}')").first
+                        job_type_label = page.locator(f"label:has-text('{job_type}'), span:has-text('{job_type}')").first
                         if await job_type_label.is_visible():
-                            logger.info(f"[{self.name} - Indeed] Selecting job type: {job_type}")
+                            logger.info(f"[{self.name} - Indeed] Selecting job type chip: {job_type}")
                             await job_type_label.click()
                             await page.wait_for_timeout(1000)
                             job_type_filled = True
 
-                    # 6. Fill Salary / Bill Rate
-                    rate_selector = "input[name='salary'], input[name='rate'], #salary-input"
+                    # 7. Fill Description
+                    desc_selector = "textarea, [contenteditable='true'], #jobDescriptionText, [role='textbox'][data-lexical-editor='true']"
+                    desc_elem = page.locator(desc_selector).first
+                    if not desc_filled and await desc_elem.is_visible():
+                        logger.info(f"[{self.name} - Indeed] Filling description...")
+                        await desc_elem.fill(description)
+                        await page.wait_for_timeout(1000)
+                        desc_filled = True
+
+                    # 8. Fill Salary / Bill Rate
+                    rate_selector = "input[name='salary'], input[name='rate'], #salary-input, #jobMinimumPayInput"
                     rate_elem = page.locator(rate_selector).first
                     if bill_rate and not rate_filled and await rate_elem.is_visible():
                         logger.info(f"[{self.name} - Indeed] Filling max rate: {bill_rate}")
                         await rate_elem.fill(str(bill_rate))
                         rate_filled = True
 
-                    # 7. Check if final Publish / Submit is visible
+                    # 9. Check if final Publish / Submit is visible
                     publish_selector = "button:has-text('Publish'), button:has-text('Submit'), button:has-text('Post Job'), button:has-text('Post job')"
                     publish_btn = page.locator(publish_selector).first
                     if await publish_btn.is_visible():
@@ -277,7 +307,7 @@ class JobPostingAgent(BaseAgent):
                         logger.info(f"[{self.name} - Indeed] Successfully clicked publish.")
                         break
 
-                    # 8. Otherwise, click Continue/Next to go to next page
+                    # 10. Otherwise, click Continue/Next to go to next page
                     continue_selector = "button[type='submit'], button:has-text('Continue'), button:has-text('Next'), button:has-text('Save & Continue')"
                     continue_btn = page.locator(continue_selector).first
                     if await continue_btn.is_visible():
