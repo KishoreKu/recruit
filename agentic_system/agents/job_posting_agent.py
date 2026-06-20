@@ -112,11 +112,12 @@ class JobPostingAgent(BaseAgent):
                 page = await context.new_page()
 
             try:
-                # Navigate to indeed employer portal
-                logger.info(f"[{self.name} - Indeed] Navigating to indeed employer signin page...")
-                await page.goto("https://employers.indeed.com", wait_until="networkidle")
+                # Navigate directly to target job posting page
+                logger.info(f"[{self.name} - Indeed] Navigating to job posting page...")
+                await page.goto("https://employers.indeed.com/post-job", wait_until="networkidle")
+                await page.wait_for_timeout(3000)
                 
-                # Check if we need to sign in
+                # Check if we need to sign in (redirected to a login/authentication screen)
                 email_input = page.locator("input[type='email'], #ifl-InputTextInput-email, input[name='email']")
                 sign_in_link = page.locator("a:has-text('Sign In'), a[href*='signon']")
                 
@@ -124,9 +125,10 @@ class JobPostingAgent(BaseAgent):
                     logger.info(f"[{self.name} - Indeed] Clicking Sign In button...")
                     await sign_in_link.first.click()
                     await page.wait_for_load_state("networkidle")
+                    await page.wait_for_timeout(2000)
                     
                 if await email_input.first.is_visible():
-                    logger.info(f"[{self.name} - Indeed] Email input visible. Typing email...")
+                    logger.info(f"[{self.name} - Indeed] Login input detected. Typing email...")
                     if not settings.INDEED_EMAIL:
                         raise ValueError("INDEED_EMAIL setting not set. Cannot authenticate.")
                     await email_input.first.fill(settings.INDEED_EMAIL)
@@ -134,7 +136,7 @@ class JobPostingAgent(BaseAgent):
                     # Press Continue
                     continue_btn = page.locator("button[type='submit'], button:has-text('Continue')")
                     await continue_btn.first.click()
-                    await page.wait_for_timeout(2000)
+                    await page.wait_for_timeout(3000)
 
                     password_input = page.locator("input[type='password'], #ifl-InputTextInput-password, input[name='password']")
                     if await password_input.first.is_visible():
@@ -144,20 +146,13 @@ class JobPostingAgent(BaseAgent):
                         await password_input.first.fill(settings.INDEED_PASSWORD)
                         await page.locator("button[type='submit'], button:has-text('Sign')").first.click()
                         await page.wait_for_load_state("networkidle")
+                        await page.wait_for_timeout(5000)
                     else:
                         logger.warning(f"[{self.name} - Indeed] Password input not visible. May be prompting for verification or MFA.")
 
-                # Wait for session recovery / dashboard load
-                logger.info(f"[{self.name} - Indeed] Checking session state...")
-                await page.wait_for_timeout(3000)
-                
-                # Navigate directly to job posting URL
-                logger.info(f"[{self.name} - Indeed] Navigating to job posting page...")
-                await page.goto("https://employers.indeed.com/post-job", wait_until="networkidle")
-                
                 # Wait for title input
                 title_selector = "input[name='title'], #jobTitle, input[id*='jobtitle']"
-                await page.wait_for_selector(title_selector, timeout=15000)
+                await page.wait_for_selector(title_selector, timeout=20000)
                 logger.info(f"[{self.name} - Indeed] Filling job title: {title}")
                 await page.locator(title_selector).first.fill(title)
                 
